@@ -1,0 +1,32 @@
+{
+    "toGateDomains": [
+        "cursor.example.com:443",
+        "api2.cursor.sh:443",
+        "api3.cursor.sh:443",
+        "api.curshor.sh:443",
+        "www.cursor.sh:443",
+        "api4.cursor.sh:443",
+        "repo42.cursor.sh:443",
+        "api42.cursor.sh:443",
+        "cursor.sh",
+        "www.cursor.com",
+        "www.baidu.com",
+        "metrics.cursor.sh:443"
+    ],
+    "toCursorDomain": [
+        "cursor.com",
+        "www.cursor.com:443",
+        "www.baidu.com:443",
+        "api2.cursor.sh:443",
+        "repo42.cursor.sh:443",
+        "cursor.sh",
+        "cursor",
+        "api42.cursor.sh:443",
+        "api3.cursor.sh:443",
+        "api4.cursor.sh:443",
+        "www.google.com",
+        "metrics.cursor.sh:443"
+    ],
+    
+    "plugin_mode":"tranditional"
+}
