@@ -62,7 +62,7 @@ class HomeController extends GetxController {
           animateController.failAnimation();
           appService.setTrayIcon(false);
         }); 
-        
+        Get.snackbar("failure", res.message);
       }
     } else if(animateController.step.value == AnimateType.starting) {
       if (animateController.actionTime.value >= 0.9) {

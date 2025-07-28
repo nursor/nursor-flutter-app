@@ -20,7 +20,6 @@ class PermissionService extends GetxController {
       
       return result.exitCode == 0 && result.stdout.toString().trim().toLowerCase() == 'true';
     } catch (e) {
-      print('检查管理员权限时出错: $e');
       return false;
     }
   }

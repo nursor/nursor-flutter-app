@@ -13,31 +13,27 @@ import 'dart:ffi' as ffi;
 class NursorCore {
   /// Holds the symbol lookup function.
   final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   NursorCore(ffi.DynamicLibrary dynamicLibrary)
-      : _lookup = dynamicLibrary.lookup;
+    : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
   NursorCore.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
-  void __va_start(
-    ffi.Pointer<va_list> arg0,
-  ) {
-    return ___va_start(
-      arg0,
-    );
+  void __va_start(ffi.Pointer<va_list> arg0) {
+    return ___va_start(arg0);
   }
 
   late final ___va_startPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<va_list>)>>(
-          '__va_start');
-  late final ___va_start =
-      ___va_startPtr.asFunction<void Function(ffi.Pointer<va_list>)>();
+        '__va_start',
+      );
+  late final ___va_start = ___va_startPtr
+      .asFunction<void Function(ffi.Pointer<va_list>)>();
 
   void __security_init_cookie() {
     return ___security_init_cookie();
@@ -45,40 +41,36 @@ class NursorCore {
 
   late final ___security_init_cookiePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function()>>(
-          '__security_init_cookie');
-  late final ___security_init_cookie =
-      ___security_init_cookiePtr.asFunction<void Function()>();
+        '__security_init_cookie',
+      );
+  late final ___security_init_cookie = ___security_init_cookiePtr
+      .asFunction<void Function()>();
 
-  void __security_check_cookie(
-    int _StackCookie,
-  ) {
-    return ___security_check_cookie(
-      _StackCookie,
-    );
+  void __security_check_cookie(int _StackCookie) {
+    return ___security_check_cookie(_StackCookie);
   }
 
   late final ___security_check_cookiePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>(
-          '__security_check_cookie');
-  late final ___security_check_cookie =
-      ___security_check_cookiePtr.asFunction<void Function(int)>();
+        '__security_check_cookie',
+      );
+  late final ___security_check_cookie = ___security_check_cookiePtr
+      .asFunction<void Function(int)>();
 
-  void __report_gsfailure(
-    int _StackCookie,
-  ) {
-    return ___report_gsfailure(
-      _StackCookie,
-    );
+  void __report_gsfailure(int _StackCookie) {
+    return ___report_gsfailure(_StackCookie);
   }
 
   late final ___report_gsfailurePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>(
-          '__report_gsfailure');
-  late final ___report_gsfailure =
-      ___report_gsfailurePtr.asFunction<void Function(int)>();
+        '__report_gsfailure',
+      );
+  late final ___report_gsfailure = ___report_gsfailurePtr
+      .asFunction<void Function(int)>();
 
-  late final ffi.Pointer<ffi.UintPtr> ___security_cookie =
-      _lookup<ffi.UintPtr>('__security_cookie');
+  late final ffi.Pointer<ffi.UintPtr> ___security_cookie = _lookup<ffi.UintPtr>(
+    '__security_cookie',
+  );
 
   int get __security_cookie => ___security_cookie.value;
 
@@ -90,9 +82,10 @@ class NursorCore {
 
   late final __invalid_parameter_noinfoPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function()>>(
-          '_invalid_parameter_noinfo');
-  late final __invalid_parameter_noinfo =
-      __invalid_parameter_noinfoPtr.asFunction<void Function()>();
+        '_invalid_parameter_noinfo',
+      );
+  late final __invalid_parameter_noinfo = __invalid_parameter_noinfoPtr
+      .asFunction<void Function()>();
 
   void _invalid_parameter_noinfo_noreturn() {
     return __invalid_parameter_noinfo_noreturn();
@@ -100,7 +93,8 @@ class NursorCore {
 
   late final __invalid_parameter_noinfo_noreturnPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function()>>(
-          '_invalid_parameter_noinfo_noreturn');
+        '_invalid_parameter_noinfo_noreturn',
+      );
   late final __invalid_parameter_noinfo_noreturn =
       __invalid_parameter_noinfo_noreturnPtr.asFunction<void Function()>();
 
@@ -120,17 +114,28 @@ class NursorCore {
     );
   }
 
-  late final __invoke_watsonPtr = _lookup<
-      ffi.NativeFunction<
+  late final __invoke_watsonPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.UnsignedInt,
-              ffi.UintPtr)>>('_invoke_watson');
-  late final __invoke_watson = __invoke_watsonPtr.asFunction<
-      void Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>, int, int)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.UnsignedInt,
+            ffi.UintPtr,
+          )
+        >
+      >('_invoke_watson');
+  late final __invoke_watson = __invoke_watsonPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          int,
+        )
+      >();
 
   ffi.Pointer<ffi.Int> _errno() {
     return __errno();
@@ -140,31 +145,24 @@ class NursorCore {
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>('_errno');
   late final __errno = __errnoPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
 
-  int _set_errno(
-    int _Value,
-  ) {
-    return __set_errno(
-      _Value,
-    );
+  int _set_errno(int _Value) {
+    return __set_errno(_Value);
   }
 
   late final __set_errnoPtr =
       _lookup<ffi.NativeFunction<errno_t Function(ffi.Int)>>('_set_errno');
   late final __set_errno = __set_errnoPtr.asFunction<int Function(int)>();
 
-  int _get_errno(
-    ffi.Pointer<ffi.Int> _Value,
-  ) {
-    return __get_errno(
-      _Value,
-    );
+  int _get_errno(ffi.Pointer<ffi.Int> _Value) {
+    return __get_errno(_Value);
   }
 
   late final __get_errnoPtr =
       _lookup<ffi.NativeFunction<errno_t Function(ffi.Pointer<ffi.Int>)>>(
-          '_get_errno');
-  late final __get_errno =
-      __get_errnoPtr.asFunction<int Function(ffi.Pointer<ffi.Int>)>();
+        '_get_errno',
+      );
+  late final __get_errno = __get_errnoPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Int>)>();
 
   int __threadid() {
     return ___threadid();
@@ -182,182 +180,138 @@ class NursorCore {
       _lookup<ffi.NativeFunction<ffi.UintPtr Function()>>('__threadhandle');
   late final ___threadhandle = ___threadhandlePtr.asFunction<int Function()>();
 
-  ffi.Pointer<ffi.Void> _calloc_base(
-    int _Count,
-    int _Size,
-  ) {
-    return __calloc_base(
-      _Count,
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> _calloc_base(int _Count, int _Size) {
+    return __calloc_base(_Count, _Size);
   }
 
-  late final __calloc_basePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>('_calloc_base');
-  late final __calloc_base =
-      __calloc_basePtr.asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
+  late final __calloc_basePtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>
+      >('_calloc_base');
+  late final __calloc_base = __calloc_basePtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
 
-  ffi.Pointer<ffi.Void> calloc(
-    int _Count,
-    int _Size,
-  ) {
-    return _calloc(
-      _Count,
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> calloc(int _Count, int _Size) {
+    return _calloc(_Count, _Size);
   }
 
-  late final _callocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>('calloc');
-  late final _calloc =
-      _callocPtr.asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
+  late final _callocPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>
+      >('calloc');
+  late final _calloc = _callocPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
 
-  int _callnewh(
-    int _Size,
-  ) {
-    return __callnewh(
-      _Size,
-    );
+  int _callnewh(int _Size) {
+    return __callnewh(_Size);
   }
 
   late final __callnewhPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Size)>>('_callnewh');
   late final __callnewh = __callnewhPtr.asFunction<int Function(int)>();
 
-  ffi.Pointer<ffi.Void> _expand(
-    ffi.Pointer<ffi.Void> _Block,
-    int _Size,
-  ) {
-    return __expand(
-      _Block,
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> _expand(ffi.Pointer<ffi.Void> _Block, int _Size) {
+    return __expand(_Block, _Size);
   }
 
-  late final __expandPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('_expand');
+  late final __expandPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size)
+        >
+      >('_expand');
   late final __expand = __expandPtr
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
-  void _free_base(
-    ffi.Pointer<ffi.Void> _Block,
-  ) {
-    return __free_base(
-      _Block,
-    );
+  void _free_base(ffi.Pointer<ffi.Void> _Block) {
+    return __free_base(_Block);
   }
 
   late final __free_basePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          '_free_base');
-  late final __free_base =
-      __free_basePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+        '_free_base',
+      );
+  late final __free_base = __free_basePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void free(
-    ffi.Pointer<ffi.Void> _Block,
-  ) {
-    return _free(
-      _Block,
-    );
+  void free(ffi.Pointer<ffi.Void> _Block) {
+    return _free(_Block);
   }
 
   late final _freePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'free');
-  late final _free =
-      _freePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+        'free',
+      );
+  late final _free = _freePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  ffi.Pointer<ffi.Void> _malloc_base(
-    int _Size,
-  ) {
-    return __malloc_base(
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> _malloc_base(int _Size) {
+    return __malloc_base(_Size);
   }
 
   late final __malloc_basePtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size)>>(
-          '_malloc_base');
-  late final __malloc_base =
-      __malloc_basePtr.asFunction<ffi.Pointer<ffi.Void> Function(int)>();
+        '_malloc_base',
+      );
+  late final __malloc_base = __malloc_basePtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
-  ffi.Pointer<ffi.Void> malloc(
-    int _Size,
-  ) {
-    return _malloc(
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> malloc(int _Size) {
+    return _malloc(_Size);
   }
 
   late final _mallocPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size)>>(
-          'malloc');
-  late final _malloc =
-      _mallocPtr.asFunction<ffi.Pointer<ffi.Void> Function(int)>();
+        'malloc',
+      );
+  late final _malloc = _mallocPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
-  int _msize_base(
-    ffi.Pointer<ffi.Void> _Block,
-  ) {
-    return __msize_base(
-      _Block,
-    );
+  int _msize_base(ffi.Pointer<ffi.Void> _Block) {
+    return __msize_base(_Block);
   }
 
   late final __msize_basePtr =
       _lookup<ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Void>)>>(
-          '_msize_base');
-  late final __msize_base =
-      __msize_basePtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+        '_msize_base',
+      );
+  late final __msize_base = __msize_basePtr
+      .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
-  int _msize(
-    ffi.Pointer<ffi.Void> _Block,
-  ) {
-    return __msize(
-      _Block,
-    );
+  int _msize(ffi.Pointer<ffi.Void> _Block) {
+    return __msize(_Block);
   }
 
   late final __msizePtr =
       _lookup<ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Void>)>>(
-          '_msize');
-  late final __msize =
-      __msizePtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+        '_msize',
+      );
+  late final __msize = __msizePtr
+      .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
-  ffi.Pointer<ffi.Void> _realloc_base(
-    ffi.Pointer<ffi.Void> _Block,
-    int _Size,
-  ) {
-    return __realloc_base(
-      _Block,
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> _realloc_base(ffi.Pointer<ffi.Void> _Block, int _Size) {
+    return __realloc_base(_Block, _Size);
   }
 
-  late final __realloc_basePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('_realloc_base');
+  late final __realloc_basePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size)
+        >
+      >('_realloc_base');
   late final __realloc_base = __realloc_basePtr
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
-  ffi.Pointer<ffi.Void> realloc(
-    ffi.Pointer<ffi.Void> _Block,
-    int _Size,
-  ) {
-    return _realloc(
-      _Block,
-      _Size,
-    );
+  ffi.Pointer<ffi.Void> realloc(ffi.Pointer<ffi.Void> _Block, int _Size) {
+    return _realloc(_Block, _Size);
   }
 
-  late final _reallocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('realloc');
+  late final _reallocPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size)
+        >
+      >('realloc');
   late final _realloc = _reallocPtr
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
@@ -366,67 +320,66 @@ class NursorCore {
     int _Count,
     int _Size,
   ) {
-    return __recalloc_base(
-      _Block,
-      _Count,
-      _Size,
-    );
+    return __recalloc_base(_Block, _Count, _Size);
   }
 
-  late final __recalloc_basePtr = _lookup<
-      ffi.NativeFunction<
+  late final __recalloc_basePtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size)>>('_recalloc_base');
-  late final __recalloc_base = __recalloc_basePtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_recalloc_base');
+  late final __recalloc_base = __recalloc_basePtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)
+      >();
 
   ffi.Pointer<ffi.Void> _recalloc(
     ffi.Pointer<ffi.Void> _Block,
     int _Count,
     int _Size,
   ) {
-    return __recalloc(
-      _Block,
-      _Count,
-      _Size,
-    );
+    return __recalloc(_Block, _Count, _Size);
   }
 
-  late final __recallocPtr = _lookup<
-      ffi.NativeFunction<
+  late final __recallocPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size)>>('_recalloc');
-  late final __recalloc = __recallocPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_recalloc');
+  late final __recalloc = __recallocPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)
+      >();
 
-  void _aligned_free(
-    ffi.Pointer<ffi.Void> _Block,
-  ) {
-    return __aligned_free(
-      _Block,
-    );
+  void _aligned_free(ffi.Pointer<ffi.Void> _Block) {
+    return __aligned_free(_Block);
   }
 
   late final __aligned_freePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          '_aligned_free');
-  late final __aligned_free =
-      __aligned_freePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+        '_aligned_free',
+      );
+  late final __aligned_free = __aligned_freePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  ffi.Pointer<ffi.Void> _aligned_malloc(
-    int _Size,
-    int _Alignment,
-  ) {
-    return __aligned_malloc(
-      _Size,
-      _Alignment,
-    );
+  ffi.Pointer<ffi.Void> _aligned_malloc(int _Size, int _Alignment) {
+    return __aligned_malloc(_Size, _Alignment);
   }
 
-  late final __aligned_mallocPtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>(
-      '_aligned_malloc');
+  late final __aligned_mallocPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>
+      >('_aligned_malloc');
   late final __aligned_malloc = __aligned_mallocPtr
       .asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
 
@@ -435,17 +388,15 @@ class NursorCore {
     int _Alignment,
     int _Offset,
   ) {
-    return __aligned_offset_malloc(
-      _Size,
-      _Alignment,
-      _Offset,
-    );
+    return __aligned_offset_malloc(_Size, _Alignment, _Offset);
   }
 
-  late final __aligned_offset_mallocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Size, ffi.Size, ffi.Size)>>('_aligned_offset_malloc');
+  late final __aligned_offset_mallocPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size, ffi.Size)
+        >
+      >('_aligned_offset_malloc');
   late final __aligned_offset_malloc = __aligned_offset_mallocPtr
       .asFunction<ffi.Pointer<ffi.Void> Function(int, int, int)>();
 
@@ -454,17 +405,15 @@ class NursorCore {
     int _Alignment,
     int _Offset,
   ) {
-    return __aligned_msize(
-      _Block,
-      _Alignment,
-      _Offset,
-    );
+    return __aligned_msize(_Block, _Alignment, _Offset);
   }
 
-  late final __aligned_msizePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(
-              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size)>>('_aligned_msize');
+  late final __aligned_msizePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size)
+        >
+      >('_aligned_msize');
   late final __aligned_msize = __aligned_msizePtr
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int, int)>();
 
@@ -474,20 +423,24 @@ class NursorCore {
     int _Alignment,
     int _Offset,
   ) {
-    return __aligned_offset_realloc(
-      _Block,
-      _Size,
-      _Alignment,
-      _Offset,
-    );
+    return __aligned_offset_realloc(_Block, _Size, _Alignment, _Offset);
   }
 
-  late final __aligned_offset_reallocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size,
-              ffi.Size, ffi.Size)>>('_aligned_offset_realloc');
-  late final __aligned_offset_realloc = __aligned_offset_reallocPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int, int)>();
+  late final __aligned_offset_reallocPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_aligned_offset_realloc');
+  late final __aligned_offset_realloc = __aligned_offset_reallocPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int, int)
+      >();
 
   ffi.Pointer<ffi.Void> _aligned_offset_recalloc(
     ffi.Pointer<ffi.Void> _Block,
@@ -505,33 +458,51 @@ class NursorCore {
     );
   }
 
-  late final __aligned_offset_recallocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size,
-              ffi.Size, ffi.Size, ffi.Size)>>('_aligned_offset_recalloc');
-  late final __aligned_offset_recalloc =
-      __aligned_offset_recallocPtr.asFunction<
+  late final __aligned_offset_recallocPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, int, int, int, int)>();
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_aligned_offset_recalloc');
+  late final __aligned_offset_recalloc = __aligned_offset_recallocPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
+          ffi.Pointer<ffi.Void>,
+          int,
+          int,
+          int,
+          int,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> _aligned_realloc(
     ffi.Pointer<ffi.Void> _Block,
     int _Size,
     int _Alignment,
   ) {
-    return __aligned_realloc(
-      _Block,
-      _Size,
-      _Alignment,
-    );
+    return __aligned_realloc(_Block, _Size, _Alignment);
   }
 
-  late final __aligned_reallocPtr = _lookup<
-      ffi.NativeFunction<
+  late final __aligned_reallocPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size)>>('_aligned_realloc');
-  late final __aligned_realloc = __aligned_reallocPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_aligned_realloc');
+  late final __aligned_realloc = __aligned_reallocPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)
+      >();
 
   ffi.Pointer<ffi.Void> _aligned_recalloc(
     ffi.Pointer<ffi.Void> _Block,
@@ -539,20 +510,24 @@ class NursorCore {
     int _Size,
     int _Alignment,
   ) {
-    return __aligned_recalloc(
-      _Block,
-      _Count,
-      _Size,
-      _Alignment,
-    );
+    return __aligned_recalloc(_Block, _Count, _Size, _Alignment);
   }
 
-  late final __aligned_recallocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size,
-              ffi.Size, ffi.Size)>>('_aligned_recalloc');
-  late final __aligned_recalloc = __aligned_recallocPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int, int)>();
+  late final __aligned_recallocPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            ffi.Size,
+          )
+        >
+      >('_aligned_recalloc');
+  late final __aligned_recalloc = __aligned_recallocPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int, int)
+      >();
 
   ffi.Pointer<ffi.Void> bsearch_s(
     ffi.Pointer<ffi.Void> _Key,
@@ -572,23 +547,30 @@ class NursorCore {
     );
   }
 
-  late final _bsearch_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final _bsearch_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              rsize_t,
-              rsize_t,
-              _CoreCrtSecureSearchSortCompareFunction,
-              ffi.Pointer<ffi.Void>)>>('bsearch_s');
-  late final _bsearch_s = _bsearch_sPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            rsize_t,
+            rsize_t,
+            _CoreCrtSecureSearchSortCompareFunction,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('bsearch_s');
+  late final _bsearch_s = _bsearch_sPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           int,
           int,
           _CoreCrtSecureSearchSortCompareFunction,
-          ffi.Pointer<ffi.Void>)>();
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
 
   void qsort_s(
     ffi.Pointer<ffi.Void> _Base,
@@ -606,17 +588,28 @@ class NursorCore {
     );
   }
 
-  late final _qsort_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final _qsort_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Void>,
-              rsize_t,
-              rsize_t,
-              _CoreCrtSecureSearchSortCompareFunction,
-              ffi.Pointer<ffi.Void>)>>('qsort_s');
-  late final _qsort_s = _qsort_sPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, int, int,
-          _CoreCrtSecureSearchSortCompareFunction, ffi.Pointer<ffi.Void>)>();
+            ffi.Pointer<ffi.Void>,
+            rsize_t,
+            rsize_t,
+            _CoreCrtSecureSearchSortCompareFunction,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('qsort_s');
+  late final _qsort_s = _qsort_sPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.Void>,
+          int,
+          int,
+          _CoreCrtSecureSearchSortCompareFunction,
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> bsearch(
     ffi.Pointer<ffi.Void> _Key,
@@ -634,21 +627,28 @@ class NursorCore {
     );
   }
 
-  late final _bsearchPtr = _lookup<
-      ffi.NativeFunction<
+  late final _bsearchPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Size,
-              ffi.Size,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('bsearch');
-  late final _bsearch = _bsearchPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('bsearch');
+  late final _bsearch = _bsearchPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           int,
           int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   void qsort(
     ffi.Pointer<ffi.Void> _Base,
@@ -656,21 +656,29 @@ class NursorCore {
     int _SizeOfElements,
     _CoreCrtNonSecureSearchSortCompareFunction _CompareFunction,
   ) {
-    return _qsort(
-      _Base,
-      _NumOfElements,
-      _SizeOfElements,
-      _CompareFunction,
-    );
+    return _qsort(_Base, _NumOfElements, _SizeOfElements, _CompareFunction);
   }
 
-  late final _qsortPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size, ffi.Size,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('qsort');
-  late final _qsort = _qsortPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, int, int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+  late final _qsortPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('qsort');
+  late final _qsort = _qsortPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.Void>,
+          int,
+          int,
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> _lfind_s(
     ffi.Pointer<ffi.Void> _Key,
@@ -690,23 +698,30 @@ class NursorCore {
     );
   }
 
-  late final __lfind_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __lfind_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.Size,
-              _CoreCrtSecureSearchSortCompareFunction,
-              ffi.Pointer<ffi.Void>)>>('_lfind_s');
-  late final __lfind_s = __lfind_sPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.Size,
+            _CoreCrtSecureSearchSortCompareFunction,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('_lfind_s');
+  late final __lfind_s = __lfind_sPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
           _CoreCrtSecureSearchSortCompareFunction,
-          ffi.Pointer<ffi.Void>)>();
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> _lfind(
     ffi.Pointer<ffi.Void> _Key,
@@ -724,21 +739,28 @@ class NursorCore {
     );
   }
 
-  late final __lfindPtr = _lookup<
-      ffi.NativeFunction<
+  late final __lfindPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.UnsignedInt,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('_lfind');
-  late final __lfind = __lfindPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.UnsignedInt,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('_lfind');
+  late final __lfind = __lfindPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> _lsearch_s(
     ffi.Pointer<ffi.Void> _Key,
@@ -758,23 +780,30 @@ class NursorCore {
     );
   }
 
-  late final __lsearch_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __lsearch_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.Size,
-              _CoreCrtSecureSearchSortCompareFunction,
-              ffi.Pointer<ffi.Void>)>>('_lsearch_s');
-  late final __lsearch_s = __lsearch_sPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.Size,
+            _CoreCrtSecureSearchSortCompareFunction,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('_lsearch_s');
+  late final __lsearch_s = __lsearch_sPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
           _CoreCrtSecureSearchSortCompareFunction,
-          ffi.Pointer<ffi.Void>)>();
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> _lsearch(
     ffi.Pointer<ffi.Void> _Key,
@@ -792,21 +821,28 @@ class NursorCore {
     );
   }
 
-  late final __lsearchPtr = _lookup<
-      ffi.NativeFunction<
+  late final __lsearchPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.UnsignedInt,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('_lsearch');
-  late final __lsearch = __lsearchPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.UnsignedInt,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('_lsearch');
+  late final __lsearch = __lsearchPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> lfind(
     ffi.Pointer<ffi.Void> _Key,
@@ -824,21 +860,28 @@ class NursorCore {
     );
   }
 
-  late final _lfindPtr = _lookup<
-      ffi.NativeFunction<
+  late final _lfindPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.UnsignedInt,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('lfind');
-  late final _lfind$1 = _lfindPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.UnsignedInt,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('lfind');
+  late final _lfind$1 = _lfindPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   ffi.Pointer<ffi.Void> lsearch(
     ffi.Pointer<ffi.Void> _Key,
@@ -856,21 +899,28 @@ class NursorCore {
     );
   }
 
-  late final _lsearchPtr = _lookup<
-      ffi.NativeFunction<
+  late final _lsearchPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.UnsignedInt>,
-              ffi.UnsignedInt,
-              _CoreCrtNonSecureSearchSortCompareFunction)>>('lsearch');
-  late final _lsearch$1 = _lsearchPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.UnsignedInt>,
+            ffi.UnsignedInt,
+            _CoreCrtNonSecureSearchSortCompareFunction,
+          )
+        >
+      >('lsearch');
+  late final _lsearch$1 = _lsearchPtr
+      .asFunction<
+        ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.Void>,
           ffi.Pointer<ffi.UnsignedInt>,
           int,
-          _CoreCrtNonSecureSearchSortCompareFunction)>();
+          _CoreCrtNonSecureSearchSortCompareFunction,
+        )
+      >();
 
   int _itow_s(
     int _Value,
@@ -878,18 +928,15 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __itow_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __itow_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __itow_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Int, ffi.Pointer<ffi.WChar>, ffi.Size, ffi.Int)>>('_itow_s');
+  late final __itow_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Int, ffi.Pointer<ffi.WChar>, ffi.Size, ffi.Int)
+        >
+      >('_itow_s');
   late final __itow_s = __itow_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.WChar>, int, int)>();
 
@@ -898,19 +945,23 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _Radix,
   ) {
-    return __itow(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __itow(_Value, _Buffer, _Radix);
   }
 
-  late final __itowPtr = _lookup<
-      ffi.NativeFunction<
+  late final __itowPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.WChar> Function(
-              ffi.Int, ffi.Pointer<ffi.WChar>, ffi.Int)>>('_itow');
-  late final __itow = __itowPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)>();
+            ffi.Int,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Int,
+          )
+        >
+      >('_itow');
+  late final __itow = __itowPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)
+      >();
 
   int _ltow_s(
     int _Value,
@@ -918,18 +969,15 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ltow_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ltow_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ltow_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Long, ffi.Pointer<ffi.WChar>, ffi.Size, ffi.Int)>>('_ltow_s');
+  late final __ltow_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Long, ffi.Pointer<ffi.WChar>, ffi.Size, ffi.Int)
+        >
+      >('_ltow_s');
   late final __ltow_s = __ltow_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.WChar>, int, int)>();
 
@@ -938,19 +986,23 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _Radix,
   ) {
-    return __ltow(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ltow(_Value, _Buffer, _Radix);
   }
 
-  late final __ltowPtr = _lookup<
-      ffi.NativeFunction<
+  late final __ltowPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.WChar> Function(
-              ffi.Long, ffi.Pointer<ffi.WChar>, ffi.Int)>>('_ltow');
-  late final __ltow = __ltowPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)>();
+            ffi.Long,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Int,
+          )
+        >
+      >('_ltow');
+  late final __ltow = __ltowPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)
+      >();
 
   int _ultow_s(
     int _Value,
@@ -958,18 +1010,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ultow_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ultow_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ultow_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.UnsignedLong, ffi.Pointer<ffi.WChar>, ffi.Size,
-              ffi.Int)>>('_ultow_s');
+  late final __ultow_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.UnsignedLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_ultow_s');
   late final __ultow_s = __ultow_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.WChar>, int, int)>();
 
@@ -978,77 +1032,101 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _Radix,
   ) {
-    return __ultow(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ultow(_Value, _Buffer, _Radix);
   }
 
-  late final __ultowPtr = _lookup<
-      ffi.NativeFunction<
+  late final __ultowPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.WChar> Function(
-              ffi.UnsignedLong, ffi.Pointer<ffi.WChar>, ffi.Int)>>('_ultow');
-  late final __ultow = __ultowPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)>();
+            ffi.UnsignedLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Int,
+          )
+        >
+      >('_ultow');
+  late final __ultow = __ultowPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)
+      >();
 
   double wcstod(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
   ) {
-    return _wcstod(
-      _String,
-      _EndPtr,
-    );
+    return _wcstod(_String, _EndPtr);
   }
 
-  late final _wcstodPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>)>>('wcstod');
-  late final _wcstod = _wcstodPtr.asFunction<
-      double Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>)>();
+  late final _wcstodPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          )
+        >
+      >('wcstod');
+  late final _wcstod = _wcstodPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+        )
+      >();
 
   double _wcstod_l(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     _locale_t _Locale,
   ) {
-    return __wcstod_l(
-      _String,
-      _EndPtr,
-      _Locale,
-    );
+    return __wcstod_l(_String, _EndPtr, _Locale);
   }
 
-  late final __wcstod_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, _locale_t)>>('_wcstod_l');
-  late final __wcstod_l = __wcstod_lPtr.asFunction<
-      double Function(ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.Pointer<ffi.WChar>>, _locale_t)>();
+  late final __wcstod_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            _locale_t,
+          )
+        >
+      >('_wcstod_l');
+  late final __wcstod_l = __wcstod_lPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          _locale_t,
+        )
+      >();
 
   int wcstol(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return _wcstol(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _wcstol(_String, _EndPtr, _Radix);
   }
 
-  late final _wcstolPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('wcstol');
-  late final _wcstol = _wcstolPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final _wcstolPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Long Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('wcstol');
+  late final _wcstol = _wcstolPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstol_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1056,44 +1134,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstol_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstol_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstol_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstol_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Long Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstol_l');
-  late final __wcstol_l = __wcstol_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstol_l');
+  late final __wcstol_l = __wcstol_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int wcstoll(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return _wcstoll(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _wcstoll(_String, _EndPtr, _Radix);
   }
 
-  late final _wcstollPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('wcstoll');
-  late final _wcstoll = _wcstollPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final _wcstollPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('wcstoll');
+  late final _wcstoll = _wcstollPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstoll_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1101,44 +1191,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstoll_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstoll_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstoll_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstoll_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.LongLong Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstoll_l');
-  late final __wcstoll_l = __wcstoll_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstoll_l');
+  late final __wcstoll_l = __wcstoll_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int wcstoul(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return _wcstoul(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _wcstoul(_String, _EndPtr, _Radix);
   }
 
-  late final _wcstoulPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('wcstoul');
-  late final _wcstoul = _wcstoulPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final _wcstoulPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLong Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('wcstoul');
+  late final _wcstoul = _wcstoulPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstoul_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1146,44 +1248,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstoul_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstoul_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstoul_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstoul_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstoul_l');
-  late final __wcstoul_l = __wcstoul_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstoul_l');
+  late final __wcstoul_l = __wcstoul_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int wcstoull(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return _wcstoull(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _wcstoull(_String, _EndPtr, _Radix);
   }
 
-  late final _wcstoullPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('wcstoull');
-  late final _wcstoull = _wcstoullPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final _wcstoullPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('wcstoull');
+  late final _wcstoull = _wcstoullPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstoull_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1191,181 +1305,170 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstoull_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstoull_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstoull_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstoull_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLongLong Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstoull_l');
-  late final __wcstoull_l = __wcstoull_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstoull_l');
+  late final __wcstoull_l = __wcstoull_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   double wcstof(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
   ) {
-    return _wcstof(
-      _String,
-      _EndPtr,
-    );
+    return _wcstof(_String, _EndPtr);
   }
 
-  late final _wcstofPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>)>>('wcstof');
-  late final _wcstof = _wcstofPtr.asFunction<
-      double Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>)>();
+  late final _wcstofPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Float Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          )
+        >
+      >('wcstof');
+  late final _wcstof = _wcstofPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+        )
+      >();
 
   double _wcstof_l(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     _locale_t _Locale,
   ) {
-    return __wcstof_l(
-      _String,
-      _EndPtr,
-      _Locale,
-    );
+    return __wcstof_l(_String, _EndPtr, _Locale);
   }
 
-  late final __wcstof_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, _locale_t)>>('_wcstof_l');
-  late final __wcstof_l = __wcstof_lPtr.asFunction<
-      double Function(ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.Pointer<ffi.WChar>>, _locale_t)>();
+  late final __wcstof_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Float Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            _locale_t,
+          )
+        >
+      >('_wcstof_l');
+  late final __wcstof_l = __wcstof_lPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          _locale_t,
+        )
+      >();
 
-  double _wtof(
-    ffi.Pointer<ffi.WChar> _String,
-  ) {
-    return __wtof(
-      _String,
-    );
+  double _wtof(ffi.Pointer<ffi.WChar> _String) {
+    return __wtof(_String);
   }
 
   late final __wtofPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wtof');
-  late final __wtof =
-      __wtofPtr.asFunction<double Function(ffi.Pointer<ffi.WChar>)>();
+        '_wtof',
+      );
+  late final __wtof = __wtofPtr
+      .asFunction<double Function(ffi.Pointer<ffi.WChar>)>();
 
-  double _wtof_l(
-    ffi.Pointer<ffi.WChar> _String,
-    _locale_t _Locale,
-  ) {
-    return __wtof_l(
-      _String,
-      _Locale,
-    );
+  double _wtof_l(ffi.Pointer<ffi.WChar> _String, _locale_t _Locale) {
+    return __wtof_l(_String, _Locale);
   }
 
-  late final __wtof_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.WChar>, _locale_t)>>('_wtof_l');
+  late final __wtof_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(ffi.Pointer<ffi.WChar>, _locale_t)
+        >
+      >('_wtof_l');
   late final __wtof_l = __wtof_lPtr
       .asFunction<double Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
 
-  int _wtoi(
-    ffi.Pointer<ffi.WChar> _String,
-  ) {
-    return __wtoi(
-      _String,
-    );
+  int _wtoi(ffi.Pointer<ffi.WChar> _String) {
+    return __wtoi(_String);
   }
 
   late final __wtoiPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wtoi');
-  late final __wtoi =
-      __wtoiPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+        '_wtoi',
+      );
+  late final __wtoi = __wtoiPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
-  int _wtoi_l(
-    ffi.Pointer<ffi.WChar> _String,
-    _locale_t _Locale,
-  ) {
-    return __wtoi_l(
-      _String,
-      _Locale,
-    );
+  int _wtoi_l(ffi.Pointer<ffi.WChar> _String, _locale_t _Locale) {
+    return __wtoi_l(_String, _Locale);
   }
 
-  late final __wtoi_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.WChar>, _locale_t)>>('_wtoi_l');
-  late final __wtoi_l =
-      __wtoi_lPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
+  late final __wtoi_lPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.WChar>, _locale_t)>
+      >('_wtoi_l');
+  late final __wtoi_l = __wtoi_lPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
 
-  int _wtol(
-    ffi.Pointer<ffi.WChar> _String,
-  ) {
-    return __wtol(
-      _String,
-    );
+  int _wtol(ffi.Pointer<ffi.WChar> _String) {
+    return __wtol(_String);
   }
 
   late final __wtolPtr =
       _lookup<ffi.NativeFunction<ffi.Long Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wtol');
-  late final __wtol =
-      __wtolPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+        '_wtol',
+      );
+  late final __wtol = __wtolPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
-  int _wtol_l(
-    ffi.Pointer<ffi.WChar> _String,
-    _locale_t _Locale,
-  ) {
-    return __wtol_l(
-      _String,
-      _Locale,
-    );
+  int _wtol_l(ffi.Pointer<ffi.WChar> _String, _locale_t _Locale) {
+    return __wtol_l(_String, _Locale);
   }
 
-  late final __wtol_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.WChar>, _locale_t)>>('_wtol_l');
-  late final __wtol_l =
-      __wtol_lPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
+  late final __wtol_lPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Long Function(ffi.Pointer<ffi.WChar>, _locale_t)>
+      >('_wtol_l');
+  late final __wtol_l = __wtol_lPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
 
-  int _wtoll(
-    ffi.Pointer<ffi.WChar> _String,
-  ) {
-    return __wtoll(
-      _String,
-    );
+  int _wtoll(ffi.Pointer<ffi.WChar> _String) {
+    return __wtoll(_String);
   }
 
-  late final __wtollPtr = _lookup<
-      ffi
-      .NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.WChar>)>>('_wtoll');
-  late final __wtoll =
-      __wtollPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+  late final __wtollPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.WChar>)>
+      >('_wtoll');
+  late final __wtoll = __wtollPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
-  int _wtoll_l(
-    ffi.Pointer<ffi.WChar> _String,
-    _locale_t _Locale,
-  ) {
-    return __wtoll_l(
-      _String,
-      _Locale,
-    );
+  int _wtoll_l(ffi.Pointer<ffi.WChar> _String, _locale_t _Locale) {
+    return __wtoll_l(_String, _Locale);
   }
 
-  late final __wtoll_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(
-              ffi.Pointer<ffi.WChar>, _locale_t)>>('_wtoll_l');
+  late final __wtoll_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(ffi.Pointer<ffi.WChar>, _locale_t)
+        >
+      >('_wtoll_l');
   late final __wtoll_l = __wtoll_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
 
@@ -1375,18 +1478,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __i64tow_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __i64tow_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __i64tow_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.LongLong, ffi.Pointer<ffi.WChar>, ffi.Size,
-              ffi.Int)>>('_i64tow_s');
+  late final __i64tow_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.LongLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_i64tow_s');
   late final __i64tow_s = __i64tow_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.WChar>, int, int)>();
 
@@ -1395,19 +1500,23 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _Radix,
   ) {
-    return __i64tow(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __i64tow(_Value, _Buffer, _Radix);
   }
 
-  late final __i64towPtr = _lookup<
-      ffi.NativeFunction<
+  late final __i64towPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.WChar> Function(
-              ffi.LongLong, ffi.Pointer<ffi.WChar>, ffi.Int)>>('_i64tow');
-  late final __i64tow = __i64towPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)>();
+            ffi.LongLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Int,
+          )
+        >
+      >('_i64tow');
+  late final __i64tow = __i64towPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)
+      >();
 
   int _ui64tow_s(
     int _Value,
@@ -1415,18 +1524,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ui64tow_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ui64tow_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ui64tow_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.UnsignedLongLong, ffi.Pointer<ffi.WChar>,
-              ffi.Size, ffi.Int)>>('_ui64tow_s');
+  late final __ui64tow_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.UnsignedLongLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_ui64tow_s');
   late final __ui64tow_s = __ui64tow_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.WChar>, int, int)>();
 
@@ -1435,48 +1546,45 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _Radix,
   ) {
-    return __ui64tow(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ui64tow(_Value, _Buffer, _Radix);
   }
 
-  late final __ui64towPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.WChar> Function(ffi.UnsignedLongLong,
-              ffi.Pointer<ffi.WChar>, ffi.Int)>>('_ui64tow');
-  late final __ui64tow = __ui64towPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)>();
+  late final __ui64towPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.WChar> Function(
+            ffi.UnsignedLongLong,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Int,
+          )
+        >
+      >('_ui64tow');
+  late final __ui64tow = __ui64towPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(int, ffi.Pointer<ffi.WChar>, int)
+      >();
 
-  int _wtoi64(
-    ffi.Pointer<ffi.WChar> _String,
-  ) {
-    return __wtoi64(
-      _String,
-    );
+  int _wtoi64(ffi.Pointer<ffi.WChar> _String) {
+    return __wtoi64(_String);
   }
 
-  late final __wtoi64Ptr = _lookup<
-          ffi.NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.WChar>)>>(
-      '_wtoi64');
-  late final __wtoi64 =
-      __wtoi64Ptr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+  late final __wtoi64Ptr =
+      _lookup<
+        ffi.NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.WChar>)>
+      >('_wtoi64');
+  late final __wtoi64 = __wtoi64Ptr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
-  int _wtoi64_l(
-    ffi.Pointer<ffi.WChar> _String,
-    _locale_t _Locale,
-  ) {
-    return __wtoi64_l(
-      _String,
-      _Locale,
-    );
+  int _wtoi64_l(ffi.Pointer<ffi.WChar> _String, _locale_t _Locale) {
+    return __wtoi64_l(_String, _Locale);
   }
 
-  late final __wtoi64_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(
-              ffi.Pointer<ffi.WChar>, _locale_t)>>('_wtoi64_l');
+  late final __wtoi64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(ffi.Pointer<ffi.WChar>, _locale_t)
+        >
+      >('_wtoi64_l');
   late final __wtoi64_l = __wtoi64_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.WChar>, _locale_t)>();
 
@@ -1485,20 +1593,27 @@ class NursorCore {
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return __wcstoi64(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return __wcstoi64(_String, _EndPtr, _Radix);
   }
 
-  late final __wcstoi64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('_wcstoi64');
-  late final __wcstoi64 = __wcstoi64Ptr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final __wcstoi64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('_wcstoi64');
+  late final __wcstoi64 = __wcstoi64Ptr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstoi64_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1506,44 +1621,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstoi64_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstoi64_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstoi64_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstoi64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.LongLong Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstoi64_l');
-  late final __wcstoi64_l = __wcstoi64_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstoi64_l');
+  late final __wcstoi64_l = __wcstoi64_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _wcstoui64(
     ffi.Pointer<ffi.WChar> _String,
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _EndPtr,
     int _Radix,
   ) {
-    return __wcstoui64(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return __wcstoui64(_String, _EndPtr, _Radix);
   }
 
-  late final __wcstoui64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Int)>>('_wcstoui64');
-  late final __wcstoui64 = __wcstoui64Ptr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>, int)>();
+  late final __wcstoui64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+          )
+        >
+      >('_wcstoui64');
+  late final __wcstoui64 = __wcstoui64Ptr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+        )
+      >();
 
   int _wcstoui64_l(
     ffi.Pointer<ffi.WChar> _String,
@@ -1551,44 +1678,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __wcstoui64_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __wcstoui64_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __wcstoui64_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstoui64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLongLong Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Int,
-              _locale_t)>>('_wcstoui64_l');
-  late final __wcstoui64_l = __wcstoui64_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_wcstoui64_l');
+  late final __wcstoui64_l = __wcstoui64_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   ffi.Pointer<ffi.WChar> _wfullpath(
     ffi.Pointer<ffi.WChar> _Buffer,
     ffi.Pointer<ffi.WChar> _Path,
     int _BufferCount,
   ) {
-    return __wfullpath(
-      _Buffer,
-      _Path,
-      _BufferCount,
-    );
+    return __wfullpath(_Buffer, _Path, _BufferCount);
   }
 
-  late final __wfullpathPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.WChar> Function(ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>, ffi.Size)>>('_wfullpath');
-  late final __wfullpath = __wfullpathPtr.asFunction<
-      ffi.Pointer<ffi.WChar> Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>, int)>();
+  late final __wfullpathPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.WChar> Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+          )
+        >
+      >('_wfullpath');
+  late final __wfullpath = __wfullpathPtr
+      .asFunction<
+        ffi.Pointer<ffi.WChar> Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+        )
+      >();
 
   int _wmakepath_s(
     ffi.Pointer<ffi.WChar> _Buffer,
@@ -1598,33 +1737,33 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Filename,
     ffi.Pointer<ffi.WChar> _Ext,
   ) {
-    return __wmakepath_s(
-      _Buffer,
-      _BufferCount,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __wmakepath_s(_Buffer, _BufferCount, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __wmakepath_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wmakepath_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>)>>('_wmakepath_s');
-  late final __wmakepath_s = __wmakepath_sPtr.asFunction<
-      int Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wmakepath_s');
+  late final __wmakepath_s = __wmakepath_sPtr
+      .asFunction<
+        int Function(
           ffi.Pointer<ffi.WChar>,
           int,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>)>();
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
   void _wmakepath(
     ffi.Pointer<ffi.WChar> _Buffer,
@@ -1633,44 +1772,42 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Filename,
     ffi.Pointer<ffi.WChar> _Ext,
   ) {
-    return __wmakepath(
-      _Buffer,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __wmakepath(_Buffer, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __wmakepathPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wmakepathPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>)>>('_wmakepath');
-  late final __wmakepath = __wmakepathPtr.asFunction<
-      void Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wmakepath');
+  late final __wmakepath = __wmakepathPtr
+      .asFunction<
+        void Function(
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>)>();
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
-  void _wperror(
-    ffi.Pointer<ffi.WChar> _ErrorMessage,
-  ) {
-    return __wperror(
-      _ErrorMessage,
-    );
+  void _wperror(ffi.Pointer<ffi.WChar> _ErrorMessage) {
+    return __wperror(_ErrorMessage);
   }
 
   late final __wperrorPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wperror');
-  late final __wperror =
-      __wperrorPtr.asFunction<void Function(ffi.Pointer<ffi.WChar>)>();
+        '_wperror',
+      );
+  late final __wperror = __wperrorPtr
+      .asFunction<void Function(ffi.Pointer<ffi.WChar>)>();
 
   void _wsplitpath(
     ffi.Pointer<ffi.WChar> _FullPath,
@@ -1679,30 +1816,31 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Filename,
     ffi.Pointer<ffi.WChar> _Ext,
   ) {
-    return __wsplitpath(
-      _FullPath,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __wsplitpath(_FullPath, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __wsplitpathPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wsplitpathPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>)>>('_wsplitpath');
-  late final __wsplitpath = __wsplitpathPtr.asFunction<
-      void Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wsplitpath');
+  late final __wsplitpath = __wsplitpathPtr
+      .asFunction<
+        void Function(
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>)>();
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
   int _wsplitpath_s(
     ffi.Pointer<ffi.WChar> _FullPath,
@@ -1728,20 +1866,25 @@ class NursorCore {
     );
   }
 
-  late final __wsplitpath_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wsplitpath_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size)>>('_wsplitpath_s');
-  late final __wsplitpath_s = __wsplitpath_sPtr.asFunction<
-      int Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+          )
+        >
+      >('_wsplitpath_s');
+  late final __wsplitpath_s = __wsplitpath_sPtr
+      .asFunction<
+        int Function(
           ffi.Pointer<ffi.WChar>,
           ffi.Pointer<ffi.WChar>,
           int,
@@ -1750,39 +1893,47 @@ class NursorCore {
           ffi.Pointer<ffi.WChar>,
           int,
           ffi.Pointer<ffi.WChar>,
-          int)>();
+          int,
+        )
+      >();
 
   int _wdupenv_s(
     ffi.Pointer<ffi.Pointer<ffi.WChar>> _Buffer,
     ffi.Pointer<ffi.Size> _BufferCount,
     ffi.Pointer<ffi.WChar> _VarName,
   ) {
-    return __wdupenv_s(
-      _Buffer,
-      _BufferCount,
-      _VarName,
-    );
+    return __wdupenv_s(_Buffer, _BufferCount, _VarName);
   }
 
-  late final __wdupenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Pointer<ffi.WChar>>,
-              ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>)>>('_wdupenv_s');
-  late final __wdupenv_s = __wdupenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Pointer<ffi.WChar>>, ffi.Pointer<ffi.Size>,
-          ffi.Pointer<ffi.WChar>)>();
+  late final __wdupenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wdupenv_s');
+  late final __wdupenv_s = __wdupenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Pointer<ffi.WChar>>,
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
-  ffi.Pointer<ffi.WChar> _wgetenv(
-    ffi.Pointer<ffi.WChar> _VarName,
-  ) {
-    return __wgetenv(
-      _VarName,
-    );
+  ffi.Pointer<ffi.WChar> _wgetenv(ffi.Pointer<ffi.WChar> _VarName) {
+    return __wgetenv(_VarName);
   }
 
-  late final __wgetenvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.WChar> Function(ffi.Pointer<ffi.WChar>)>>('_wgetenv');
+  late final __wgetenvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.WChar> Function(ffi.Pointer<ffi.WChar>)
+        >
+      >('_wgetenv');
   late final __wgetenv = __wgetenvPtr
       .asFunction<ffi.Pointer<ffi.WChar> Function(ffi.Pointer<ffi.WChar>)>();
 
@@ -1792,52 +1943,55 @@ class NursorCore {
     int _BufferCount,
     ffi.Pointer<ffi.WChar> _VarName,
   ) {
-    return __wgetenv_s(
-      _RequiredCount,
-      _Buffer,
-      _BufferCount,
-      _VarName,
-    );
+    return __wgetenv_s(_RequiredCount, _Buffer, _BufferCount, _VarName);
   }
 
-  late final __wgetenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>,
-              ffi.Size, ffi.Pointer<ffi.WChar>)>>('_wgetenv_s');
-  late final __wgetenv_s = __wgetenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>, int,
-          ffi.Pointer<ffi.WChar>)>();
+  late final __wgetenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wgetenv_s');
+  late final __wgetenv_s = __wgetenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
-  int _wputenv(
-    ffi.Pointer<ffi.WChar> _EnvString,
-  ) {
-    return __wputenv(
-      _EnvString,
-    );
+  int _wputenv(ffi.Pointer<ffi.WChar> _EnvString) {
+    return __wputenv(_EnvString);
   }
 
   late final __wputenvPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wputenv');
-  late final __wputenv =
-      __wputenvPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+        '_wputenv',
+      );
+  late final __wputenv = __wputenvPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
-  int _wputenv_s(
-    ffi.Pointer<ffi.WChar> _Name,
-    ffi.Pointer<ffi.WChar> _Value,
-  ) {
-    return __wputenv_s(
-      _Name,
-      _Value,
-    );
+  int _wputenv_s(ffi.Pointer<ffi.WChar> _Name, ffi.Pointer<ffi.WChar> _Value) {
+    return __wputenv_s(_Name, _Value);
   }
 
-  late final __wputenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>)>>('_wputenv_s');
-  late final __wputenv_s = __wputenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>)>();
+  late final __wputenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>)
+        >
+      >('_wputenv_s');
+  late final __wputenv_s = __wputenv_sPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>)
+      >();
 
   int _wsearchenv_s(
     ffi.Pointer<ffi.WChar> _Filename,
@@ -1845,117 +1999,118 @@ class NursorCore {
     ffi.Pointer<ffi.WChar> _Buffer,
     int _BufferCount,
   ) {
-    return __wsearchenv_s(
-      _Filename,
-      _VarName,
-      _Buffer,
-      _BufferCount,
-    );
+    return __wsearchenv_s(_Filename, _VarName, _Buffer, _BufferCount);
   }
 
-  late final __wsearchenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>, ffi.Size)>>('_wsearchenv_s');
-  late final __wsearchenv_s = __wsearchenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>, int)>();
+  late final __wsearchenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+          )
+        >
+      >('_wsearchenv_s');
+  late final __wsearchenv_s = __wsearchenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+        )
+      >();
 
   void _wsearchenv(
     ffi.Pointer<ffi.WChar> _Filename,
     ffi.Pointer<ffi.WChar> _VarName,
     ffi.Pointer<ffi.WChar> _ResultPath,
   ) {
-    return __wsearchenv(
-      _Filename,
-      _VarName,
-      _ResultPath,
-    );
+    return __wsearchenv(_Filename, _VarName, _ResultPath);
   }
 
-  late final __wsearchenvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>,
-              ffi.Pointer<ffi.WChar>)>>('_wsearchenv');
-  late final __wsearchenv = __wsearchenvPtr.asFunction<
-      void Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.WChar>,
-          ffi.Pointer<ffi.WChar>)>();
+  late final __wsearchenvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.WChar>,
+          )
+        >
+      >('_wsearchenv');
+  late final __wsearchenv = __wsearchenvPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.WChar>,
+        )
+      >();
 
-  int _wsystem(
-    ffi.Pointer<ffi.WChar> _Command,
-  ) {
-    return __wsystem(
-      _Command,
-    );
+  int _wsystem(ffi.Pointer<ffi.WChar> _Command) {
+    return __wsystem(_Command);
   }
 
   late final __wsystemPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.WChar>)>>(
-          '_wsystem');
-  late final __wsystem =
-      __wsystemPtr.asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
+        '_wsystem',
+      );
+  late final __wsystem = __wsystemPtr
+      .asFunction<int Function(ffi.Pointer<ffi.WChar>)>();
 
   void _swab(
     ffi.Pointer<ffi.Char> _Buf1,
     ffi.Pointer<ffi.Char> _Buf2,
     int _SizeInBytes,
   ) {
-    return __swab(
-      _Buf1,
-      _Buf2,
-      _SizeInBytes,
-    );
+    return __swab(_Buf1, _Buf2, _SizeInBytes);
   }
 
-  late final __swabPtr = _lookup<
-      ffi.NativeFunction<
+  late final __swabPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, ffi.Int)>>('_swab');
-  late final __swab = __swabPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_swab');
+  late final __swab = __swabPtr
+      .asFunction<
+        void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)
+      >();
 
-  void exit(
-    int _Code,
-  ) {
-    return _exit$1(
-      _Code,
-    );
+  void exit(int _Code) {
+    return _exit$1(_Code);
   }
 
-  late final _exitPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('exit');
+  late final _exitPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
+    'exit',
+  );
   late final _exit$1 = _exitPtr.asFunction<void Function(int)>();
 
-  void _exit(
-    int _Code,
-  ) {
-    return __exit(
-      _Code,
-    );
+  void _exit(int _Code) {
+    return __exit(_Code);
   }
 
   late final __exitPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('_exit');
   late final __exit = __exitPtr.asFunction<void Function(int)>();
 
-  void _Exit(
-    int _Code,
-  ) {
-    return __Exit(
-      _Code,
-    );
+  void _Exit(int _Code) {
+    return __Exit(_Code);
   }
 
   late final __ExitPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('_Exit');
   late final __Exit = __ExitPtr.asFunction<void Function(int)>();
 
-  void quick_exit(
-    int _Code,
-  ) {
-    return _quick_exit(
-      _Code,
-    );
+  void quick_exit(int _Code) {
+    return _quick_exit(_Code);
   }
 
   late final _quick_exitPtr =
@@ -1966,81 +2121,70 @@ class NursorCore {
     return _abort();
   }
 
-  late final _abortPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('abort');
+  late final _abortPtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'abort',
+  );
   late final _abort = _abortPtr.asFunction<void Function()>();
 
-  int _set_abort_behavior(
-    int _Flags,
-    int _Mask,
-  ) {
-    return __set_abort_behavior(
-      _Flags,
-      _Mask,
-    );
+  int _set_abort_behavior(int _Flags, int _Mask) {
+    return __set_abort_behavior(_Flags, _Mask);
   }
 
-  late final __set_abort_behaviorPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedInt Function(
-              ffi.UnsignedInt, ffi.UnsignedInt)>>('_set_abort_behavior');
-  late final __set_abort_behavior =
-      __set_abort_behaviorPtr.asFunction<int Function(int, int)>();
+  late final __set_abort_behaviorPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedInt Function(ffi.UnsignedInt, ffi.UnsignedInt)
+        >
+      >('_set_abort_behavior');
+  late final __set_abort_behavior = __set_abort_behaviorPtr
+      .asFunction<int Function(int, int)>();
 
-  int atexit(
-    ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0,
-  ) {
-    return _atexit(
-      arg0,
-    );
+  int atexit(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0) {
+    return _atexit(arg0);
   }
 
-  late final _atexitPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>('atexit');
-  late final _atexit = _atexitPtr.asFunction<
-      int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
+  late final _atexitPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)
+        >
+      >('atexit');
+  late final _atexit = _atexitPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)
+      >();
 
-  _onexit_t _onexit(
-    _onexit_t _Func,
-  ) {
-    return __onexit(
-      _Func,
-    );
+  _onexit_t _onexit(_onexit_t _Func) {
+    return __onexit(_Func);
   }
 
   late final __onexitPtr =
       _lookup<ffi.NativeFunction<_onexit_t Function(_onexit_t)>>('_onexit');
   late final __onexit = __onexitPtr.asFunction<_onexit_t Function(_onexit_t)>();
 
-  int at_quick_exit(
-    ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0,
-  ) {
-    return _at_quick_exit(
-      arg0,
-    );
+  int at_quick_exit(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0) {
+    return _at_quick_exit(arg0);
   }
 
-  late final _at_quick_exitPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Int Function(
-                  ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>(
-      'at_quick_exit');
-  late final _at_quick_exit = _at_quick_exitPtr.asFunction<
-      int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
+  late final _at_quick_exitPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)
+        >
+      >('at_quick_exit');
+  late final _at_quick_exit = _at_quick_exitPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)
+      >();
 
-  _purecall_handler _set_purecall_handler(
-    _purecall_handler _Handler,
-  ) {
-    return __set_purecall_handler(
-      _Handler,
-    );
+  _purecall_handler _set_purecall_handler(_purecall_handler _Handler) {
+    return __set_purecall_handler(_Handler);
   }
 
-  late final __set_purecall_handlerPtr = _lookup<
-          ffi.NativeFunction<_purecall_handler Function(_purecall_handler)>>(
-      '_set_purecall_handler');
+  late final __set_purecall_handlerPtr =
+      _lookup<
+        ffi.NativeFunction<_purecall_handler Function(_purecall_handler)>
+      >('_set_purecall_handler');
   late final __set_purecall_handler = __set_purecall_handlerPtr
       .asFunction<_purecall_handler Function(_purecall_handler)>();
 
@@ -2050,25 +2194,28 @@ class NursorCore {
 
   late final __get_purecall_handlerPtr =
       _lookup<ffi.NativeFunction<_purecall_handler Function()>>(
-          '_get_purecall_handler');
-  late final __get_purecall_handler =
-      __get_purecall_handlerPtr.asFunction<_purecall_handler Function()>();
+        '_get_purecall_handler',
+      );
+  late final __get_purecall_handler = __get_purecall_handlerPtr
+      .asFunction<_purecall_handler Function()>();
 
   _invalid_parameter_handler _set_invalid_parameter_handler(
     _invalid_parameter_handler _Handler,
   ) {
-    return __set_invalid_parameter_handler(
-      _Handler,
-    );
+    return __set_invalid_parameter_handler(_Handler);
   }
 
-  late final __set_invalid_parameter_handlerPtr = _lookup<
-      ffi.NativeFunction<
-          _invalid_parameter_handler Function(
-              _invalid_parameter_handler)>>('_set_invalid_parameter_handler');
+  late final __set_invalid_parameter_handlerPtr =
+      _lookup<
+        ffi.NativeFunction<
+          _invalid_parameter_handler Function(_invalid_parameter_handler)
+        >
+      >('_set_invalid_parameter_handler');
   late final __set_invalid_parameter_handler =
-      __set_invalid_parameter_handlerPtr.asFunction<
-          _invalid_parameter_handler Function(_invalid_parameter_handler)>();
+      __set_invalid_parameter_handlerPtr
+          .asFunction<
+            _invalid_parameter_handler Function(_invalid_parameter_handler)
+          >();
 
   _invalid_parameter_handler _get_invalid_parameter_handler() {
     return __get_invalid_parameter_handler();
@@ -2076,7 +2223,8 @@ class NursorCore {
 
   late final __get_invalid_parameter_handlerPtr =
       _lookup<ffi.NativeFunction<_invalid_parameter_handler Function()>>(
-          '_get_invalid_parameter_handler');
+        '_get_invalid_parameter_handler',
+      );
   late final __get_invalid_parameter_handler =
       __get_invalid_parameter_handlerPtr
           .asFunction<_invalid_parameter_handler Function()>();
@@ -2084,18 +2232,20 @@ class NursorCore {
   _invalid_parameter_handler _set_thread_local_invalid_parameter_handler(
     _invalid_parameter_handler _Handler,
   ) {
-    return __set_thread_local_invalid_parameter_handler(
-      _Handler,
-    );
+    return __set_thread_local_invalid_parameter_handler(_Handler);
   }
 
-  late final __set_thread_local_invalid_parameter_handlerPtr = _lookup<
-          ffi.NativeFunction<
-              _invalid_parameter_handler Function(_invalid_parameter_handler)>>(
-      '_set_thread_local_invalid_parameter_handler');
+  late final __set_thread_local_invalid_parameter_handlerPtr =
+      _lookup<
+        ffi.NativeFunction<
+          _invalid_parameter_handler Function(_invalid_parameter_handler)
+        >
+      >('_set_thread_local_invalid_parameter_handler');
   late final __set_thread_local_invalid_parameter_handler =
-      __set_thread_local_invalid_parameter_handlerPtr.asFunction<
-          _invalid_parameter_handler Function(_invalid_parameter_handler)>();
+      __set_thread_local_invalid_parameter_handlerPtr
+          .asFunction<
+            _invalid_parameter_handler Function(_invalid_parameter_handler)
+          >();
 
   _invalid_parameter_handler _get_thread_local_invalid_parameter_handler() {
     return __get_thread_local_invalid_parameter_handler();
@@ -2103,23 +2253,20 @@ class NursorCore {
 
   late final __get_thread_local_invalid_parameter_handlerPtr =
       _lookup<ffi.NativeFunction<_invalid_parameter_handler Function()>>(
-          '_get_thread_local_invalid_parameter_handler');
+        '_get_thread_local_invalid_parameter_handler',
+      );
   late final __get_thread_local_invalid_parameter_handler =
       __get_thread_local_invalid_parameter_handlerPtr
           .asFunction<_invalid_parameter_handler Function()>();
 
-  int _set_error_mode(
-    int _Mode,
-  ) {
-    return __set_error_mode(
-      _Mode,
-    );
+  int _set_error_mode(int _Mode) {
+    return __set_error_mode(_Mode);
   }
 
   late final __set_error_modePtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('_set_error_mode');
-  late final __set_error_mode =
-      __set_error_modePtr.asFunction<int Function(int)>();
+  late final __set_error_mode = __set_error_modePtr
+      .asFunction<int Function(int)>();
 
   ffi.Pointer<ffi.UnsignedLong> __doserrno() {
     return ___doserrno();
@@ -2127,34 +2274,29 @@ class NursorCore {
 
   late final ___doserrnoPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.UnsignedLong> Function()>>(
-          '__doserrno');
-  late final ___doserrno =
-      ___doserrnoPtr.asFunction<ffi.Pointer<ffi.UnsignedLong> Function()>();
+        '__doserrno',
+      );
+  late final ___doserrno = ___doserrnoPtr
+      .asFunction<ffi.Pointer<ffi.UnsignedLong> Function()>();
 
-  int _set_doserrno(
-    int _Value,
-  ) {
-    return __set_doserrno(
-      _Value,
-    );
+  int _set_doserrno(int _Value) {
+    return __set_doserrno(_Value);
   }
 
   late final __set_doserrnoPtr =
       _lookup<ffi.NativeFunction<errno_t Function(ffi.UnsignedLong)>>(
-          '_set_doserrno');
+        '_set_doserrno',
+      );
   late final __set_doserrno = __set_doserrnoPtr.asFunction<int Function(int)>();
 
-  int _get_doserrno(
-    ffi.Pointer<ffi.UnsignedLong> _Value,
-  ) {
-    return __get_doserrno(
-      _Value,
-    );
+  int _get_doserrno(ffi.Pointer<ffi.UnsignedLong> _Value) {
+    return __get_doserrno(_Value);
   }
 
-  late final __get_doserrnoPtr = _lookup<
-          ffi.NativeFunction<errno_t Function(ffi.Pointer<ffi.UnsignedLong>)>>(
-      '_get_doserrno');
+  late final __get_doserrnoPtr =
+      _lookup<
+        ffi.NativeFunction<errno_t Function(ffi.Pointer<ffi.UnsignedLong>)>
+      >('_get_doserrno');
   late final __get_doserrno = __get_doserrnoPtr
       .asFunction<int Function(ffi.Pointer<ffi.UnsignedLong>)>();
 
@@ -2162,9 +2304,10 @@ class NursorCore {
     return ___sys_errlist();
   }
 
-  late final ___sys_errlistPtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>>(
-      '__sys_errlist');
+  late final ___sys_errlistPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>
+      >('__sys_errlist');
   late final ___sys_errlist = ___sys_errlistPtr
       .asFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>();
 
@@ -2174,31 +2317,30 @@ class NursorCore {
 
   late final ___sys_nerrPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>(
-          '__sys_nerr');
-  late final ___sys_nerr =
-      ___sys_nerrPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
+        '__sys_nerr',
+      );
+  late final ___sys_nerr = ___sys_nerrPtr
+      .asFunction<ffi.Pointer<ffi.Int> Function()>();
 
-  void perror(
-    ffi.Pointer<ffi.Char> _ErrMsg,
-  ) {
-    return _perror(
-      _ErrMsg,
-    );
+  void perror(ffi.Pointer<ffi.Char> _ErrMsg) {
+    return _perror(_ErrMsg);
   }
 
   late final _perrorPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'perror');
-  late final _perror =
-      _perrorPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+        'perror',
+      );
+  late final _perror = _perrorPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   ffi.Pointer<ffi.Pointer<ffi.Char>> __p__pgmptr() {
     return ___p__pgmptr();
   }
 
-  late final ___p__pgmptrPtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>>(
-      '__p__pgmptr');
+  late final ___p__pgmptrPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>
+      >('__p__pgmptr');
   late final ___p__pgmptr = ___p__pgmptrPtr
       .asFunction<ffi.Pointer<ffi.Pointer<ffi.Char>> Function()>();
 
@@ -2206,9 +2348,10 @@ class NursorCore {
     return ___p__wpgmptr();
   }
 
-  late final ___p__wpgmptrPtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.WChar>> Function()>>(
-      '__p__wpgmptr');
+  late final ___p__wpgmptrPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Pointer<ffi.WChar>> Function()>
+      >('__p__wpgmptr');
   late final ___p__wpgmptr = ___p__wpgmptrPtr
       .asFunction<ffi.Pointer<ffi.Pointer<ffi.WChar>> Function()>();
 
@@ -2218,298 +2361,214 @@ class NursorCore {
 
   late final ___p__fmodePtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>(
-          '__p__fmode');
-  late final ___p__fmode =
-      ___p__fmodePtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
+        '__p__fmode',
+      );
+  late final ___p__fmode = ___p__fmodePtr
+      .asFunction<ffi.Pointer<ffi.Int> Function()>();
 
-  int _get_pgmptr(
-    ffi.Pointer<ffi.Pointer<ffi.Char>> _Value,
-  ) {
-    return __get_pgmptr(
-      _Value,
-    );
+  int _get_pgmptr(ffi.Pointer<ffi.Pointer<ffi.Char>> _Value) {
+    return __get_pgmptr(_Value);
   }
 
-  late final __get_pgmptrPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('_get_pgmptr');
+  late final __get_pgmptrPtr =
+      _lookup<
+        ffi.NativeFunction<errno_t Function(ffi.Pointer<ffi.Pointer<ffi.Char>>)>
+      >('_get_pgmptr');
   late final __get_pgmptr = __get_pgmptrPtr
       .asFunction<int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
-  int _get_wpgmptr(
-    ffi.Pointer<ffi.Pointer<ffi.WChar>> _Value,
-  ) {
-    return __get_wpgmptr(
-      _Value,
-    );
+  int _get_wpgmptr(ffi.Pointer<ffi.Pointer<ffi.WChar>> _Value) {
+    return __get_wpgmptr(_Value);
   }
 
-  late final __get_wpgmptrPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Pointer<ffi.Pointer<ffi.WChar>>)>>('_get_wpgmptr');
+  late final __get_wpgmptrPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Pointer<ffi.Pointer<ffi.WChar>>)
+        >
+      >('_get_wpgmptr');
   late final __get_wpgmptr = __get_wpgmptrPtr
       .asFunction<int Function(ffi.Pointer<ffi.Pointer<ffi.WChar>>)>();
 
-  int _set_fmode(
-    int _Mode,
-  ) {
-    return __set_fmode(
-      _Mode,
-    );
+  int _set_fmode(int _Mode) {
+    return __set_fmode(_Mode);
   }
 
   late final __set_fmodePtr =
       _lookup<ffi.NativeFunction<errno_t Function(ffi.Int)>>('_set_fmode');
   late final __set_fmode = __set_fmodePtr.asFunction<int Function(int)>();
 
-  int _get_fmode(
-    ffi.Pointer<ffi.Int> _PMode,
-  ) {
-    return __get_fmode(
-      _PMode,
-    );
+  int _get_fmode(ffi.Pointer<ffi.Int> _PMode) {
+    return __get_fmode(_PMode);
   }
 
   late final __get_fmodePtr =
       _lookup<ffi.NativeFunction<errno_t Function(ffi.Pointer<ffi.Int>)>>(
-          '_get_fmode');
-  late final __get_fmode =
-      __get_fmodePtr.asFunction<int Function(ffi.Pointer<ffi.Int>)>();
+        '_get_fmode',
+      );
+  late final __get_fmode = __get_fmodePtr
+      .asFunction<int Function(ffi.Pointer<ffi.Int>)>();
 
-  int abs(
-    int _Number,
-  ) {
-    return _abs(
-      _Number,
-    );
+  int abs(int _Number) {
+    return _abs(_Number);
   }
 
-  late final _absPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('abs');
+  late final _absPtr = _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>(
+    'abs',
+  );
   late final _abs = _absPtr.asFunction<int Function(int)>();
 
-  int labs(
-    int _Number,
-  ) {
-    return _labs(
-      _Number,
-    );
+  int labs(int _Number) {
+    return _labs(_Number);
   }
 
   late final _labsPtr =
       _lookup<ffi.NativeFunction<ffi.Long Function(ffi.Long)>>('labs');
   late final _labs = _labsPtr.asFunction<int Function(int)>();
 
-  int llabs(
-    int _Number,
-  ) {
-    return _llabs(
-      _Number,
-    );
+  int llabs(int _Number) {
+    return _llabs(_Number);
   }
 
   late final _llabsPtr =
       _lookup<ffi.NativeFunction<ffi.LongLong Function(ffi.LongLong)>>('llabs');
   late final _llabs = _llabsPtr.asFunction<int Function(int)>();
 
-  int _abs64(
-    int _Number,
-  ) {
-    return __abs64(
-      _Number,
-    );
+  int _abs64(int _Number) {
+    return __abs64(_Number);
   }
 
   late final __abs64Ptr =
       _lookup<ffi.NativeFunction<ffi.LongLong Function(ffi.LongLong)>>(
-          '_abs64');
+        '_abs64',
+      );
   late final __abs64 = __abs64Ptr.asFunction<int Function(int)>();
 
-  int _byteswap_ushort(
-    int _Number,
-  ) {
-    return __byteswap_ushort(
-      _Number,
-    );
+  int _byteswap_ushort(int _Number) {
+    return __byteswap_ushort(_Number);
   }
 
-  late final __byteswap_ushortPtr = _lookup<
-          ffi.NativeFunction<ffi.UnsignedShort Function(ffi.UnsignedShort)>>(
-      '_byteswap_ushort');
-  late final __byteswap_ushort =
-      __byteswap_ushortPtr.asFunction<int Function(int)>();
+  late final __byteswap_ushortPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedShort Function(ffi.UnsignedShort)>
+      >('_byteswap_ushort');
+  late final __byteswap_ushort = __byteswap_ushortPtr
+      .asFunction<int Function(int)>();
 
-  int _byteswap_ulong(
-    int _Number,
-  ) {
-    return __byteswap_ulong(
-      _Number,
-    );
+  int _byteswap_ulong(int _Number) {
+    return __byteswap_ulong(_Number);
   }
 
   late final __byteswap_ulongPtr =
       _lookup<ffi.NativeFunction<ffi.UnsignedLong Function(ffi.UnsignedLong)>>(
-          '_byteswap_ulong');
-  late final __byteswap_ulong =
-      __byteswap_ulongPtr.asFunction<int Function(int)>();
+        '_byteswap_ulong',
+      );
+  late final __byteswap_ulong = __byteswap_ulongPtr
+      .asFunction<int Function(int)>();
 
-  int _byteswap_uint64(
-    int _Number,
-  ) {
-    return __byteswap_uint64(
-      _Number,
-    );
+  int _byteswap_uint64(int _Number) {
+    return __byteswap_uint64(_Number);
   }
 
-  late final __byteswap_uint64Ptr = _lookup<
-          ffi
-          .NativeFunction<ffi.UnsignedLongLong Function(ffi.UnsignedLongLong)>>(
-      '_byteswap_uint64');
-  late final __byteswap_uint64 =
-      __byteswap_uint64Ptr.asFunction<int Function(int)>();
+  late final __byteswap_uint64Ptr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedLongLong Function(ffi.UnsignedLongLong)>
+      >('_byteswap_uint64');
+  late final __byteswap_uint64 = __byteswap_uint64Ptr
+      .asFunction<int Function(int)>();
 
-  div_t div(
-    int _Numerator,
-    int _Denominator,
-  ) {
-    return _div(
-      _Numerator,
-      _Denominator,
-    );
+  div_t div(int _Numerator, int _Denominator) {
+    return _div(_Numerator, _Denominator);
   }
 
   late final _divPtr =
       _lookup<ffi.NativeFunction<div_t Function(ffi.Int, ffi.Int)>>('div');
   late final _div = _divPtr.asFunction<div_t Function(int, int)>();
 
-  ldiv_t ldiv(
-    int _Numerator,
-    int _Denominator,
-  ) {
-    return _ldiv(
-      _Numerator,
-      _Denominator,
-    );
+  ldiv_t ldiv(int _Numerator, int _Denominator) {
+    return _ldiv(_Numerator, _Denominator);
   }
 
   late final _ldivPtr =
       _lookup<ffi.NativeFunction<ldiv_t Function(ffi.Long, ffi.Long)>>('ldiv');
   late final _ldiv = _ldivPtr.asFunction<ldiv_t Function(int, int)>();
 
-  lldiv_t lldiv(
-    int _Numerator,
-    int _Denominator,
-  ) {
-    return _lldiv(
-      _Numerator,
-      _Denominator,
-    );
+  lldiv_t lldiv(int _Numerator, int _Denominator) {
+    return _lldiv(_Numerator, _Denominator);
   }
 
   late final _lldivPtr =
       _lookup<ffi.NativeFunction<lldiv_t Function(ffi.LongLong, ffi.LongLong)>>(
-          'lldiv');
+        'lldiv',
+      );
   late final _lldiv = _lldivPtr.asFunction<lldiv_t Function(int, int)>();
 
-  int _rotl(
-    int _Value,
-    int _Shift,
-  ) {
-    return __rotl(
-      _Value,
-      _Shift,
-    );
+  int _rotl(int _Value, int _Shift) {
+    return __rotl(_Value, _Shift);
   }
 
-  late final __rotlPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedInt Function(ffi.UnsignedInt, ffi.Int)>>('_rotl');
+  late final __rotlPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.UnsignedInt, ffi.Int)>
+      >('_rotl');
   late final __rotl = __rotlPtr.asFunction<int Function(int, int)>();
 
-  int _lrotl(
-    int _Value,
-    int _Shift,
-  ) {
-    return __lrotl(
-      _Value,
-      _Shift,
-    );
+  int _lrotl(int _Value, int _Shift) {
+    return __lrotl(_Value, _Shift);
   }
 
-  late final __lrotlPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.UnsignedLong, ffi.Int)>>('_lrotl');
+  late final __lrotlPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedLong Function(ffi.UnsignedLong, ffi.Int)>
+      >('_lrotl');
   late final __lrotl = __lrotlPtr.asFunction<int Function(int, int)>();
 
-  int _rotl64(
-    int _Value,
-    int _Shift,
-  ) {
-    return __rotl64(
-      _Value,
-      _Shift,
-    );
+  int _rotl64(int _Value, int _Shift) {
+    return __rotl64(_Value, _Shift);
   }
 
-  late final __rotl64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(
-              ffi.UnsignedLongLong, ffi.Int)>>('_rotl64');
+  late final __rotl64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(ffi.UnsignedLongLong, ffi.Int)
+        >
+      >('_rotl64');
   late final __rotl64 = __rotl64Ptr.asFunction<int Function(int, int)>();
 
-  int _rotr(
-    int _Value,
-    int _Shift,
-  ) {
-    return __rotr(
-      _Value,
-      _Shift,
-    );
+  int _rotr(int _Value, int _Shift) {
+    return __rotr(_Value, _Shift);
   }
 
-  late final __rotrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedInt Function(ffi.UnsignedInt, ffi.Int)>>('_rotr');
+  late final __rotrPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.UnsignedInt, ffi.Int)>
+      >('_rotr');
   late final __rotr = __rotrPtr.asFunction<int Function(int, int)>();
 
-  int _lrotr(
-    int _Value,
-    int _Shift,
-  ) {
-    return __lrotr(
-      _Value,
-      _Shift,
-    );
+  int _lrotr(int _Value, int _Shift) {
+    return __lrotr(_Value, _Shift);
   }
 
-  late final __lrotrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.UnsignedLong, ffi.Int)>>('_lrotr');
+  late final __lrotrPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.UnsignedLong Function(ffi.UnsignedLong, ffi.Int)>
+      >('_lrotr');
   late final __lrotr = __lrotrPtr.asFunction<int Function(int, int)>();
 
-  int _rotr64(
-    int _Value,
-    int _Shift,
-  ) {
-    return __rotr64(
-      _Value,
-      _Shift,
-    );
+  int _rotr64(int _Value, int _Shift) {
+    return __rotr64(_Value, _Shift);
   }
 
-  late final __rotr64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(
-              ffi.UnsignedLongLong, ffi.Int)>>('_rotr64');
+  late final __rotr64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(ffi.UnsignedLongLong, ffi.Int)
+        >
+      >('_rotr64');
   late final __rotr64 = __rotr64Ptr.asFunction<int Function(int, int)>();
 
-  void srand(
-    int _Seed,
-  ) {
-    return _srand(
-      _Seed,
-    );
+  void srand(int _Seed) {
+    return _srand(_Seed);
   }
 
   late final _srandPtr =
@@ -2523,203 +2582,160 @@ class NursorCore {
   late final _randPtr = _lookup<ffi.NativeFunction<ffi.Int Function()>>('rand');
   late final _rand = _randPtr.asFunction<int Function()>();
 
-  double atof(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return _atof(
-      _String,
-    );
+  double atof(ffi.Pointer<ffi.Char> _String) {
+    return _atof(_String);
   }
 
   late final _atofPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Char>)>>(
-          'atof');
-  late final _atof =
-      _atofPtr.asFunction<double Function(ffi.Pointer<ffi.Char>)>();
+        'atof',
+      );
+  late final _atof = _atofPtr
+      .asFunction<double Function(ffi.Pointer<ffi.Char>)>();
 
-  int atoi(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return _atoi(
-      _String,
-    );
+  int atoi(ffi.Pointer<ffi.Char> _String) {
+    return _atoi(_String);
   }
 
   late final _atoiPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'atoi');
+        'atoi',
+      );
   late final _atoi = _atoiPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int atol(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return _atol(
-      _String,
-    );
+  int atol(ffi.Pointer<ffi.Char> _String) {
+    return _atol(_String);
   }
 
   late final _atolPtr =
       _lookup<ffi.NativeFunction<ffi.Long Function(ffi.Pointer<ffi.Char>)>>(
-          'atol');
+        'atol',
+      );
   late final _atol = _atolPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int atoll(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return _atoll(
-      _String,
-    );
+  int atoll(ffi.Pointer<ffi.Char> _String) {
+    return _atoll(_String);
   }
 
   late final _atollPtr =
       _lookup<ffi.NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.Char>)>>(
-          'atoll');
-  late final _atoll =
-      _atollPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        'atoll',
+      );
+  late final _atoll = _atollPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int _atoi64(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return __atoi64(
-      _String,
-    );
+  int _atoi64(ffi.Pointer<ffi.Char> _String) {
+    return __atoi64(_String);
   }
 
   late final __atoi64Ptr =
       _lookup<ffi.NativeFunction<ffi.LongLong Function(ffi.Pointer<ffi.Char>)>>(
-          '_atoi64');
-  late final __atoi64 =
-      __atoi64Ptr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        '_atoi64',
+      );
+  late final __atoi64 = __atoi64Ptr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  double _atof_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __atof_l(
-      _String,
-      _Locale,
-    );
+  double _atof_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __atof_l(_String, _Locale);
   }
 
-  late final __atof_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.Char>, _locale_t)>>('_atof_l');
+  late final __atof_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(ffi.Pointer<ffi.Char>, _locale_t)
+        >
+      >('_atof_l');
   late final __atof_l = __atof_lPtr
       .asFunction<double Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _atoi_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __atoi_l(
-      _String,
-      _Locale,
-    );
+  int _atoi_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __atoi_l(_String, _Locale);
   }
 
-  late final __atoi_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, _locale_t)>>('_atoi_l');
-  late final __atoi_l =
-      __atoi_lPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atoi_lPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, _locale_t)>
+      >('_atoi_l');
+  late final __atoi_l = __atoi_lPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _atol_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __atol_l(
-      _String,
-      _Locale,
-    );
+  int _atol_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __atol_l(_String, _Locale);
   }
 
-  late final __atol_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.Char>, _locale_t)>>('_atol_l');
-  late final __atol_l =
-      __atol_lPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atol_lPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Long Function(ffi.Pointer<ffi.Char>, _locale_t)>
+      >('_atol_l');
+  late final __atol_l = __atol_lPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _atoll_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __atoll_l(
-      _String,
-      _Locale,
-    );
+  int _atoll_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __atoll_l(_String, _Locale);
   }
 
-  late final __atoll_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(ffi.Pointer<ffi.Char>, _locale_t)>>('_atoll_l');
-  late final __atoll_l =
-      __atoll_lPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atoll_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(ffi.Pointer<ffi.Char>, _locale_t)
+        >
+      >('_atoll_l');
+  late final __atoll_l = __atoll_lPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _atoi64_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __atoi64_l(
-      _String,
-      _Locale,
-    );
+  int _atoi64_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __atoi64_l(_String, _Locale);
   }
 
-  late final __atoi64_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(
-              ffi.Pointer<ffi.Char>, _locale_t)>>('_atoi64_l');
+  late final __atoi64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(ffi.Pointer<ffi.Char>, _locale_t)
+        >
+      >('_atoi64_l');
   late final __atoi64_l = __atoi64_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _atoflt(
-    ffi.Pointer<_CRT_FLOAT> _Result,
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return __atoflt(
-      _Result,
-      _String,
-    );
+  int _atoflt(ffi.Pointer<_CRT_FLOAT> _Result, ffi.Pointer<ffi.Char> _String) {
+    return __atoflt(_Result, _String);
   }
 
-  late final __atofltPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>)>>('_atoflt');
-  late final __atoflt = __atofltPtr.asFunction<
-      int Function(ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>)>();
+  late final __atofltPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>)
+        >
+      >('_atoflt');
+  late final __atoflt = __atofltPtr
+      .asFunction<
+        int Function(ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>)
+      >();
 
-  int _atodbl(
-    ffi.Pointer<_CRT_DOUBLE> _Result,
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return __atodbl(
-      _Result,
-      _String,
-    );
+  int _atodbl(ffi.Pointer<_CRT_DOUBLE> _Result, ffi.Pointer<ffi.Char> _String) {
+    return __atodbl(_Result, _String);
   }
 
-  late final __atodblPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>)>>('_atodbl');
-  late final __atodbl = __atodblPtr.asFunction<
-      int Function(ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>)>();
+  late final __atodblPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>)
+        >
+      >('_atodbl');
+  late final __atodbl = __atodblPtr
+      .asFunction<
+        int Function(ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>)
+      >();
 
-  int _atoldbl(
-    ffi.Pointer<_LDOUBLE> _Result,
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return __atoldbl(
-      _Result,
-      _String,
-    );
+  int _atoldbl(ffi.Pointer<_LDOUBLE> _Result, ffi.Pointer<ffi.Char> _String) {
+    return __atoldbl(_Result, _String);
   }
 
-  late final __atoldblPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>)>>('_atoldbl');
+  late final __atoldblPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>)
+        >
+      >('_atoldbl');
   late final __atoldbl = __atoldblPtr
       .asFunction<int Function(ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>)>();
 
@@ -2728,155 +2744,198 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _String,
     _locale_t _Locale,
   ) {
-    return __atoflt_l(
-      _Result,
-      _String,
-      _Locale,
-    );
+    return __atoflt_l(_Result, _String, _Locale);
   }
 
-  late final __atoflt_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>,
-              _locale_t)>>('_atoflt_l');
-  late final __atoflt_l = __atoflt_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atoflt_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(
+            ffi.Pointer<_CRT_FLOAT>,
+            ffi.Pointer<ffi.Char>,
+            _locale_t,
+          )
+        >
+      >('_atoflt_l');
+  late final __atoflt_l = __atoflt_lPtr
+      .asFunction<
+        int Function(ffi.Pointer<_CRT_FLOAT>, ffi.Pointer<ffi.Char>, _locale_t)
+      >();
 
   int _atodbl_l(
     ffi.Pointer<_CRT_DOUBLE> _Result,
     ffi.Pointer<ffi.Char> _String,
     _locale_t _Locale,
   ) {
-    return __atodbl_l(
-      _Result,
-      _String,
-      _Locale,
-    );
+    return __atodbl_l(_Result, _String, _Locale);
   }
 
-  late final __atodbl_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>,
-              _locale_t)>>('_atodbl_l');
-  late final __atodbl_l = __atodbl_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atodbl_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(
+            ffi.Pointer<_CRT_DOUBLE>,
+            ffi.Pointer<ffi.Char>,
+            _locale_t,
+          )
+        >
+      >('_atodbl_l');
+  late final __atodbl_l = __atodbl_lPtr
+      .asFunction<
+        int Function(ffi.Pointer<_CRT_DOUBLE>, ffi.Pointer<ffi.Char>, _locale_t)
+      >();
 
   int _atoldbl_l(
     ffi.Pointer<_LDOUBLE> _Result,
     ffi.Pointer<ffi.Char> _String,
     _locale_t _Locale,
   ) {
-    return __atoldbl_l(
-      _Result,
-      _String,
-      _Locale,
-    );
+    return __atoldbl_l(_Result, _String, _Locale);
   }
 
-  late final __atoldbl_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>,
-              _locale_t)>>('_atoldbl_l');
-  late final __atoldbl_l = __atoldbl_lPtr.asFunction<
-      int Function(ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>, _locale_t)>();
+  late final __atoldbl_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(
+            ffi.Pointer<_LDOUBLE>,
+            ffi.Pointer<ffi.Char>,
+            _locale_t,
+          )
+        >
+      >('_atoldbl_l');
+  late final __atoldbl_l = __atoldbl_lPtr
+      .asFunction<
+        int Function(ffi.Pointer<_LDOUBLE>, ffi.Pointer<ffi.Char>, _locale_t)
+      >();
 
   double strtof(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
   ) {
-    return _strtof(
-      _String,
-      _EndPtr,
-    );
+    return _strtof(_String, _EndPtr);
   }
 
-  late final _strtofPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('strtof');
-  late final _strtof = _strtofPtr.asFunction<
-      double Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
+  late final _strtofPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Float Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('strtof');
+  late final _strtof = _strtofPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        )
+      >();
 
   double _strtof_l(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     _locale_t _Locale,
   ) {
-    return __strtof_l(
-      _String,
-      _EndPtr,
-      _Locale,
-    );
+    return __strtof_l(_String, _EndPtr, _Locale);
   }
 
-  late final __strtof_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, _locale_t)>>('_strtof_l');
-  late final __strtof_l = __strtof_lPtr.asFunction<
-      double Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          _locale_t)>();
+  late final __strtof_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Float Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            _locale_t,
+          )
+        >
+      >('_strtof_l');
+  late final __strtof_l = __strtof_lPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          _locale_t,
+        )
+      >();
 
   double strtod(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
   ) {
-    return _strtod(
-      _String,
-      _EndPtr,
-    );
+    return _strtod(_String, _EndPtr);
   }
 
-  late final _strtodPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('strtod');
-  late final _strtod = _strtodPtr.asFunction<
-      double Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
+  late final _strtodPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('strtod');
+  late final _strtod = _strtodPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        )
+      >();
 
   double _strtod_l(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     _locale_t _Locale,
   ) {
-    return __strtod_l(
-      _String,
-      _EndPtr,
-      _Locale,
-    );
+    return __strtod_l(_String, _EndPtr, _Locale);
   }
 
-  late final __strtod_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, _locale_t)>>('_strtod_l');
-  late final __strtod_l = __strtod_lPtr.asFunction<
-      double Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          _locale_t)>();
+  late final __strtod_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Double Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            _locale_t,
+          )
+        >
+      >('_strtod_l');
+  late final __strtod_l = __strtod_lPtr
+      .asFunction<
+        double Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          _locale_t,
+        )
+      >();
 
   int strtol(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return _strtol(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _strtol(_String, _EndPtr, _Radix);
   }
 
-  late final _strtolPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('strtol');
-  late final _strtol = _strtolPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final _strtolPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Long Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('strtol');
+  late final _strtol = _strtolPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtol_l(
     ffi.Pointer<ffi.Char> _String,
@@ -2884,44 +2943,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtol_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtol_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtol_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtol_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Long Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtol_l');
-  late final __strtol_l = __strtol_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtol_l');
+  late final __strtol_l = __strtol_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int strtoll(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return _strtoll(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _strtoll(_String, _EndPtr, _Radix);
   }
 
-  late final _strtollPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('strtoll');
-  late final _strtoll = _strtollPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final _strtollPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('strtoll');
+  late final _strtoll = _strtollPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtoll_l(
     ffi.Pointer<ffi.Char> _String,
@@ -2929,44 +3000,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtoll_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtoll_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtoll_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtoll_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.LongLong Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtoll_l');
-  late final __strtoll_l = __strtoll_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtoll_l');
+  late final __strtoll_l = __strtoll_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int strtoul(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return _strtoul(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _strtoul(_String, _EndPtr, _Radix);
   }
 
-  late final _strtoulPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('strtoul');
-  late final _strtoul = _strtoulPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final _strtoulPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLong Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('strtoul');
+  late final _strtoul = _strtoulPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtoul_l(
     ffi.Pointer<ffi.Char> _String,
@@ -2974,44 +3057,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtoul_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtoul_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtoul_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtoul_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtoul_l');
-  late final __strtoul_l = __strtoul_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtoul_l');
+  late final __strtoul_l = __strtoul_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int strtoull(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return _strtoull(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return _strtoull(_String, _EndPtr, _Radix);
   }
 
-  late final _strtoullPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('strtoull');
-  late final _strtoull = _strtoullPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final _strtoullPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('strtoull');
+  late final _strtoull = _strtoullPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtoull_l(
     ffi.Pointer<ffi.Char> _String,
@@ -3019,44 +3114,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtoull_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtoull_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtoull_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtoull_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLongLong Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtoull_l');
-  late final __strtoull_l = __strtoull_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtoull_l');
+  late final __strtoull_l = __strtoull_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _strtoi64(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return __strtoi64(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return __strtoi64(_String, _EndPtr, _Radix);
   }
 
-  late final __strtoi64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.LongLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('_strtoi64');
-  late final __strtoi64 = __strtoi64Ptr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final __strtoi64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.LongLong Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('_strtoi64');
+  late final __strtoi64 = __strtoi64Ptr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtoi64_l(
     ffi.Pointer<ffi.Char> _String,
@@ -3064,44 +3171,56 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtoi64_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtoi64_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtoi64_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtoi64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.LongLong Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtoi64_l');
-  late final __strtoi64_l = __strtoi64_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtoi64_l');
+  late final __strtoi64_l = __strtoi64_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _strtoui64(
     ffi.Pointer<ffi.Char> _String,
     ffi.Pointer<ffi.Pointer<ffi.Char>> _EndPtr,
     int _Radix,
   ) {
-    return __strtoui64(
-      _String,
-      _EndPtr,
-      _Radix,
-    );
+    return __strtoui64(_String, _EndPtr, _Radix);
   }
 
-  late final __strtoui64Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLongLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('_strtoui64');
-  late final __strtoui64 = __strtoui64Ptr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
+  late final __strtoui64Ptr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLongLong Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+          )
+        >
+      >('_strtoui64');
+  late final __strtoui64 = __strtoui64Ptr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+        )
+      >();
 
   int _strtoui64_l(
     ffi.Pointer<ffi.Char> _String,
@@ -3109,24 +3228,29 @@ class NursorCore {
     int _Radix,
     _locale_t _Locale,
   ) {
-    return __strtoui64_l(
-      _String,
-      _EndPtr,
-      _Radix,
-      _Locale,
-    );
+    return __strtoui64_l(_String, _EndPtr, _Radix, _Locale);
   }
 
-  late final __strtoui64_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __strtoui64_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.UnsignedLongLong Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Int,
-              _locale_t)>>('_strtoui64_l');
-  late final __strtoui64_l = __strtoui64_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
-          int, _locale_t)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Int,
+            _locale_t,
+          )
+        >
+      >('_strtoui64_l');
+  late final __strtoui64_l = __strtoui64_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _itoa_s(
     int _Value,
@@ -3134,18 +3258,15 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __itoa_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __itoa_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __itoa_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>('_itoa_s');
+  late final __itoa_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)
+        >
+      >('_itoa_s');
   late final __itoa_s = __itoa_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
 
@@ -3154,19 +3275,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return __itoa(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __itoa(_Value, _Buffer, _Radix);
   }
 
-  late final __itoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final __itoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int)>>('_itoa');
-  late final __itoa = __itoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Int,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_itoa');
+  late final __itoa = __itoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _ltoa_s(
     int _Value,
@@ -3174,18 +3299,15 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ltoa_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ltoa_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ltoa_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Long, ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>('_ltoa_s');
+  late final __ltoa_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Long, ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)
+        >
+      >('_ltoa_s');
   late final __ltoa_s = __ltoa_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
 
@@ -3194,19 +3316,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return __ltoa(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ltoa(_Value, _Buffer, _Radix);
   }
 
-  late final __ltoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final __ltoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Long, ffi.Pointer<ffi.Char>, ffi.Int)>>('_ltoa');
-  late final __ltoa = __ltoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Long,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_ltoa');
+  late final __ltoa = __ltoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _ultoa_s(
     int _Value,
@@ -3214,18 +3340,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ultoa_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ultoa_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ultoa_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.UnsignedLong, ffi.Pointer<ffi.Char>, ffi.Size,
-              ffi.Int)>>('_ultoa_s');
+  late final __ultoa_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.UnsignedLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_ultoa_s');
   late final __ultoa_s = __ultoa_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
 
@@ -3234,19 +3362,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return __ultoa(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ultoa(_Value, _Buffer, _Radix);
   }
 
-  late final __ultoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final __ultoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.UnsignedLong, ffi.Pointer<ffi.Char>, ffi.Int)>>('_ultoa');
-  late final __ultoa = __ultoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.UnsignedLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_ultoa');
+  late final __ultoa = __ultoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _i64toa_s(
     int _Value,
@@ -3254,18 +3386,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __i64toa_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __i64toa_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __i64toa_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.LongLong, ffi.Pointer<ffi.Char>, ffi.Size,
-              ffi.Int)>>('_i64toa_s');
+  late final __i64toa_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.LongLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_i64toa_s');
   late final __i64toa_s = __i64toa_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
 
@@ -3274,19 +3408,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return __i64toa(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __i64toa(_Value, _Buffer, _Radix);
   }
 
-  late final __i64toaPtr = _lookup<
-      ffi.NativeFunction<
+  late final __i64toaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.LongLong, ffi.Pointer<ffi.Char>, ffi.Int)>>('_i64toa');
-  late final __i64toa = __i64toaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.LongLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_i64toa');
+  late final __i64toa = __i64toaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _ui64toa_s(
     int _Value,
@@ -3294,18 +3432,20 @@ class NursorCore {
     int _BufferCount,
     int _Radix,
   ) {
-    return __ui64toa_s(
-      _Value,
-      _Buffer,
-      _BufferCount,
-      _Radix,
-    );
+    return __ui64toa_s(_Value, _Buffer, _BufferCount, _Radix);
   }
 
-  late final __ui64toa_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.UnsignedLongLong, ffi.Pointer<ffi.Char>,
-              ffi.Size, ffi.Int)>>('_ui64toa_s');
+  late final __ui64toa_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.UnsignedLongLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Int,
+          )
+        >
+      >('_ui64toa_s');
   late final __ui64toa_s = __ui64toa_sPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
 
@@ -3314,19 +3454,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return __ui64toa(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return __ui64toa(_Value, _Buffer, _Radix);
   }
 
-  late final __ui64toaPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.UnsignedLongLong,
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('_ui64toa');
-  late final __ui64toa = __ui64toaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+  late final __ui64toaPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.UnsignedLongLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('_ui64toa');
+  late final __ui64toa = __ui64toaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _ecvt_s(
     ffi.Pointer<ffi.Char> _Buffer,
@@ -3346,13 +3490,30 @@ class NursorCore {
     );
   }
 
-  late final __ecvt_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('_ecvt_s');
-  late final __ecvt_s = __ecvt_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, int, double, int,
-          ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final __ecvt_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('_ecvt_s');
+  late final __ecvt_s = __ecvt_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          int,
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   ffi.Pointer<ffi.Char> _ecvt(
     double _Value,
@@ -3360,21 +3521,29 @@ class NursorCore {
     ffi.Pointer<ffi.Int> _PtDec,
     ffi.Pointer<ffi.Int> _PtSign,
   ) {
-    return __ecvt(
-      _Value,
-      _DigitCount,
-      _PtDec,
-      _PtSign,
-    );
+    return __ecvt(_Value, _DigitCount, _PtDec, _PtSign);
   }
 
-  late final __ecvtPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('_ecvt');
-  late final __ecvt = __ecvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          double, int, ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final __ecvtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('_ecvt');
+  late final __ecvt = __ecvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   int _fcvt_s(
     ffi.Pointer<ffi.Char> _Buffer,
@@ -3394,13 +3563,30 @@ class NursorCore {
     );
   }
 
-  late final __fcvt_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('_fcvt_s');
-  late final __fcvt_s = __fcvt_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, int, double, int,
-          ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final __fcvt_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('_fcvt_s');
+  late final __fcvt_s = __fcvt_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          int,
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   ffi.Pointer<ffi.Char> _fcvt(
     double _Value,
@@ -3408,21 +3594,29 @@ class NursorCore {
     ffi.Pointer<ffi.Int> _PtDec,
     ffi.Pointer<ffi.Int> _PtSign,
   ) {
-    return __fcvt(
-      _Value,
-      _FractionalDigitCount,
-      _PtDec,
-      _PtSign,
-    );
+    return __fcvt(_Value, _FractionalDigitCount, _PtDec, _PtSign);
   }
 
-  late final __fcvtPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('_fcvt');
-  late final __fcvt = __fcvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          double, int, ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final __fcvtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('_fcvt');
+  late final __fcvt = __fcvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   int _gcvt_s(
     ffi.Pointer<ffi.Char> _Buffer,
@@ -3430,18 +3624,15 @@ class NursorCore {
     double _Value,
     int _DigitCount,
   ) {
-    return __gcvt_s(
-      _Buffer,
-      _BufferCount,
-      _Value,
-      _DigitCount,
-    );
+    return __gcvt_s(_Buffer, _BufferCount, _Value, _DigitCount);
   }
 
-  late final __gcvt_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Double,
-              ffi.Int)>>('_gcvt_s');
+  late final __gcvt_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Double, ffi.Int)
+        >
+      >('_gcvt_s');
   late final __gcvt_s = __gcvt_sPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, int, double, int)>();
 
@@ -3450,19 +3641,23 @@ class NursorCore {
     int _DigitCount,
     ffi.Pointer<ffi.Char> _Buffer,
   ) {
-    return __gcvt(
-      _Value,
-      _DigitCount,
-      _Buffer,
-    );
+    return __gcvt(_Value, _DigitCount, _Buffer);
   }
 
-  late final __gcvtPtr = _lookup<
-      ffi.NativeFunction<
+  late final __gcvtPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Double, ffi.Int, ffi.Pointer<ffi.Char>)>>('_gcvt');
-  late final __gcvt = __gcvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(double, int, ffi.Pointer<ffi.Char>)>();
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_gcvt');
+  late final __gcvt = __gcvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(double, int, ffi.Pointer<ffi.Char>)
+      >();
 
   int ___mb_cur_max_func() {
     return ____mb_cur_max_func();
@@ -3470,120 +3665,91 @@ class NursorCore {
 
   late final ____mb_cur_max_funcPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function()>>('___mb_cur_max_func');
-  late final ____mb_cur_max_func =
-      ____mb_cur_max_funcPtr.asFunction<int Function()>();
+  late final ____mb_cur_max_func = ____mb_cur_max_funcPtr
+      .asFunction<int Function()>();
 
-  int ___mb_cur_max_l_func(
-    _locale_t _Locale,
-  ) {
-    return ____mb_cur_max_l_func(
-      _Locale,
-    );
+  int ___mb_cur_max_l_func(_locale_t _Locale) {
+    return ____mb_cur_max_l_func(_Locale);
   }
 
   late final ____mb_cur_max_l_funcPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(_locale_t)>>(
-          '___mb_cur_max_l_func');
-  late final ____mb_cur_max_l_func =
-      ____mb_cur_max_l_funcPtr.asFunction<int Function(_locale_t)>();
+        '___mb_cur_max_l_func',
+      );
+  late final ____mb_cur_max_l_func = ____mb_cur_max_l_funcPtr
+      .asFunction<int Function(_locale_t)>();
 
-  int mblen(
-    ffi.Pointer<ffi.Char> _Ch,
-    int _MaxCount,
-  ) {
-    return _mblen(
-      _Ch,
-      _MaxCount,
-    );
+  int mblen(ffi.Pointer<ffi.Char> _Ch, int _MaxCount) {
+    return _mblen(_Ch, _MaxCount);
   }
 
-  late final _mblenPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('mblen');
-  late final _mblen =
-      _mblenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
+  late final _mblenPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>
+      >('mblen');
+  late final _mblen = _mblenPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
-  int _mblen_l(
-    ffi.Pointer<ffi.Char> _Ch,
-    int _MaxCount,
-    _locale_t _Locale,
-  ) {
-    return __mblen_l(
-      _Ch,
-      _MaxCount,
-      _Locale,
-    );
+  int _mblen_l(ffi.Pointer<ffi.Char> _Ch, int _MaxCount, _locale_t _Locale) {
+    return __mblen_l(_Ch, _MaxCount, _Locale);
   }
 
-  late final __mblen_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Size, _locale_t)>>('_mblen_l');
+  late final __mblen_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size, _locale_t)
+        >
+      >('_mblen_l');
   late final __mblen_l = __mblen_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, int, _locale_t)>();
 
-  int _mbstrlen(
-    ffi.Pointer<ffi.Char> _String,
-  ) {
-    return __mbstrlen(
-      _String,
-    );
+  int _mbstrlen(ffi.Pointer<ffi.Char> _String) {
+    return __mbstrlen(_String);
   }
 
   late final __mbstrlenPtr =
       _lookup<ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Char>)>>(
-          '_mbstrlen');
-  late final __mbstrlen =
-      __mbstrlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        '_mbstrlen',
+      );
+  late final __mbstrlen = __mbstrlenPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int _mbstrlen_l(
-    ffi.Pointer<ffi.Char> _String,
-    _locale_t _Locale,
-  ) {
-    return __mbstrlen_l(
-      _String,
-      _Locale,
-    );
+  int _mbstrlen_l(ffi.Pointer<ffi.Char> _String, _locale_t _Locale) {
+    return __mbstrlen_l(_String, _Locale);
   }
 
-  late final __mbstrlen_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, _locale_t)>>('_mbstrlen_l');
+  late final __mbstrlen_lPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Char>, _locale_t)>
+      >('_mbstrlen_l');
   late final __mbstrlen_l = __mbstrlen_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, _locale_t)>();
 
-  int _mbstrnlen(
-    ffi.Pointer<ffi.Char> _String,
-    int _MaxCount,
-  ) {
-    return __mbstrnlen(
-      _String,
-      _MaxCount,
-    );
+  int _mbstrnlen(ffi.Pointer<ffi.Char> _String, int _MaxCount) {
+    return __mbstrnlen(_String, _MaxCount);
   }
 
-  late final __mbstrnlenPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('_mbstrnlen');
-  late final __mbstrnlen =
-      __mbstrnlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
+  late final __mbstrnlenPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>
+      >('_mbstrnlen');
+  late final __mbstrnlen = __mbstrnlenPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
   int _mbstrnlen_l(
     ffi.Pointer<ffi.Char> _String,
     int _MaxCount,
     _locale_t _Locale,
   ) {
-    return __mbstrnlen_l(
-      _String,
-      _MaxCount,
-      _Locale,
-    );
+    return __mbstrnlen_l(_String, _MaxCount, _Locale);
   }
 
-  late final __mbstrnlen_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(
-              ffi.Pointer<ffi.Char>, ffi.Size, _locale_t)>>('_mbstrnlen_l');
+  late final __mbstrnlen_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size, _locale_t)
+        >
+      >('_mbstrnlen_l');
   late final __mbstrnlen_l = __mbstrnlen_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, int, _locale_t)>();
 
@@ -3592,19 +3758,23 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _SrcCh,
     int _SrcSizeInBytes,
   ) {
-    return _mbtowc(
-      _DstCh,
-      _SrcCh,
-      _SrcSizeInBytes,
-    );
+    return _mbtowc(_DstCh, _SrcCh, _SrcSizeInBytes);
   }
 
-  late final _mbtowcPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('mbtowc');
-  late final _mbtowc = _mbtowcPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int)>();
+  late final _mbtowcPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('mbtowc');
+  late final _mbtowc = _mbtowcPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _mbtowc_l(
     ffi.Pointer<ffi.WChar> _DstCh,
@@ -3612,21 +3782,29 @@ class NursorCore {
     int _SrcSizeInBytes,
     _locale_t _Locale,
   ) {
-    return __mbtowc_l(
-      _DstCh,
-      _SrcCh,
-      _SrcSizeInBytes,
-      _Locale,
-    );
+    return __mbtowc_l(_DstCh, _SrcCh, _SrcSizeInBytes, _Locale);
   }
 
-  late final __mbtowc_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>,
-              ffi.Size, _locale_t)>>('_mbtowc_l');
-  late final __mbtowc_l = __mbtowc_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int, _locale_t)>();
+  late final __mbtowc_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            _locale_t,
+          )
+        >
+      >('_mbtowc_l');
+  late final __mbtowc_l = __mbtowc_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int mbstowcs_s(
     ffi.Pointer<ffi.Size> _PtNumOfCharConverted,
@@ -3644,32 +3822,51 @@ class NursorCore {
     );
   }
 
-  late final _mbstowcs_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>,
-              ffi.Size, ffi.Pointer<ffi.Char>, ffi.Size)>>('mbstowcs_s');
-  late final _mbstowcs_s = _mbstowcs_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>, int,
-          ffi.Pointer<ffi.Char>, int)>();
+  late final _mbstowcs_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('mbstowcs_s');
+  late final _mbstowcs_s = _mbstowcs_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+        )
+      >();
 
   int mbstowcs(
     ffi.Pointer<ffi.WChar> _Dest,
     ffi.Pointer<ffi.Char> _Source,
     int _MaxCount,
   ) {
-    return _mbstowcs(
-      _Dest,
-      _Source,
-      _MaxCount,
-    );
+    return _mbstowcs(_Dest, _Source, _MaxCount);
   }
 
-  late final _mbstowcsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('mbstowcs');
-  late final _mbstowcs = _mbstowcsPtr.asFunction<
-      int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int)>();
+  late final _mbstowcsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('mbstowcs');
+  late final _mbstowcs = _mbstowcsPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int)
+      >();
 
   int _mbstowcs_s_l(
     ffi.Pointer<ffi.Size> _PtNumOfCharConverted,
@@ -3689,18 +3886,30 @@ class NursorCore {
     );
   }
 
-  late final __mbstowcs_s_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __mbstowcs_s_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.Size>,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              _locale_t)>>('_mbstowcs_s_l');
-  late final __mbstowcs_s_l = __mbstowcs_s_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.WChar>, int,
-          ffi.Pointer<ffi.Char>, int, _locale_t)>();
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            _locale_t,
+          )
+        >
+      >('_mbstowcs_s_l');
+  late final __mbstowcs_s_l = __mbstowcs_s_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _mbstowcs_l(
     ffi.Pointer<ffi.WChar> _Dest,
@@ -3708,54 +3917,51 @@ class NursorCore {
     int _MaxCount,
     _locale_t _Locale,
   ) {
-    return __mbstowcs_l(
-      _Dest,
-      _Source,
-      _MaxCount,
-      _Locale,
-    );
+    return __mbstowcs_l(_Dest, _Source, _MaxCount, _Locale);
   }
 
-  late final __mbstowcs_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>,
-              ffi.Size, _locale_t)>>('_mbstowcs_l');
-  late final __mbstowcs_l = __mbstowcs_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.WChar>, ffi.Pointer<ffi.Char>, int, _locale_t)>();
+  late final __mbstowcs_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(
+            ffi.Pointer<ffi.WChar>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            _locale_t,
+          )
+        >
+      >('_mbstowcs_l');
+  late final __mbstowcs_l = __mbstowcs_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.WChar>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          _locale_t,
+        )
+      >();
 
-  int wctomb(
-    ffi.Pointer<ffi.Char> _MbCh,
-    int _WCh,
-  ) {
-    return _wctomb(
-      _MbCh,
-      _WCh,
-    );
+  int wctomb(ffi.Pointer<ffi.Char> _MbCh, int _WCh) {
+    return _wctomb(_MbCh, _WCh);
   }
 
-  late final _wctombPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.WChar)>>('wctomb');
-  late final _wctomb =
-      _wctombPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
+  late final _wctombPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.WChar)>
+      >('wctomb');
+  late final _wctomb = _wctombPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
-  int _wctomb_l(
-    ffi.Pointer<ffi.Char> _MbCh,
-    int _WCh,
-    _locale_t _Locale,
-  ) {
-    return __wctomb_l(
-      _MbCh,
-      _WCh,
-      _Locale,
-    );
+  int _wctomb_l(ffi.Pointer<ffi.Char> _MbCh, int _WCh, _locale_t _Locale) {
+    return __wctomb_l(_MbCh, _WCh, _Locale);
   }
 
-  late final __wctomb_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.WChar, _locale_t)>>('_wctomb_l');
+  late final __wctomb_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.WChar, _locale_t)
+        >
+      >('_wctomb_l');
   late final __wctomb_l = __wctomb_lPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, int, _locale_t)>();
 
@@ -3765,20 +3971,24 @@ class NursorCore {
     int _SizeInBytes,
     int _WCh,
   ) {
-    return _wctomb_s(
-      _SizeConverted,
-      _MbCh,
-      _SizeInBytes,
-      _WCh,
-    );
+    return _wctomb_s(_SizeConverted, _MbCh, _SizeInBytes, _WCh);
   }
 
-  late final _wctomb_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Char>, rsize_t,
-              ffi.WChar)>>('wctomb_s');
-  late final _wctomb_s = _wctomb_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Char>, int, int)>();
+  late final _wctomb_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Char>,
+            rsize_t,
+            ffi.WChar,
+          )
+        >
+      >('wctomb_s');
+  late final _wctomb_s = _wctomb_sPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Char>, int, int)
+      >();
 
   int _wctomb_s_l(
     ffi.Pointer<ffi.Int> _SizeConverted,
@@ -3787,22 +3997,31 @@ class NursorCore {
     int _WCh,
     _locale_t _Locale,
   ) {
-    return __wctomb_s_l(
-      _SizeConverted,
-      _MbCh,
-      _SizeInBytes,
-      _WCh,
-      _Locale,
-    );
+    return __wctomb_s_l(_SizeConverted, _MbCh, _SizeInBytes, _WCh, _Locale);
   }
 
-  late final __wctomb_s_lPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Char>,
-              ffi.Size, ffi.WChar, _locale_t)>>('_wctomb_s_l');
-  late final __wctomb_s_l = __wctomb_s_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Char>, int, int, _locale_t)>();
+  late final __wctomb_s_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.WChar,
+            _locale_t,
+          )
+        >
+      >('_wctomb_s_l');
+  late final __wctomb_s_l = __wctomb_s_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          int,
+          _locale_t,
+        )
+      >();
 
   int wcstombs_s(
     ffi.Pointer<ffi.Size> _PtNumOfCharConverted,
@@ -3820,32 +4039,51 @@ class NursorCore {
     );
   }
 
-  late final _wcstombs_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>,
-              ffi.Size, ffi.Pointer<ffi.WChar>, ffi.Size)>>('wcstombs_s');
-  late final _wcstombs_s = _wcstombs_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>, int,
-          ffi.Pointer<ffi.WChar>, int)>();
+  late final _wcstombs_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+          )
+        >
+      >('wcstombs_s');
+  late final _wcstombs_s = _wcstombs_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.WChar>,
+          int,
+        )
+      >();
 
   int wcstombs(
     ffi.Pointer<ffi.Char> _Dest,
     ffi.Pointer<ffi.WChar> _Source,
     int _MaxCount,
   ) {
-    return _wcstombs(
-      _Dest,
-      _Source,
-      _MaxCount,
-    );
+    return _wcstombs(_Dest, _Source, _MaxCount);
   }
 
-  late final _wcstombsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.WChar>,
-              ffi.Size)>>('wcstombs');
-  late final _wcstombs = _wcstombsPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.WChar>, int)>();
+  late final _wcstombsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+          )
+        >
+      >('wcstombs');
+  late final _wcstombs = _wcstombsPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.WChar>, int)
+      >();
 
   int _wcstombs_s_l(
     ffi.Pointer<ffi.Size> _PtNumOfCharConverted,
@@ -3865,18 +4103,30 @@ class NursorCore {
     );
   }
 
-  late final __wcstombs_s_lPtr = _lookup<
-      ffi.NativeFunction<
+  late final __wcstombs_s_lPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.Size>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              ffi.Pointer<ffi.WChar>,
-              ffi.Size,
-              _locale_t)>>('_wcstombs_s_l');
-  late final __wcstombs_s_l = __wcstombs_s_lPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>, int,
-          ffi.Pointer<ffi.WChar>, int, _locale_t)>();
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            _locale_t,
+          )
+        >
+      >('_wcstombs_s_l');
+  late final __wcstombs_s_l = __wcstombs_s_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          _locale_t,
+        )
+      >();
 
   int _wcstombs_l(
     ffi.Pointer<ffi.Char> _Dest,
@@ -3884,41 +4134,56 @@ class NursorCore {
     int _MaxCount,
     _locale_t _Locale,
   ) {
-    return __wcstombs_l(
-      _Dest,
-      _Source,
-      _MaxCount,
-      _Locale,
-    );
+    return __wcstombs_l(_Dest, _Source, _MaxCount, _Locale);
   }
 
-  late final __wcstombs_lPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.WChar>,
-              ffi.Size, _locale_t)>>('_wcstombs_l');
-  late final __wcstombs_l = __wcstombs_lPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.WChar>, int, _locale_t)>();
+  late final __wcstombs_lPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.WChar>,
+            ffi.Size,
+            _locale_t,
+          )
+        >
+      >('_wcstombs_l');
+  late final __wcstombs_l = __wcstombs_lPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.WChar>,
+          int,
+          _locale_t,
+        )
+      >();
 
   ffi.Pointer<ffi.Char> _fullpath(
     ffi.Pointer<ffi.Char> _Buffer,
     ffi.Pointer<ffi.Char> _Path,
     int _BufferCount,
   ) {
-    return __fullpath(
-      _Buffer,
-      _Path,
-      _BufferCount,
-    );
+    return __fullpath(_Buffer, _Path, _BufferCount);
   }
 
-  late final __fullpathPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('_fullpath');
-  late final __fullpath = __fullpathPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+  late final __fullpathPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('_fullpath');
+  late final __fullpath = __fullpathPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          int,
+        )
+      >();
 
   int _makepath_s(
     ffi.Pointer<ffi.Char> _Buffer,
@@ -3928,33 +4193,33 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Filename,
     ffi.Pointer<ffi.Char> _Ext,
   ) {
-    return __makepath_s(
-      _Buffer,
-      _BufferCount,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __makepath_s(_Buffer, _BufferCount, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __makepath_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __makepath_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>)>>('_makepath_s');
-  late final __makepath_s = __makepath_sPtr.asFunction<
-      int Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_makepath_s');
+  late final __makepath_s = __makepath_sPtr
+      .asFunction<
+        int Function(
           ffi.Pointer<ffi.Char>,
           int,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>)>();
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
   void _makepath(
     ffi.Pointer<ffi.Char> _Buffer,
@@ -3963,30 +4228,31 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Filename,
     ffi.Pointer<ffi.Char> _Ext,
   ) {
-    return __makepath(
-      _Buffer,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __makepath(_Buffer, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __makepathPtr = _lookup<
-      ffi.NativeFunction<
+  late final __makepathPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>)>>('_makepath');
-  late final __makepath = __makepathPtr.asFunction<
-      void Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_makepath');
+  late final __makepath = __makepathPtr
+      .asFunction<
+        void Function(
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>)>();
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
   void _splitpath(
     ffi.Pointer<ffi.Char> _FullPath,
@@ -3995,30 +4261,31 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Filename,
     ffi.Pointer<ffi.Char> _Ext,
   ) {
-    return __splitpath(
-      _FullPath,
-      _Drive,
-      _Dir,
-      _Filename,
-      _Ext,
-    );
+    return __splitpath(_FullPath, _Drive, _Dir, _Filename, _Ext);
   }
 
-  late final __splitpathPtr = _lookup<
-      ffi.NativeFunction<
+  late final __splitpathPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>)>>('_splitpath');
-  late final __splitpath = __splitpathPtr.asFunction<
-      void Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_splitpath');
+  late final __splitpath = __splitpathPtr
+      .asFunction<
+        void Function(
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>)>();
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
   int _splitpath_s(
     ffi.Pointer<ffi.Char> _FullPath,
@@ -4044,20 +4311,25 @@ class NursorCore {
     );
   }
 
-  late final __splitpath_sPtr = _lookup<
-      ffi.NativeFunction<
+  late final __splitpath_sPtr =
+      _lookup<
+        ffi.NativeFunction<
           errno_t Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size,
-              ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('_splitpath_s');
-  late final __splitpath_s = __splitpath_sPtr.asFunction<
-      int Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('_splitpath_s');
+  late final __splitpath_s = __splitpath_sPtr
+      .asFunction<
+        int Function(
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           int,
@@ -4066,7 +4338,9 @@ class NursorCore {
           ffi.Pointer<ffi.Char>,
           int,
           ffi.Pointer<ffi.Char>,
-          int)>();
+          int,
+        )
+      >();
 
   int getenv_s(
     ffi.Pointer<ffi.Size> _RequiredCount,
@@ -4074,21 +4348,29 @@ class NursorCore {
     int _BufferCount,
     ffi.Pointer<ffi.Char> _VarName,
   ) {
-    return _getenv_s(
-      _RequiredCount,
-      _Buffer,
-      _BufferCount,
-      _VarName,
-    );
+    return _getenv_s(_RequiredCount, _Buffer, _BufferCount, _VarName);
   }
 
-  late final _getenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>,
-              rsize_t, ffi.Pointer<ffi.Char>)>>('getenv_s');
-  late final _getenv_s = _getenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>, int,
-          ffi.Pointer<ffi.Char>)>();
+  late final _getenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.Char>,
+            rsize_t,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('getenv_s');
+  late final _getenv_s = _getenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
   ffi.Pointer<ffi.Int> __p___argc() {
     return ___p___argc();
@@ -4096,18 +4378,21 @@ class NursorCore {
 
   late final ___p___argcPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>(
-          '__p___argc');
-  late final ___p___argc =
-      ___p___argcPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
+        '__p___argc',
+      );
+  late final ___p___argc = ___p___argcPtr
+      .asFunction<ffi.Pointer<ffi.Int> Function()>();
 
   ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> __p___argv() {
     return ___p___argv();
   }
 
-  late final ___p___argvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
-              Function()>>('__p___argv');
+  late final ___p___argvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> Function()
+        >
+      >('__p___argv');
   late final ___p___argv = ___p___argvPtr
       .asFunction<ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> Function()>();
 
@@ -4115,21 +4400,27 @@ class NursorCore {
     return ___p___wargv();
   }
 
-  late final ___p___wargvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>>
-              Function()>>('__p___wargv');
-  late final ___p___wargv = ___p___wargvPtr.asFunction<
-      ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()>();
+  late final ___p___wargvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()
+        >
+      >('__p___wargv');
+  late final ___p___wargv = ___p___wargvPtr
+      .asFunction<
+        ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()
+      >();
 
   ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> __p__environ() {
     return ___p__environ();
   }
 
-  late final ___p__environPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>>
-              Function()>>('__p__environ');
+  late final ___p__environPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> Function()
+        >
+      >('__p__environ');
   late final ___p__environ = ___p__environPtr
       .asFunction<ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> Function()>();
 
@@ -4137,24 +4428,27 @@ class NursorCore {
     return ___p__wenviron();
   }
 
-  late final ___p__wenvironPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>>
-              Function()>>('__p__wenviron');
-  late final ___p__wenviron = ___p__wenvironPtr.asFunction<
-      ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()>();
+  late final ___p__wenvironPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()
+        >
+      >('__p__wenviron');
+  late final ___p__wenviron = ___p__wenvironPtr
+      .asFunction<
+        ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.WChar>>> Function()
+      >();
 
-  ffi.Pointer<ffi.Char> getenv(
-    ffi.Pointer<ffi.Char> _VarName,
-  ) {
-    return _getenv(
-      _VarName,
-    );
+  ffi.Pointer<ffi.Char> getenv(ffi.Pointer<ffi.Char> _VarName) {
+    return _getenv(_VarName);
   }
 
-  late final _getenvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>>('getenv');
+  late final _getenvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)
+        >
+      >('getenv');
   late final _getenv = _getenvPtr
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>();
 
@@ -4163,63 +4457,60 @@ class NursorCore {
     ffi.Pointer<ffi.Size> _BufferCount,
     ffi.Pointer<ffi.Char> _VarName,
   ) {
-    return __dupenv_s(
-      _Buffer,
-      _BufferCount,
-      _VarName,
-    );
+    return __dupenv_s(_Buffer, _BufferCount, _VarName);
   }
 
-  late final __dupenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Pointer<ffi.Size>, ffi.Pointer<ffi.Char>)>>('_dupenv_s');
-  late final __dupenv_s = __dupenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Pointer<ffi.Size>,
-          ffi.Pointer<ffi.Char>)>();
+  late final __dupenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_dupenv_s');
+  late final __dupenv_s = __dupenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Size>,
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
-  int system(
-    ffi.Pointer<ffi.Char> _Command,
-  ) {
-    return _system(
-      _Command,
-    );
+  int system(ffi.Pointer<ffi.Char> _Command) {
+    return _system(_Command);
   }
 
   late final _systemPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'system');
-  late final _system =
-      _systemPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        'system',
+      );
+  late final _system = _systemPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int _putenv(
-    ffi.Pointer<ffi.Char> _EnvString,
-  ) {
-    return __putenv(
-      _EnvString,
-    );
+  int _putenv(ffi.Pointer<ffi.Char> _EnvString) {
+    return __putenv(_EnvString);
   }
 
   late final __putenvPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          '_putenv');
-  late final __putenv =
-      __putenvPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        '_putenv',
+      );
+  late final __putenv = __putenvPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  int _putenv_s(
-    ffi.Pointer<ffi.Char> _Name,
-    ffi.Pointer<ffi.Char> _Value,
-  ) {
-    return __putenv_s(
-      _Name,
-      _Value,
-    );
+  int _putenv_s(ffi.Pointer<ffi.Char> _Name, ffi.Pointer<ffi.Char> _Value) {
+    return __putenv_s(_Name, _Value);
   }
 
-  late final __putenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('_putenv_s');
+  late final __putenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)
+        >
+      >('_putenv_s');
   late final __putenv_s = __putenv_sPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
@@ -4229,81 +4520,84 @@ class NursorCore {
     ffi.Pointer<ffi.Char> _Buffer,
     int _BufferCount,
   ) {
-    return __searchenv_s(
-      _Filename,
-      _VarName,
-      _Buffer,
-      _BufferCount,
-    );
+    return __searchenv_s(_Filename, _VarName, _Buffer, _BufferCount);
   }
 
-  late final __searchenv_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('_searchenv_s');
-  late final __searchenv_s = __searchenv_sPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>, int)>();
+  late final __searchenv_sPtr =
+      _lookup<
+        ffi.NativeFunction<
+          errno_t Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('_searchenv_s');
+  late final __searchenv_s = __searchenv_sPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          int,
+        )
+      >();
 
   void _searchenv(
     ffi.Pointer<ffi.Char> _Filename,
     ffi.Pointer<ffi.Char> _VarName,
     ffi.Pointer<ffi.Char> _Buffer,
   ) {
-    return __searchenv(
-      _Filename,
-      _VarName,
-      _Buffer,
-    );
+    return __searchenv(_Filename, _VarName, _Buffer);
   }
 
-  late final __searchenvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>)>>('_searchenv');
-  late final __searchenv = __searchenvPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>)>();
+  late final __searchenvPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('_searchenv');
+  late final __searchenv = __searchenvPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
 
-  void _seterrormode(
-    int _Mode,
-  ) {
-    return __seterrormode(
-      _Mode,
-    );
+  void _seterrormode(int _Mode) {
+    return __seterrormode(_Mode);
   }
 
   late final __seterrormodePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('_seterrormode');
-  late final __seterrormode =
-      __seterrormodePtr.asFunction<void Function(int)>();
+  late final __seterrormode = __seterrormodePtr
+      .asFunction<void Function(int)>();
 
-  void _beep(
-    int _Frequency,
-    int _Duration,
-  ) {
-    return __beep(
-      _Frequency,
-      _Duration,
-    );
+  void _beep(int _Frequency, int _Duration) {
+    return __beep(_Frequency, _Duration);
   }
 
-  late final __beepPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.UnsignedInt, ffi.UnsignedInt)>>('_beep');
+  late final __beepPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.UnsignedInt, ffi.UnsignedInt)>
+      >('_beep');
   late final __beep = __beepPtr.asFunction<void Function(int, int)>();
 
-  void _sleep(
-    int _Duration,
-  ) {
-    return __sleep(
-      _Duration,
-    );
+  void _sleep(int _Duration) {
+    return __sleep(_Duration);
   }
 
   late final __sleepPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UnsignedLong)>>(
-          '_sleep');
+        '_sleep',
+      );
   late final __sleep = __sleepPtr.asFunction<void Function(int)>();
 
   ffi.Pointer<ffi.Char> ecvt(
@@ -4312,21 +4606,29 @@ class NursorCore {
     ffi.Pointer<ffi.Int> _PtDec,
     ffi.Pointer<ffi.Int> _PtSign,
   ) {
-    return _ecvt$1(
-      _Value,
-      _DigitCount,
-      _PtDec,
-      _PtSign,
-    );
+    return _ecvt$1(_Value, _DigitCount, _PtDec, _PtSign);
   }
 
-  late final _ecvtPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('ecvt');
-  late final _ecvt$1 = _ecvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          double, int, ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final _ecvtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('ecvt');
+  late final _ecvt$1 = _ecvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   ffi.Pointer<ffi.Char> fcvt(
     double _Value,
@@ -4334,930 +4636,709 @@ class NursorCore {
     ffi.Pointer<ffi.Int> _PtDec,
     ffi.Pointer<ffi.Int> _PtSign,
   ) {
-    return _fcvt$1(
-      _Value,
-      _FractionalDigitCount,
-      _PtDec,
-      _PtSign,
-    );
+    return _fcvt$1(_Value, _FractionalDigitCount, _PtDec, _PtSign);
   }
 
-  late final _fcvtPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Double, ffi.Int,
-              ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>>('fcvt');
-  late final _fcvt$1 = _fcvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          double, int, ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
+  late final _fcvtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Int>,
+            ffi.Pointer<ffi.Int>,
+          )
+        >
+      >('fcvt');
+  late final _fcvt$1 = _fcvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(
+          double,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+        )
+      >();
 
   ffi.Pointer<ffi.Char> gcvt(
     double _Value,
     int _DigitCount,
     ffi.Pointer<ffi.Char> _DstBuf,
   ) {
-    return _gcvt$1(
-      _Value,
-      _DigitCount,
-      _DstBuf,
-    );
+    return _gcvt$1(_Value, _DigitCount, _DstBuf);
   }
 
-  late final _gcvtPtr = _lookup<
-      ffi.NativeFunction<
+  late final _gcvtPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Double, ffi.Int, ffi.Pointer<ffi.Char>)>>('gcvt');
-  late final _gcvt$1 = _gcvtPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(double, int, ffi.Pointer<ffi.Char>)>();
+            ffi.Double,
+            ffi.Int,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('gcvt');
+  late final _gcvt$1 = _gcvtPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(double, int, ffi.Pointer<ffi.Char>)
+      >();
 
   ffi.Pointer<ffi.Char> itoa(
     int _Value,
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return _itoa$1(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return _itoa$1(_Value, _Buffer, _Radix);
   }
 
-  late final _itoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final _itoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int)>>('itoa');
-  late final _itoa$1 = _itoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Int,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('itoa');
+  late final _itoa$1 = _itoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   ffi.Pointer<ffi.Char> ltoa(
     int _Value,
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return _ltoa$1(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return _ltoa$1(_Value, _Buffer, _Radix);
   }
 
-  late final _ltoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final _ltoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.Long, ffi.Pointer<ffi.Char>, ffi.Int)>>('ltoa');
-  late final _ltoa$1 = _ltoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Long,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('ltoa');
+  late final _ltoa$1 = _ltoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
   void swab(
     ffi.Pointer<ffi.Char> _Buf1,
     ffi.Pointer<ffi.Char> _Buf2,
     int _SizeInBytes,
   ) {
-    return _swab$1(
-      _Buf1,
-      _Buf2,
-      _SizeInBytes,
-    );
+    return _swab$1(_Buf1, _Buf2, _SizeInBytes);
   }
 
-  late final _swabPtr = _lookup<
-      ffi.NativeFunction<
+  late final _swabPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, ffi.Int)>>('swab');
-  late final _swab$1 = _swabPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('swab');
+  late final _swab$1 = _swabPtr
+      .asFunction<
+        void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)
+      >();
 
   ffi.Pointer<ffi.Char> ultoa(
     int _Value,
     ffi.Pointer<ffi.Char> _Buffer,
     int _Radix,
   ) {
-    return _ultoa$1(
-      _Value,
-      _Buffer,
-      _Radix,
-    );
+    return _ultoa$1(_Value, _Buffer, _Radix);
   }
 
-  late final _ultoaPtr = _lookup<
-      ffi.NativeFunction<
+  late final _ultoaPtr =
+      _lookup<
+        ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.UnsignedLong, ffi.Pointer<ffi.Char>, ffi.Int)>>('ultoa');
-  late final _ultoa$1 = _ultoaPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
+            ffi.UnsignedLong,
+            ffi.Pointer<ffi.Char>,
+            ffi.Int,
+          )
+        >
+      >('ultoa');
+  late final _ultoa$1 = _ultoaPtr
+      .asFunction<
+        ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)
+      >();
 
-  int putenv(
-    ffi.Pointer<ffi.Char> _EnvString,
-  ) {
-    return _putenv$1(
-      _EnvString,
-    );
+  int putenv(ffi.Pointer<ffi.Char> _EnvString) {
+    return _putenv$1(_EnvString);
   }
 
   late final _putenvPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'putenv');
-  late final _putenv$1 =
-      _putenvPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+        'putenv',
+      );
+  late final _putenv$1 = _putenvPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  _onexit_t onexit(
-    _onexit_t _Func,
-  ) {
-    return _onexit$1(
-      _Func,
-    );
+  _onexit_t onexit(_onexit_t _Func) {
+    return _onexit$1(_Func);
   }
 
   late final _onexitPtr =
       _lookup<ffi.NativeFunction<_onexit_t Function(_onexit_t)>>('onexit');
   late final _onexit$1 = _onexitPtr.asFunction<_onexit_t Function(_onexit_t)>();
 
-  double cabs(
-    _Dcomplex _Z,
-  ) {
-    return _cabs(
-      _Z,
-    );
+  double cabs(_Dcomplex _Z) {
+    return _cabs(_Z);
   }
 
   late final _cabsPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(_Dcomplex)>>('cabs');
   late final _cabs = _cabsPtr.asFunction<double Function(_Dcomplex)>();
 
-  _Dcomplex cacos(
-    _Dcomplex _Z,
-  ) {
-    return _cacos(
-      _Z,
-    );
+  _Dcomplex cacos(_Dcomplex _Z) {
+    return _cacos(_Z);
   }
 
   late final _cacosPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('cacos');
   late final _cacos = _cacosPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex cacosh(
-    _Dcomplex _Z,
-  ) {
-    return _cacosh(
-      _Z,
-    );
+  _Dcomplex cacosh(_Dcomplex _Z) {
+    return _cacosh(_Z);
   }
 
   late final _cacoshPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('cacosh');
   late final _cacosh = _cacoshPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  double carg(
-    _Dcomplex _Z,
-  ) {
-    return _carg(
-      _Z,
-    );
+  double carg(_Dcomplex _Z) {
+    return _carg(_Z);
   }
 
   late final _cargPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(_Dcomplex)>>('carg');
   late final _carg = _cargPtr.asFunction<double Function(_Dcomplex)>();
 
-  _Dcomplex casin(
-    _Dcomplex _Z,
-  ) {
-    return _casin(
-      _Z,
-    );
+  _Dcomplex casin(_Dcomplex _Z) {
+    return _casin(_Z);
   }
 
   late final _casinPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('casin');
   late final _casin = _casinPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex casinh(
-    _Dcomplex _Z,
-  ) {
-    return _casinh(
-      _Z,
-    );
+  _Dcomplex casinh(_Dcomplex _Z) {
+    return _casinh(_Z);
   }
 
   late final _casinhPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('casinh');
   late final _casinh = _casinhPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex catan(
-    _Dcomplex _Z,
-  ) {
-    return _catan(
-      _Z,
-    );
+  _Dcomplex catan(_Dcomplex _Z) {
+    return _catan(_Z);
   }
 
   late final _catanPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('catan');
   late final _catan = _catanPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex catanh(
-    _Dcomplex _Z,
-  ) {
-    return _catanh(
-      _Z,
-    );
+  _Dcomplex catanh(_Dcomplex _Z) {
+    return _catanh(_Z);
   }
 
   late final _catanhPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('catanh');
   late final _catanh = _catanhPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex ccos(
-    _Dcomplex _Z,
-  ) {
-    return _ccos(
-      _Z,
-    );
+  _Dcomplex ccos(_Dcomplex _Z) {
+    return _ccos(_Z);
   }
 
   late final _ccosPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('ccos');
   late final _ccos = _ccosPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex ccosh(
-    _Dcomplex _Z,
-  ) {
-    return _ccosh(
-      _Z,
-    );
+  _Dcomplex ccosh(_Dcomplex _Z) {
+    return _ccosh(_Z);
   }
 
   late final _ccoshPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('ccosh');
   late final _ccosh = _ccoshPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex cexp(
-    _Dcomplex _Z,
-  ) {
-    return _cexp(
-      _Z,
-    );
+  _Dcomplex cexp(_Dcomplex _Z) {
+    return _cexp(_Z);
   }
 
   late final _cexpPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('cexp');
   late final _cexp = _cexpPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  double cimag(
-    _Dcomplex _Z,
-  ) {
-    return _cimag(
-      _Z,
-    );
+  double cimag(_Dcomplex _Z) {
+    return _cimag(_Z);
   }
 
   late final _cimagPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(_Dcomplex)>>('cimag');
   late final _cimag = _cimagPtr.asFunction<double Function(_Dcomplex)>();
 
-  _Dcomplex clog(
-    _Dcomplex _Z,
-  ) {
-    return _clog(
-      _Z,
-    );
+  _Dcomplex clog(_Dcomplex _Z) {
+    return _clog(_Z);
   }
 
   late final _clogPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('clog');
   late final _clog = _clogPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex clog10(
-    _Dcomplex _Z,
-  ) {
-    return _clog10(
-      _Z,
-    );
+  _Dcomplex clog10(_Dcomplex _Z) {
+    return _clog10(_Z);
   }
 
   late final _clog10Ptr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('clog10');
   late final _clog10 = _clog10Ptr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex conj(
-    _Dcomplex _Z,
-  ) {
-    return _conj(
-      _Z,
-    );
+  _Dcomplex conj(_Dcomplex _Z) {
+    return _conj(_Z);
   }
 
   late final _conjPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('conj');
   late final _conj = _conjPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex cpow(
-    _Dcomplex _X,
-    _Dcomplex _Y,
-  ) {
-    return _cpow(
-      _X,
-      _Y,
-    );
+  _Dcomplex cpow(_Dcomplex _X, _Dcomplex _Y) {
+    return _cpow(_X, _Y);
   }
 
   late final _cpowPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>>(
-          'cpow');
-  late final _cpow =
-      _cpowPtr.asFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>();
+        'cpow',
+      );
+  late final _cpow = _cpowPtr
+      .asFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>();
 
-  _Dcomplex cproj(
-    _Dcomplex _Z,
-  ) {
-    return _cproj(
-      _Z,
-    );
+  _Dcomplex cproj(_Dcomplex _Z) {
+    return _cproj(_Z);
   }
 
   late final _cprojPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('cproj');
   late final _cproj = _cprojPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  double creal(
-    _Dcomplex _Z,
-  ) {
-    return _creal(
-      _Z,
-    );
+  double creal(_Dcomplex _Z) {
+    return _creal(_Z);
   }
 
   late final _crealPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(_Dcomplex)>>('creal');
   late final _creal = _crealPtr.asFunction<double Function(_Dcomplex)>();
 
-  _Dcomplex csin(
-    _Dcomplex _Z,
-  ) {
-    return _csin(
-      _Z,
-    );
+  _Dcomplex csin(_Dcomplex _Z) {
+    return _csin(_Z);
   }
 
   late final _csinPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('csin');
   late final _csin = _csinPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex csinh(
-    _Dcomplex _Z,
-  ) {
-    return _csinh(
-      _Z,
-    );
+  _Dcomplex csinh(_Dcomplex _Z) {
+    return _csinh(_Z);
   }
 
   late final _csinhPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('csinh');
   late final _csinh = _csinhPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex csqrt(
-    _Dcomplex _Z,
-  ) {
-    return _csqrt(
-      _Z,
-    );
+  _Dcomplex csqrt(_Dcomplex _Z) {
+    return _csqrt(_Z);
   }
 
   late final _csqrtPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('csqrt');
   late final _csqrt = _csqrtPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex ctan(
-    _Dcomplex _Z,
-  ) {
-    return _ctan(
-      _Z,
-    );
+  _Dcomplex ctan(_Dcomplex _Z) {
+    return _ctan(_Z);
   }
 
   late final _ctanPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('ctan');
   late final _ctan = _ctanPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  _Dcomplex ctanh(
-    _Dcomplex _Z,
-  ) {
-    return _ctanh(
-      _Z,
-    );
+  _Dcomplex ctanh(_Dcomplex _Z) {
+    return _ctanh(_Z);
   }
 
   late final _ctanhPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex)>>('ctanh');
   late final _ctanh = _ctanhPtr.asFunction<_Dcomplex Function(_Dcomplex)>();
 
-  double norm(
-    _Dcomplex _Z,
-  ) {
-    return _norm(
-      _Z,
-    );
+  double norm(_Dcomplex _Z) {
+    return _norm(_Z);
   }
 
   late final _normPtr =
       _lookup<ffi.NativeFunction<ffi.Double Function(_Dcomplex)>>('norm');
   late final _norm = _normPtr.asFunction<double Function(_Dcomplex)>();
 
-  double cabsf(
-    _Fcomplex _Z,
-  ) {
-    return _cabsf(
-      _Z,
-    );
+  double cabsf(_Fcomplex _Z) {
+    return _cabsf(_Z);
   }
 
   late final _cabsfPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(_Fcomplex)>>('cabsf');
   late final _cabsf = _cabsfPtr.asFunction<double Function(_Fcomplex)>();
 
-  _Fcomplex cacosf(
-    _Fcomplex _Z,
-  ) {
-    return _cacosf(
-      _Z,
-    );
+  _Fcomplex cacosf(_Fcomplex _Z) {
+    return _cacosf(_Z);
   }
 
   late final _cacosfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('cacosf');
   late final _cacosf = _cacosfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex cacoshf(
-    _Fcomplex _Z,
-  ) {
-    return _cacoshf(
-      _Z,
-    );
+  _Fcomplex cacoshf(_Fcomplex _Z) {
+    return _cacoshf(_Z);
   }
 
   late final _cacoshfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('cacoshf');
   late final _cacoshf = _cacoshfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  double cargf(
-    _Fcomplex _Z,
-  ) {
-    return _cargf(
-      _Z,
-    );
+  double cargf(_Fcomplex _Z) {
+    return _cargf(_Z);
   }
 
   late final _cargfPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(_Fcomplex)>>('cargf');
   late final _cargf = _cargfPtr.asFunction<double Function(_Fcomplex)>();
 
-  _Fcomplex casinf(
-    _Fcomplex _Z,
-  ) {
-    return _casinf(
-      _Z,
-    );
+  _Fcomplex casinf(_Fcomplex _Z) {
+    return _casinf(_Z);
   }
 
   late final _casinfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('casinf');
   late final _casinf = _casinfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex casinhf(
-    _Fcomplex _Z,
-  ) {
-    return _casinhf(
-      _Z,
-    );
+  _Fcomplex casinhf(_Fcomplex _Z) {
+    return _casinhf(_Z);
   }
 
   late final _casinhfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('casinhf');
   late final _casinhf = _casinhfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex catanf(
-    _Fcomplex _Z,
-  ) {
-    return _catanf(
-      _Z,
-    );
+  _Fcomplex catanf(_Fcomplex _Z) {
+    return _catanf(_Z);
   }
 
   late final _catanfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('catanf');
   late final _catanf = _catanfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex catanhf(
-    _Fcomplex _Z,
-  ) {
-    return _catanhf(
-      _Z,
-    );
+  _Fcomplex catanhf(_Fcomplex _Z) {
+    return _catanhf(_Z);
   }
 
   late final _catanhfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('catanhf');
   late final _catanhf = _catanhfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex ccosf(
-    _Fcomplex _Z,
-  ) {
-    return _ccosf(
-      _Z,
-    );
+  _Fcomplex ccosf(_Fcomplex _Z) {
+    return _ccosf(_Z);
   }
 
   late final _ccosfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('ccosf');
   late final _ccosf = _ccosfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex ccoshf(
-    _Fcomplex _Z,
-  ) {
-    return _ccoshf(
-      _Z,
-    );
+  _Fcomplex ccoshf(_Fcomplex _Z) {
+    return _ccoshf(_Z);
   }
 
   late final _ccoshfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('ccoshf');
   late final _ccoshf = _ccoshfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex cexpf(
-    _Fcomplex _Z,
-  ) {
-    return _cexpf(
-      _Z,
-    );
+  _Fcomplex cexpf(_Fcomplex _Z) {
+    return _cexpf(_Z);
   }
 
   late final _cexpfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('cexpf');
   late final _cexpf = _cexpfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  double cimagf(
-    _Fcomplex _Z,
-  ) {
-    return _cimagf(
-      _Z,
-    );
+  double cimagf(_Fcomplex _Z) {
+    return _cimagf(_Z);
   }
 
   late final _cimagfPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(_Fcomplex)>>('cimagf');
   late final _cimagf = _cimagfPtr.asFunction<double Function(_Fcomplex)>();
 
-  _Fcomplex clogf(
-    _Fcomplex _Z,
-  ) {
-    return _clogf(
-      _Z,
-    );
+  _Fcomplex clogf(_Fcomplex _Z) {
+    return _clogf(_Z);
   }
 
   late final _clogfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('clogf');
   late final _clogf = _clogfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex clog10f(
-    _Fcomplex _Z,
-  ) {
-    return _clog10f(
-      _Z,
-    );
+  _Fcomplex clog10f(_Fcomplex _Z) {
+    return _clog10f(_Z);
   }
 
   late final _clog10fPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('clog10f');
   late final _clog10f = _clog10fPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex conjf(
-    _Fcomplex _Z,
-  ) {
-    return _conjf(
-      _Z,
-    );
+  _Fcomplex conjf(_Fcomplex _Z) {
+    return _conjf(_Z);
   }
 
   late final _conjfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('conjf');
   late final _conjf = _conjfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex cpowf(
-    _Fcomplex _X,
-    _Fcomplex _Y,
-  ) {
-    return _cpowf(
-      _X,
-      _Y,
-    );
+  _Fcomplex cpowf(_Fcomplex _X, _Fcomplex _Y) {
+    return _cpowf(_X, _Y);
   }
 
   late final _cpowfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>>(
-          'cpowf');
-  late final _cpowf =
-      _cpowfPtr.asFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>();
+        'cpowf',
+      );
+  late final _cpowf = _cpowfPtr
+      .asFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>();
 
-  _Fcomplex cprojf(
-    _Fcomplex _Z,
-  ) {
-    return _cprojf(
-      _Z,
-    );
+  _Fcomplex cprojf(_Fcomplex _Z) {
+    return _cprojf(_Z);
   }
 
   late final _cprojfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('cprojf');
   late final _cprojf = _cprojfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  double crealf(
-    _Fcomplex _Z,
-  ) {
-    return _crealf(
-      _Z,
-    );
+  double crealf(_Fcomplex _Z) {
+    return _crealf(_Z);
   }
 
   late final _crealfPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(_Fcomplex)>>('crealf');
   late final _crealf = _crealfPtr.asFunction<double Function(_Fcomplex)>();
 
-  _Fcomplex csinf(
-    _Fcomplex _Z,
-  ) {
-    return _csinf(
-      _Z,
-    );
+  _Fcomplex csinf(_Fcomplex _Z) {
+    return _csinf(_Z);
   }
 
   late final _csinfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('csinf');
   late final _csinf = _csinfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex csinhf(
-    _Fcomplex _Z,
-  ) {
-    return _csinhf(
-      _Z,
-    );
+  _Fcomplex csinhf(_Fcomplex _Z) {
+    return _csinhf(_Z);
   }
 
   late final _csinhfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('csinhf');
   late final _csinhf = _csinhfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex csqrtf(
-    _Fcomplex _Z,
-  ) {
-    return _csqrtf(
-      _Z,
-    );
+  _Fcomplex csqrtf(_Fcomplex _Z) {
+    return _csqrtf(_Z);
   }
 
   late final _csqrtfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('csqrtf');
   late final _csqrtf = _csqrtfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex ctanf(
-    _Fcomplex _Z,
-  ) {
-    return _ctanf(
-      _Z,
-    );
+  _Fcomplex ctanf(_Fcomplex _Z) {
+    return _ctanf(_Z);
   }
 
   late final _ctanfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('ctanf');
   late final _ctanf = _ctanfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  _Fcomplex ctanhf(
-    _Fcomplex _Z,
-  ) {
-    return _ctanhf(
-      _Z,
-    );
+  _Fcomplex ctanhf(_Fcomplex _Z) {
+    return _ctanhf(_Z);
   }
 
   late final _ctanhfPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex)>>('ctanhf');
   late final _ctanhf = _ctanhfPtr.asFunction<_Fcomplex Function(_Fcomplex)>();
 
-  double normf(
-    _Fcomplex _Z,
-  ) {
-    return _normf(
-      _Z,
-    );
+  double normf(_Fcomplex _Z) {
+    return _normf(_Z);
   }
 
   late final _normfPtr =
       _lookup<ffi.NativeFunction<ffi.Float Function(_Fcomplex)>>('normf');
   late final _normf = _normfPtr.asFunction<double Function(_Fcomplex)>();
 
-  _Dcomplex _Cbuild(
-    double _Re,
-    double _Im,
-  ) {
-    return __Cbuild(
-      _Re,
-      _Im,
-    );
+  _Dcomplex _Cbuild(double _Re, double _Im) {
+    return __Cbuild(_Re, _Im);
   }
 
   late final __CbuildPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(ffi.Double, ffi.Double)>>(
-          '_Cbuild');
-  late final __Cbuild =
-      __CbuildPtr.asFunction<_Dcomplex Function(double, double)>();
+        '_Cbuild',
+      );
+  late final __Cbuild = __CbuildPtr
+      .asFunction<_Dcomplex Function(double, double)>();
 
-  _Dcomplex _Cmulcc(
-    _Dcomplex _X,
-    _Dcomplex _Y,
-  ) {
-    return __Cmulcc(
-      _X,
-      _Y,
-    );
+  _Dcomplex _Cmulcc(_Dcomplex _X, _Dcomplex _Y) {
+    return __Cmulcc(_X, _Y);
   }
 
   late final __CmulccPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>>(
-          '_Cmulcc');
-  late final __Cmulcc =
-      __CmulccPtr.asFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>();
+        '_Cmulcc',
+      );
+  late final __Cmulcc = __CmulccPtr
+      .asFunction<_Dcomplex Function(_Dcomplex, _Dcomplex)>();
 
-  _Dcomplex _Cmulcr(
-    _Dcomplex _X,
-    double _Y,
-  ) {
-    return __Cmulcr(
-      _X,
-      _Y,
-    );
+  _Dcomplex _Cmulcr(_Dcomplex _X, double _Y) {
+    return __Cmulcr(_X, _Y);
   }
 
   late final __CmulcrPtr =
       _lookup<ffi.NativeFunction<_Dcomplex Function(_Dcomplex, ffi.Double)>>(
-          '_Cmulcr');
-  late final __Cmulcr =
-      __CmulcrPtr.asFunction<_Dcomplex Function(_Dcomplex, double)>();
+        '_Cmulcr',
+      );
+  late final __Cmulcr = __CmulcrPtr
+      .asFunction<_Dcomplex Function(_Dcomplex, double)>();
 
-  _Fcomplex _FCbuild(
-    double _Re,
-    double _Im,
-  ) {
-    return __FCbuild(
-      _Re,
-      _Im,
-    );
+  _Fcomplex _FCbuild(double _Re, double _Im) {
+    return __FCbuild(_Re, _Im);
   }
 
   late final __FCbuildPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(ffi.Float, ffi.Float)>>(
-          '_FCbuild');
-  late final __FCbuild =
-      __FCbuildPtr.asFunction<_Fcomplex Function(double, double)>();
+        '_FCbuild',
+      );
+  late final __FCbuild = __FCbuildPtr
+      .asFunction<_Fcomplex Function(double, double)>();
 
-  _Fcomplex _FCmulcc(
-    _Fcomplex _X,
-    _Fcomplex _Y,
-  ) {
-    return __FCmulcc(
-      _X,
-      _Y,
-    );
+  _Fcomplex _FCmulcc(_Fcomplex _X, _Fcomplex _Y) {
+    return __FCmulcc(_X, _Y);
   }
 
   late final __FCmulccPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>>(
-          '_FCmulcc');
-  late final __FCmulcc =
-      __FCmulccPtr.asFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>();
+        '_FCmulcc',
+      );
+  late final __FCmulcc = __FCmulccPtr
+      .asFunction<_Fcomplex Function(_Fcomplex, _Fcomplex)>();
 
-  _Fcomplex _FCmulcr(
-    _Fcomplex _X,
-    double _Y,
-  ) {
-    return __FCmulcr(
-      _X,
-      _Y,
-    );
+  _Fcomplex _FCmulcr(_Fcomplex _X, double _Y) {
+    return __FCmulcr(_X, _Y);
   }
 
   late final __FCmulcrPtr =
       _lookup<ffi.NativeFunction<_Fcomplex Function(_Fcomplex, ffi.Float)>>(
-          '_FCmulcr');
-  late final __FCmulcr =
-      __FCmulcrPtr.asFunction<_Fcomplex Function(_Fcomplex, double)>();
+        '_FCmulcr',
+      );
+  late final __FCmulcr = __FCmulcrPtr
+      .asFunction<_Fcomplex Function(_Fcomplex, double)>();
 
   void startClient() {
     return _startClient();
   }
 
-  late final _startClientPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('startClient');
+  late final _startClientPtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'startClient',
+  );
   late final _startClient = _startClientPtr.asFunction<void Function()>();
 
-  void setOutboundToken(
-    ffi.Pointer<ffi.Char> token,
-  ) {
-    return _setOutboundToken(
-      token,
-    );
+  void setOutboundToken(ffi.Pointer<ffi.Char> token) {
+    return _setOutboundToken(token);
   }
 
   late final _setOutboundTokenPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'setOutboundToken');
-  late final _setOutboundToken =
-      _setOutboundTokenPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+        'setOutboundToken',
+      );
+  late final _setOutboundToken = _setOutboundTokenPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  void setServerHost(
-    ffi.Pointer<ffi.Char> host,
-  ) {
-    return _setServerHost(
-      host,
-    );
+  void setServerHost(ffi.Pointer<ffi.Char> host) {
+    return _setServerHost(host);
   }
 
   late final _setServerHostPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'setServerHost');
-  late final _setServerHost =
-      _setServerHostPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+        'setServerHost',
+      );
+  late final _setServerHost = _setServerHostPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  void exportCaCertToFile(
-    ffi.Pointer<ffi.Char> certPath,
-  ) {
-    return _exportCaCertToFile(
-      certPath,
-    );
+  void exportCaCertToFile(ffi.Pointer<ffi.Char> certPath) {
+    return _exportCaCertToFile(certPath);
   }
 
   late final _exportCaCertToFilePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'exportCaCertToFile');
-  late final _exportCaCertToFile =
-      _exportCaCertToFilePtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+        'exportCaCertToFile',
+      );
+  late final _exportCaCertToFile = _exportCaCertToFilePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  void setSqlitePath(
-    ffi.Pointer<ffi.Char> sqlitePath,
-  ) {
-    return _setSqlitePath(
-      sqlitePath,
-    );
+  void setSqlitePath(ffi.Pointer<ffi.Char> sqlitePath) {
+    return _setSqlitePath(sqlitePath);
   }
 
   late final _setSqlitePathPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'setSqlitePath');
-  late final _setSqlitePath =
-      _setSqlitePathPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+        'setSqlitePath',
+      );
+  late final _setSqlitePath = _setSqlitePathPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  ffi.Pointer<ffi.Char> getDataFromSqlite(
-    ffi.Pointer<ffi.Char> key,
-  ) {
-    return _getDataFromSqlite(
-      key,
-    );
+  ffi.Pointer<ffi.Char> getDataFromSqlite(ffi.Pointer<ffi.Char> key) {
+    return _getDataFromSqlite(key);
   }
 
-  late final _getDataFromSqlitePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>)>>('getDataFromSqlite');
+  late final _getDataFromSqlitePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)
+        >
+      >('getDataFromSqlite');
   late final _getDataFromSqlite = _getDataFromSqlitePtr
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>();
 
-  void setDataToSqlite(
-    ffi.Pointer<ffi.Char> key,
-    ffi.Pointer<ffi.Char> value,
-  ) {
-    return _setDataToSqlite(
-      key,
-      value,
-    );
+  void setDataToSqlite(ffi.Pointer<ffi.Char> key, ffi.Pointer<ffi.Char> value) {
+    return _setDataToSqlite(key, value);
   }
 
-  late final _setDataToSqlitePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>)>>('setDataToSqlite');
-  late final _setDataToSqlite = _setDataToSqlitePtr.asFunction<
-      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+  late final _setDataToSqlitePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)
+        >
+      >('setDataToSqlite');
+  late final _setDataToSqlite = _setDataToSqlitePtr
+      .asFunction<
+        void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)
+      >();
 
-  void deleteDataFromSqlite(
-    ffi.Pointer<ffi.Char> key,
-  ) {
-    return _deleteDataFromSqlite(
-      key,
-    );
+  void deleteDataFromSqlite(ffi.Pointer<ffi.Char> key) {
+    return _deleteDataFromSqlite(key);
   }
 
   late final _deleteDataFromSqlitePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'deleteDataFromSqlite');
+        'deleteDataFromSqlite',
+      );
   late final _deleteDataFromSqlite = _deleteDataFromSqlitePtr
       .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
@@ -5265,8 +5346,9 @@ class NursorCore {
     return _closeSqlite();
   }
 
-  late final _closeSqlitePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('closeSqlite');
+  late final _closeSqlitePtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'closeSqlite',
+  );
   late final _closeSqlite = _closeSqlitePtr.asFunction<void Function()>();
 
   ffi.Pointer<ffi.Char> getToCursorDomain() {
@@ -5275,21 +5357,21 @@ class NursorCore {
 
   late final _getToCursorDomainPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function()>>(
-          'getToCursorDomain');
-  late final _getToCursorDomain =
-      _getToCursorDomainPtr.asFunction<ffi.Pointer<ffi.Char> Function()>();
+        'getToCursorDomain',
+      );
+  late final _getToCursorDomain = _getToCursorDomainPtr
+      .asFunction<ffi.Pointer<ffi.Char> Function()>();
 
-  ffi.Pointer<ffi.Char> runGate(
-    ffi.Pointer<ffi.Char> userToken,
-  ) {
-    return _runGate(
-      userToken,
-    );
+  ffi.Pointer<ffi.Char> runGate(ffi.Pointer<ffi.Char> userToken) {
+    return _runGate(userToken);
   }
 
-  late final _runGatePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>>('runGate');
+  late final _runGatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)
+        >
+      >('runGate');
   late final _runGate = _runGatePtr
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>();
 
@@ -5299,28 +5381,64 @@ class NursorCore {
     ffi.Pointer<ffi.Char> username,
     ffi.Pointer<ffi.Char> password,
   ) {
-    return _setUserInfo(
-      uToken,
-      userId,
-      username,
-      password,
-    );
+    return _setUserInfo(uToken, userId, username, password);
   }
 
-  late final _setUserInfoPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('setUserInfo');
-  late final _setUserInfo = _setUserInfoPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+  late final _setUserInfoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+          )
+        >
+      >('setUserInfo');
+  late final _setUserInfo = _setUserInfoPtr
+      .asFunction<
+        void Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+        )
+      >();
+
+  void setLogWatchMode(
+    ffi.Pointer<ffi.Bool> enableWatch,
+    ffi.Pointer<ffi.Int> level,
+  ) {
+    return _setLogWatchMode(enableWatch, level);
+  }
+
+  late final _setLogWatchModePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Bool>, ffi.Pointer<ffi.Int>)
+        >
+      >('setLogWatchMode');
+  late final _setLogWatchMode = _setLogWatchModePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Bool>, ffi.Pointer<ffi.Int>)>();
+
+  void setCursorGateMode(ffi.Pointer<ffi.Bool> enableCursorGate) {
+    return _setCursorGateMode(enableCursorGate);
+  }
+
+  late final _setCursorGateModePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Bool>)>>(
+        'setCursorGateMode',
+      );
+  late final _setCursorGateMode = _setCursorGateModePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Bool>)>();
 
   void stopGate() {
     return _stopGate();
   }
 
-  late final _stopGatePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('stopGate');
+  late final _stopGatePtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'stopGate',
+  );
   late final _stopGate = _stopGatePtr.asFunction<void Function()>();
 }
 
@@ -5383,39 +5501,55 @@ final class _GoString_ extends ffi.Struct {
   external int n;
 }
 
-typedef _CoreCrtSecureSearchSortCompareFunctionFunction = ffi.Int Function(
-    ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
-typedef Dart_CoreCrtSecureSearchSortCompareFunctionFunction = int Function(
-    ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
-typedef _CoreCrtSecureSearchSortCompareFunction = ffi.Pointer<
-    ffi.NativeFunction<_CoreCrtSecureSearchSortCompareFunctionFunction>>;
-typedef _CoreCrtNonSecureSearchSortCompareFunctionFunction = ffi.Int Function(
-    ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
-typedef Dart_CoreCrtNonSecureSearchSortCompareFunctionFunction = int Function(
-    ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
-typedef _CoreCrtNonSecureSearchSortCompareFunction = ffi.Pointer<
-    ffi.NativeFunction<_CoreCrtNonSecureSearchSortCompareFunctionFunction>>;
+typedef _CoreCrtSecureSearchSortCompareFunctionFunction =
+    ffi.Int Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<ffi.Void>,
+    );
+typedef Dart_CoreCrtSecureSearchSortCompareFunctionFunction =
+    int Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<ffi.Void>,
+    );
+typedef _CoreCrtSecureSearchSortCompareFunction =
+    ffi.Pointer<
+      ffi.NativeFunction<_CoreCrtSecureSearchSortCompareFunctionFunction>
+    >;
+typedef _CoreCrtNonSecureSearchSortCompareFunctionFunction =
+    ffi.Int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
+typedef Dart_CoreCrtNonSecureSearchSortCompareFunctionFunction =
+    int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
+typedef _CoreCrtNonSecureSearchSortCompareFunction =
+    ffi.Pointer<
+      ffi.NativeFunction<_CoreCrtNonSecureSearchSortCompareFunctionFunction>
+    >;
 typedef _onexit_tFunction = ffi.Int Function();
 typedef Dart_onexit_tFunction = int Function();
 typedef _onexit_t = ffi.Pointer<ffi.NativeFunction<_onexit_tFunction>>;
 typedef _purecall_handlerFunction = ffi.Void Function();
 typedef Dart_purecall_handlerFunction = void Function();
-typedef _purecall_handler
-    = ffi.Pointer<ffi.NativeFunction<_purecall_handlerFunction>>;
-typedef _invalid_parameter_handlerFunction = ffi.Void Function(
-    ffi.Pointer<ffi.WChar>,
-    ffi.Pointer<ffi.WChar>,
-    ffi.Pointer<ffi.WChar>,
-    ffi.UnsignedInt,
-    ffi.UintPtr);
-typedef Dart_invalid_parameter_handlerFunction = void Function(
-    ffi.Pointer<ffi.WChar>,
-    ffi.Pointer<ffi.WChar>,
-    ffi.Pointer<ffi.WChar>,
-    int,
-    int);
-typedef _invalid_parameter_handler
-    = ffi.Pointer<ffi.NativeFunction<_invalid_parameter_handlerFunction>>;
+typedef _purecall_handler =
+    ffi.Pointer<ffi.NativeFunction<_purecall_handlerFunction>>;
+typedef _invalid_parameter_handlerFunction =
+    ffi.Void Function(
+      ffi.Pointer<ffi.WChar>,
+      ffi.Pointer<ffi.WChar>,
+      ffi.Pointer<ffi.WChar>,
+      ffi.UnsignedInt,
+      ffi.UintPtr,
+    );
+typedef Dart_invalid_parameter_handlerFunction =
+    void Function(
+      ffi.Pointer<ffi.WChar>,
+      ffi.Pointer<ffi.WChar>,
+      ffi.Pointer<ffi.WChar>,
+      int,
+      int,
+    );
+typedef _invalid_parameter_handler =
+    ffi.Pointer<ffi.NativeFunction<_invalid_parameter_handlerFunction>>;
 
 final class _div_t extends ffi.Struct {
   @ffi.Int()
@@ -5556,6 +5690,8 @@ const int _HAS_CXX17 = 0;
 const int _HAS_CXX20 = 0;
 
 const int _HAS_CXX23 = 0;
+
+const int _HAS_CXX26 = 0;
 
 const int _HAS_NODISCARD = 1;
 
@@ -5738,3 +5874,9 @@ const int _MAX_FNAME = 256;
 const int _MAX_EXT = 256;
 
 const int _MAX_ENV = 32767;
+
+const int __bool_true_false_are_defined = 1;
+
+const int false$ = 0;
+
+const int true$ = 1;

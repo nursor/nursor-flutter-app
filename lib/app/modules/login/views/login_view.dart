@@ -66,13 +66,15 @@ class LoginView extends GetView<LoginController> {
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: TextField(
+                            child: ClipRRect(
+                              borderRadius: const BorderRadiusGeometry.all(Radius.circular(10.0)),
+                              child: TextField(
                               controller: controller.emailController,
                               decoration: InputDecoration(
                                 filled: true,
                                 border: InputBorder.none,
                                 fillColor: Colors.transparent,
-                                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(10),
@@ -81,9 +83,9 @@ class LoginView extends GetView<LoginController> {
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-
                               ),
                             ),
+                            )
                           ),
                         )),
                         Obx(() => controller.hasError.value

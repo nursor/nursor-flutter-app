@@ -141,7 +141,7 @@ class NursorCoreManager {
         payload["args"] = userToken;
         _coreSendPort?.send(payload);
         return await completer.future.timeout(
-            const Duration(seconds: 60),
+            const Duration(seconds: 120),
             onTimeout: () =>
                 ActionResult(name: 'start', data: null, success: false, message: 'Timeout'));
       } else {
@@ -275,9 +275,43 @@ class NursorCoreManager {
           return ActionResult(name: "set_user_info", data: null, success: false, message: "core_error");
         }
     }
-    return ActionResult(name: 'set_user_info', data: null, success: false, message: 'Failed to set user info');
+  }
+
+  Future<ActionResult> setLogWatchMode(int logLevel, bool enableWatch) async {
+    if (Platform.isWindows){
+      final completer = Completer<ActionResult>();
+      _pendingActions['set_user_info'] = completer;
+      final payload = jsonEncode({'name': 'set_user_info', 'args': jsonEncode({'enable_watch': enableWatch, 'level': logLevel})});
+      _coreSendPort?.send(payload);
+      return await completer.future.timeout(
+          const Duration(seconds: 5),
+          onTimeout: () =>
+              ActionResult(name: 'set_user_info', data: null, success: false, message: 'Timeout')
+              );
+    }
+    return ActionResult(name: "set_user_info", data: null, success: true, message: "");
+
+  }
+
+
+    Future<ActionResult> setCursorGateEnabled(bool enableGate) async {
+    if (Platform.isWindows){
+      final completer = Completer<ActionResult>();
+      _pendingActions['set_user_info'] = completer;
+      final payload = jsonEncode({'name': 'set_user_info', 'args': jsonEncode({'enable_cursor_gate': enableGate})});
+      _coreSendPort?.send(payload);
+      return await completer.future.timeout(
+          const Duration(seconds: 5),
+          onTimeout: () =>
+              ActionResult(name: 'set_user_info', data: null, success: false, message: 'Timeout')
+              );
+    }
+    return ActionResult(name: "set_user_info", data: null, success: true, message: "");
+
   }
 }
+
+
 
 
 
@@ -328,6 +362,16 @@ void _runGateIsolate(SendPort sendPort) {
         final userInfo = jsonDecode(args);  
         nursorCore.setUserInfo(userInfo["user_token"].toNativeUtf8().cast<Char>(), userInfo["user_id"].toNativeUtf8().cast<Char>(), userInfo["username"].toNativeUtf8().cast<Char>(), userInfo["password"].toNativeUtf8().cast<Char>());
         final resultApiResponse = ActionResult(name: 'set_user_info', data: null, success: true, message: 'User info set');
+        sendPort.send(resultApiResponse);
+      }else if(name == "set_log_level"){
+        final modeInfo = jsonDecode(args);
+        nursorCore.setLogWatchMode(modeInfo["enable_watch"].toNativeUtf8().cast<Bool>(), modeInfo["level"].toNativeUtf8().cast<Int>());
+        final resultApiResponse = ActionResult(name: 'set_user_info', data: null, success: true, message: 'User info set');
+        sendPort.send(resultApiResponse);
+      }else if(name == "set_cursor_gate"){
+        final gateInfo = jsonDecode(args);
+        nursorCore.setCursorGateMode(gateInfo["enable_cursor_gate"].toNativeUtf8().cast<Bool>());
+        final resultApiResponse = ActionResult(name: 'set_cursor_gate', data: null, success: true, message: 'User info set');
         sendPort.send(resultApiResponse);
       }
     }
