@@ -24,6 +24,7 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    // 最多重复3次
     Future.delayed(Duration.zero, ()async{
       await authService.startAsyncUploadCursorInfo();
     });

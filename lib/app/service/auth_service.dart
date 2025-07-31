@@ -110,12 +110,12 @@ class AuthService extends GetxController {
   Future<void> refreshUserPlanInfo() async {
     print('Refreshing user plan info');
     try {
-      final response = await _authConnect.refreshUserPlanInfo(userInfo.value.accessToken ?? '');
+      final response = await _authConnect.refreshUserPlanInfo(userInfo.value.accessToken);
 
       if (response.code == StatusCode.success) {
         var latestPlanInfo = response.data;
-        latestPlanInfo['access_token'] = userInfo.value.accessToken ?? '';
-        latestPlanInfo['refresh_token'] = userInfo.value.refreshToken ?? '';
+        latestPlanInfo['access_token'] = userInfo.value.accessToken;
+        latestPlanInfo['refresh_token'] = userInfo.value.refreshToken;
         userInfo.value = User.fromJson(latestPlanInfo);
       } else {
         print('Error: ${response.msg}');
@@ -152,8 +152,8 @@ class AuthService extends GetxController {
     await loadUserInfoFromDB();
     return userInfo.value.accessToken.isNotEmpty == true &&
         userInfo.value.activeToken != '' &&
-        userInfo.value.planName != 'free' &&
-        userInfo.value.planName != '' &&
+        // userInfo.value.planName != 'free' &&
+        // userInfo.value.planName != '' &&
         isEndTimeValid(userInfo.value.endTime);
   }
 
