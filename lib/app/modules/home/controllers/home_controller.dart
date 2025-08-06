@@ -23,7 +23,10 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();    
+    super.onReady();
+    Timer.periodic(Duration(minutes: 2), (t)async{
+      await authService.refreshUserPlanInfo();
+    });
   }
 
   Future<void> onButtonClick() async {
