@@ -130,20 +130,20 @@ class NursorCoreManager {
     return false;
   }
 
-  Future<ActionResult> startGate(String userToken) async {
+  Future<ActionResult> startGate(String innerToken) async {
     try {
       if (mode == NursorCoreMode.shared) {
         final completer = Completer<ActionResult>();
         _pendingActions['start'] = completer;
         final payload = new Map<String, String>();
-        // name': 'start_go_gate', 'args': userToken}
         payload["name"] = "start_go_gate";
-        payload["args"] = userToken;
+        payload["args"] = innerToken;
         _coreSendPort?.send(payload);
         return await completer.future.timeout(
             const Duration(seconds: 120),
             onTimeout: () =>
-                ActionResult(name: 'start', data: null, success: false, message: 'Timeout'));
+                ActionResult(name: 'start', data: null, success: false, message: 'Timeout')
+                );
       } else {
         if (!await waitCoreRunning()) {
           return ActionResult(
@@ -153,7 +153,7 @@ class NursorCoreManager {
               message: 'Failed to start gate');
         }
         final response =
-            await http.post(Uri.parse('http://127.0.0.1:56431/run/start'), body: jsonEncode({'user_token': userToken}));
+            await http.post(Uri.parse('http://127.0.0.1:56431/run/start'), body: jsonEncode({'inner_token': innerToken}));
         if (response.statusCode == 200) {
           final apiResp = ApiResponse.fromJson(jsonDecode(response.body));
           _isRunning = apiResp.code == 0;
@@ -250,11 +250,11 @@ class NursorCoreManager {
         name: 'close', data: null, success: true, message: 'Gate closed');
   }
 
-  Future<ActionResult> setUserInfo(String userToken, String userId, String username, String password) async {
+  Future<ActionResult> setUserInfo(String innerToken, String userId, String username, String password) async {
     if (mode == NursorCoreMode.shared) {
       final completer = Completer<ActionResult>();
       _pendingActions['set_user_info'] = completer;
-      final payload = jsonEncode({'name': 'set_user_info', 'args': jsonEncode({'user_token': userToken, 'user_id': userId, 'username': username, 'password': password})});
+      final payload = jsonEncode({'name': 'set_user_info', 'args': jsonEncode({'inner_token': innerToken, 'username': username, 'password': password})});
       _coreSendPort?.send(payload);
       return await completer.future.timeout(
           const Duration(seconds: 5),
@@ -262,7 +262,7 @@ class NursorCoreManager {
               ActionResult(name: 'set_user_info', data: null, success: false, message: 'Timeout'));
     }else{
       final response =
-            await http.post(Uri.parse('http://127.0.0.1:56431/run/userInfo'), body: jsonEncode({'user_token': userToken, 'user_id': userId, 'username': username, 'password': password}));
+            await http.post(Uri.parse('http://127.0.0.1:56431/run/userInfo'), body: jsonEncode({'inner_token': innerToken, 'username': username, 'password': password}));
         if (response.statusCode == 200) {
           final apiResp = ApiResponse.fromJson(jsonDecode(response.body));
           _isRunning = apiResp.code == 0;
@@ -360,7 +360,7 @@ void _runGateIsolate(SendPort sendPort) {
         sendPort.send(resultApiResponse);
       }else if (name == 'set_user_info') {
         final userInfo = jsonDecode(args);  
-        nursorCore.setUserInfo(userInfo["user_token"].toNativeUtf8().cast<Char>(), userInfo["user_id"].toNativeUtf8().cast<Char>(), userInfo["username"].toNativeUtf8().cast<Char>(), userInfo["password"].toNativeUtf8().cast<Char>());
+        nursorCore.setUserInfo(userInfo["inner_token"].toNativeUtf8().cast<Char>(), userInfo["username"].toNativeUtf8().cast<Char>(), userInfo["password"].toNativeUtf8().cast<Char>());
         final resultApiResponse = ActionResult(name: 'set_user_info', data: null, success: true, message: 'User info set');
         sendPort.send(resultApiResponse);
       }else if(name == "set_log_level"){

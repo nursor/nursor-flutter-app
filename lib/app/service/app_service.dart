@@ -50,8 +50,8 @@ class AppService extends GetxController with TrayListener, WindowListener{
   Future<ActionRes> startCoreGate()async{
     final instance = await NursorCoreManager.getInstance();
     final authService = Get.find<AuthService>();
-    final userToken = await authService.getUserToken();
-    final res = await instance.startGate(userToken);
+    final innerToken = await authService.getUserInnerToken();
+    final res = await instance.startGate(innerToken);
     if (res.success){
       return ActionRes(status: true, message: res.message, data: res.data);
     }else{

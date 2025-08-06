@@ -5362,8 +5362,8 @@ class NursorCore {
   late final _getToCursorDomain = _getToCursorDomainPtr
       .asFunction<ffi.Pointer<ffi.Char> Function()>();
 
-  ffi.Pointer<ffi.Char> runGate(ffi.Pointer<ffi.Char> userToken) {
-    return _runGate(userToken);
+  ffi.Pointer<ffi.Char> runGate(ffi.Pointer<ffi.Char> innerToken) {
+    return _runGate(innerToken);
   }
 
   late final _runGatePtr =
@@ -5376,12 +5376,11 @@ class NursorCore {
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>();
 
   void setUserInfo(
-    ffi.Pointer<ffi.Char> uToken,
-    ffi.Pointer<ffi.Char> userId,
+    ffi.Pointer<ffi.Char> innerToken,
     ffi.Pointer<ffi.Char> username,
     ffi.Pointer<ffi.Char> password,
   ) {
-    return _setUserInfo(uToken, userId, username, password);
+    return _setUserInfo(innerToken, username, password);
   }
 
   late final _setUserInfoPtr =
@@ -5391,14 +5390,12 @@ class NursorCore {
             ffi.Pointer<ffi.Char>,
             ffi.Pointer<ffi.Char>,
             ffi.Pointer<ffi.Char>,
-            ffi.Pointer<ffi.Char>,
           )
         >
       >('setUserInfo');
   late final _setUserInfo = _setUserInfoPtr
       .asFunction<
         void Function(
-          ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>,

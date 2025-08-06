@@ -23,31 +23,12 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();
-    // 最多重复3次
-    Future.delayed(Duration.zero, ()async{
-      await authService.startAsyncUploadCursorInfo();
-    });
-    
+    super.onReady();    
   }
 
   Future<void> onButtonClick() async {
     if(appService.isTaskDoing.value){
       return;
-    }
-    if (!authService.isCustomIdUpload.value) {
-      if (authService.isCustomIdUpload.value){
-        Get.snackbar(
-        "Error",
-        "Cursor登录信息验证失败",
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
-        maxWidth: 300,
-        margin: EdgeInsets.only(top: 20),
-      );
-      return;
-      }
     }
     appService.isTaskDoing.value = true;
     if(animateController.step.value == AnimateType.unbegin) {

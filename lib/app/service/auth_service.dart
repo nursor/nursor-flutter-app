@@ -26,10 +26,10 @@ class AuthService extends GetxController {
   final userInfo = Rx<User>(
      User(
       planName: 'free',
-      fastAskUsed: 0,
-      fastAskTotal: 0,
-      premiumAskUsed: 0,
-      premiumAskTotal: 0,
+      trafficTotal: 0,
+      trafficUsed: 0,
+      aiAskUsed: 0,
+      aiAskTotal: 0,
       startTime: DateTime.now().toIso8601String(),
       endTime: DateTime.now().toIso8601String(),
       uniqueCode: null,
@@ -88,10 +88,10 @@ class AuthService extends GetxController {
   Future<void> logout() async {
     userInfo.value = User(
       planName: 'free',
-      fastAskUsed: 0,
-      fastAskTotal: 0,
-      premiumAskUsed: 0,
-      premiumAskTotal: 0,
+      trafficTotal: 0,
+      trafficUsed: 0,
+      aiAskUsed: 0,
+      aiAskTotal: 0,
       startTime: DateTime.now().toIso8601String(),
       endTime: DateTime.now().toIso8601String(),
       uniqueCode: null,
@@ -162,96 +162,12 @@ class AuthService extends GetxController {
     return !isEndTimeValid(userInfo.value.endTime);
   }
 
-  Future<void> checkCursorTokenValid() async {
-    var cursorToken;
-    try{
-      cursorToken = await _sqliteManager.getCursorData('cursorAuth/accessToken');
-    }catch(e, stackTrace){
-      await Sentry.captureException(e, stackTrace: stackTrace);
-      return;
-    }
-    
-    if (cursorToken == null) {
-      isCursorTokenValid.value = false;
-      cursorStatusMsg.value = 'Cursor登录信息验证失败';
-      cacheCursorToken.value = '';
-    }else{
-      isCursorTokenValid.value = true;
-      cursorStatusMsg.value = 'Cursor登录信息验证成功';
-      cacheCursorToken.value = cursorToken;
-    }
-  }
+  
 
-  Future<void> monitorCursorToken() async {
-    Timer.periodic(const Duration(seconds: 60), (timer) async {
-      var cursorToken;
-      try{
-        cursorToken = await _sqliteManager.getCursorData('cursorAuth/accessToken');
-      }catch(e, stackTrace){
-        await Sentry.captureException(e, stackTrace: stackTrace);
-      }
-      if (cursorToken == null) {
-        isCursorTokenValid.value = false;
-        cursorStatusMsg.value = 'Cursor登录信息验证失败';
-        cacheCursorToken.value = '';
-      }else{
-        isCursorTokenValid.value = true;
-        cursorStatusMsg.value = 'Cursor登录信息验证成功';
-        if (cursorToken != cacheCursorToken.value) {
-          cacheCursorToken.value = cursorToken;
-          await uploadCursorInfo();
-        }
-      }
-    });
-  }
-
-  Future<void> startAsyncUploadCursorInfo() async {
-    var res = await uploadCursorInfo();
-    if (res.status) {
-      isCustomIdUpload.value = true;
-      cursorStatusMsg.value = 'Cursor登录信息验证成功';
-    }else{
-      isCustomIdUpload.value = false;
-      cursorStatusMsg.value = 'Cursor登录信息验证失败';
-    }
-    // Get.snackbar("startAsyncuploadCursorInfo", "${res.status}");
-    Timer.periodic(const Duration(seconds: 30), (timer) async {
-      if (await isUserAvaliable()) {
-        var res = await uploadCursorInfo();
-        if (res.status) {
-          isCustomIdUpload.value = true;
-        }else{
-          isCustomIdUpload.value = false;
-        }
-
-        await refreshUserPlanInfo();
-      }
-    });
-  }
-
-  Future<ActionRes> uploadCursorInfo() async {
-    try {
-      final cursorToken = await _sqliteManager.getCursorData('cursorAuth/accessToken');
-      if (cursorToken == null) {
-        return ActionRes(status: false, message: 'Cursor token is null', data: null);
-      }
-      final encryptedCursorToken = _aesCipher.encrypt(cursorToken);
-      final encryptedCursorTokenString = bytesToBase64(encryptedCursorToken);
-      final response = await _authConnect.uploadCursorInfo(userInfo.value.accessToken, encryptedCursorTokenString);
-      if (response.code == StatusCode.success) {
-        return ActionRes(status: true, message: 'Upload cursor info success', data: response.data);
-      } else {
-        return ActionRes(status: false, message: response.msg, data: null);
-      }
-    } catch (error) {
-      return ActionRes(status: false, message: 'Network error', data: null);
-    }
-  }
-
-  Future<String> getUserToken() async {
+  Future<String> getUserInnerToken() async {
     await loadUserInfoFromDB();
     if (userInfo.value.accessToken.isNotEmpty) {
-      return userInfo.value.accessToken;
+      return userInfo.value.innerToken;
     }
     return '';
   }
@@ -264,5 +180,4 @@ class AuthService extends GetxController {
       Get.snackbar("Error", "core error",colorText: Colors.red,  );
     }
   }
-
 }

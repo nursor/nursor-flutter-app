@@ -1,9 +1,9 @@
 class User {
   final String planName;
-  final int fastAskUsed;
-  final int fastAskTotal;
-  final int premiumAskUsed;
-  final int premiumAskTotal;
+  final int trafficTotal;
+  final int trafficUsed;
+  final int aiAskUsed;
+  final int aiAskTotal;
   final String startTime;
   final String endTime;
   final String? uniqueCode;
@@ -17,10 +17,10 @@ class User {
 
   User({
     required this.planName,
-    required this.fastAskUsed,
-    required this.fastAskTotal,
-    required this.premiumAskUsed,
-    required this.premiumAskTotal,
+    required this.trafficTotal,
+    required this.trafficUsed,
+    required this.aiAskUsed,
+    required this.aiAskTotal,
     required this.startTime,
     required this.endTime,
     this.uniqueCode,
@@ -36,10 +36,10 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       planName: json['plan_name'] ?? 'free',
-      fastAskUsed: json['fast_ask_used'] ?? 0,
-      fastAskTotal: json['fast_ask_total'] ?? 0,
-      premiumAskUsed: json['premium_ask_used'] ?? 0,
-      premiumAskTotal: json['premium_ask_total'] ?? 0,
+      trafficTotal: json['traffic_total'] ?? 0,
+      trafficUsed: json['traffic_used'] ?? 0,
+      aiAskUsed: json['ai_ask_used'] ?? 0,
+      aiAskTotal: json['ai_ask_total'] ?? 0,
       startTime: json['start_time'] ?? DateTime.now().toIso8601String(),
       endTime: json['end_time'] ?? DateTime.now().toIso8601String(),
       uniqueCode: json['unique_code'],
@@ -56,10 +56,10 @@ class User {
   Map<String, dynamic> toJson() {
     return {
       'plan_name': planName,
-      'fast_ask_used': fastAskUsed,
-      'fast_ask_total': fastAskTotal,
-      'premium_ask_used': premiumAskUsed,
-      'premium_ask_total': premiumAskTotal,
+      'traffic_total': trafficTotal,
+      'traffic_used': trafficUsed,
+      'ai_ask_used': aiAskUsed,
+      'ai_ask_total': aiAskTotal,
       'start_time': startTime,
       'end_time': endTime,
       'unique_code': uniqueCode,

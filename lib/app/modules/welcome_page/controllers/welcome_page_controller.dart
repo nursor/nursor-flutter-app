@@ -20,8 +20,6 @@ class WelcomePageController extends GetxController {
         await Get.find<AuthService>().setUserToCursor();
         final AuthService authService = Get.find<AuthService>();
         await authService.refreshUserPlanInfo();
-        await authService.startAsyncUploadCursorInfo();
-        await authService.monitorCursorToken();
         Get.offAndToNamed(Routes.HOME);
         return;
       }

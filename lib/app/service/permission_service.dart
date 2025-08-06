@@ -120,7 +120,7 @@ class PermissionService extends GetxController {
     final isInAdminGroup = await isUserInAdminGroup();
     
     // 如果当前不是管理员权限运行，但用户属于管理员组，则需要管理员权限
-    return !isAdmin && isInAdminGroup;
+    return !isAdmin && !isInAdminGroup;
   }
 
   /// 简单的管理员权限检查方法

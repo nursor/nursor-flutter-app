@@ -89,8 +89,8 @@ class HomeView extends GetView<HomeController> {
                     startTime: DateTime.parse(controller.authService.userInfo.value.startTime),
                     endTime: DateTime.parse(controller.authService.userInfo.value.endTime),
                     width: 150,
-                    planCount: controller.authService.userInfo.value.fastAskTotal ?? 0,
-                    planUsed: controller.authService.userInfo.value.fastAskUsed ?? 0,
+                    planCount: controller.authService.userInfo.value.aiAskTotal,
+                    planUsed: controller.authService.userInfo.value.aiAskUsed,
                   ))),
 
                 // 按钮

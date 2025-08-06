@@ -20,7 +20,7 @@ class BaseConnection extends GetConnect {
       }
       throw Exception('Invalid response format');
     };
-    httpClient.baseUrl = 'http://api.nursor.org';
+    httpClient.baseUrl = 'https://api.nursor.org';
     
   }
 
