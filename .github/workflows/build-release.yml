@@ -201,8 +201,55 @@ jobs:
             pkg-config \
             libgtk-3-dev \
             liblzma-dev \
-            libayatana-appindicator3-dev \
-            libappindicator3-dev
+            lsb-release
+          
+          # Install appindicator library based on Ubuntu version
+          # Ubuntu 20.04+ uses ayatana, older versions use legacy appindicator
+          UBUNTU_VERSION=$(lsb_release -rs | cut -d. -f1)
+          FULL_VERSION=$(lsb_release -rs)
+          echo "Detected Ubuntu version: $FULL_VERSION (major: $UBUNTU_VERSION)"
+          
+          # Try to install the appropriate package based on Ubuntu version
+          # For Ubuntu 20.04+, prefer ayatana; for older, prefer legacy
+          APPINDICATOR_INSTALLED=false
+          
+          if [ "$UBUNTU_VERSION" -ge 20 ]; then
+            echo "Attempting to install libayatana-appindicator3-dev for Ubuntu $FULL_VERSION"
+            if sudo apt-get install -y libayatana-appindicator3-dev; then
+              APPINDICATOR_INSTALLED=true
+              echo "Successfully installed libayatana-appindicator3-dev"
+            else
+              echo "Failed to install libayatana-appindicator3-dev, trying libappindicator3-dev"
+              # Try legacy version as fallback
+              sudo apt-get remove -y libayatana-appindicator3-dev 2>/dev/null || true
+              if sudo apt-get install -y libappindicator3-dev; then
+                APPINDICATOR_INSTALLED=true
+                echo "Successfully installed libappindicator3-dev"
+              fi
+            fi
+          else
+            echo "Attempting to install libappindicator3-dev for Ubuntu $FULL_VERSION"
+            if sudo apt-get install -y libappindicator3-dev; then
+              APPINDICATOR_INSTALLED=true
+              echo "Successfully installed libappindicator3-dev"
+            else
+              echo "Failed to install libappindicator3-dev, trying libayatana-appindicator3-dev"
+              # Try ayatana version as fallback
+              sudo apt-get remove -y libappindicator3-dev 2>/dev/null || true
+              if sudo apt-get install -y libayatana-appindicator3-dev; then
+                APPINDICATOR_INSTALLED=true
+                echo "Successfully installed libayatana-appindicator3-dev"
+              fi
+            fi
+          fi
+          
+          if [ "$APPINDICATOR_INSTALLED" = false ]; then
+            echo "ERROR: Failed to install any appindicator library"
+            echo "This is required for tray_manager plugin"
+            exit 1
+          fi
+          
+          echo "Appindicator library installation completed successfully"
 
       - name: Install Flutter dependencies
         run: flutter pub get
