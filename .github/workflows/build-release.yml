@@ -306,7 +306,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          token: ${{ secrets.PACKAGING_REPO_TOKEN }}
           name: Release ${{ steps.tag.outputs.tag_name }}
+          tag_name: ${{ github.ref_name }}
           body: |
             ## Release ${{ steps.tag.outputs.tag_name }}
 
@@ -324,6 +326,5 @@ jobs:
             artifacts/nursor-app-linux/**/*
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_unmatched_files: false
 
