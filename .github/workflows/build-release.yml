@@ -289,17 +289,25 @@ jobs:
             exit 1
           fi
           
-          # 创建输出目录
+          # 创建输出目录（在项目根目录）
           mkdir -p dist
           
-          # 进入 bundle 目录并创建 tar.gz
-          cd "$BUNDLE_DIR"
-          tar -czf "../../../../../../dist/${TARBALL_NAME}" *
-          cd - > /dev/null
+          # 获取绝对路径
+          ABS_BUNDLE_DIR=$(cd "$BUNDLE_DIR" && pwd)
+          ABS_DIST_DIR=$(cd dist && pwd)
+          ABS_TARBALL="${ABS_DIST_DIR}/${TARBALL_NAME}"
           
-          if [ -f "dist/${TARBALL_NAME}" ]; then
-            echo "Created tarball: dist/${TARBALL_NAME}"
-            ls -lh "dist/${TARBALL_NAME}"
+          echo "Bundle directory: $ABS_BUNDLE_DIR"
+          echo "Output tarball: $ABS_TARBALL"
+          
+          # 进入 bundle 目录并创建 tar.gz（使用绝对路径）
+          cd "$ABS_BUNDLE_DIR"
+          tar -czf "$ABS_TARBALL" *
+          
+          # 验证文件是否创建成功
+          if [ -f "$ABS_TARBALL" ]; then
+            echo "Created tarball: $ABS_TARBALL"
+            ls -lh "$ABS_TARBALL"
           else
             echo "ERROR: Tarball was not created"
             exit 1
@@ -363,10 +371,24 @@ jobs:
             # 查找 Windows Release 文件夹
             WIN_RELEASE_DIR=$(find artifacts/nursor-app-windows -type d -path "*/runner/Release" -o -name "Release" | head -1)
             if [ -n "$WIN_RELEASE_DIR" ] && [ -d "$WIN_RELEASE_DIR" ]; then
-              cd "$WIN_RELEASE_DIR"
-              zip -r "../../../../release-files/nursor_app-windows-x64-${TAG_NAME}.zip" .
+              # 使用绝对路径避免相对路径问题
+              ABS_RELEASE_DIR=$(cd "$WIN_RELEASE_DIR" && pwd)
+              ABS_RELEASE_FILES=$(cd release-files && pwd)
+              ABS_ZIP="${ABS_RELEASE_FILES}/nursor_app-windows-x64-${TAG_NAME}.zip"
+              
+              echo "Release directory: $ABS_RELEASE_DIR"
+              echo "Output ZIP: $ABS_ZIP"
+              
+              cd "$ABS_RELEASE_DIR"
+              zip -r "$ABS_ZIP" .
               cd - > /dev/null
-              echo "Created Windows ZIP from folder"
+              
+              if [ -f "$ABS_ZIP" ]; then
+                echo "Created Windows ZIP from folder: $ABS_ZIP"
+                ls -lh "$ABS_ZIP"
+              else
+                echo "ERROR: Failed to create Windows ZIP"
+              fi
             else
               echo "ERROR: Windows Release directory not found"
             fi
@@ -381,10 +403,24 @@ jobs:
             # 查找 Linux bundle 文件夹
             LINUX_BUNDLE_DIR=$(find artifacts/nursor-app-linux -type d -path "*/bundle" | head -1)
             if [ -n "$LINUX_BUNDLE_DIR" ] && [ -d "$LINUX_BUNDLE_DIR" ]; then
-              cd "$LINUX_BUNDLE_DIR"
-              tar -czf "../../../../release-files/nursor_app-linux-x64-${TAG_NAME}.tar.gz" .
+              # 使用绝对路径避免相对路径问题
+              ABS_BUNDLE_DIR=$(cd "$LINUX_BUNDLE_DIR" && pwd)
+              ABS_RELEASE_FILES=$(cd release-files && pwd)
+              ABS_TARBALL="${ABS_RELEASE_FILES}/nursor_app-linux-x64-${TAG_NAME}.tar.gz"
+              
+              echo "Bundle directory: $ABS_BUNDLE_DIR"
+              echo "Output tarball: $ABS_TARBALL"
+              
+              cd "$ABS_BUNDLE_DIR"
+              tar -czf "$ABS_TARBALL" .
               cd - > /dev/null
-              echo "Created Linux tarball from folder"
+              
+              if [ -f "$ABS_TARBALL" ]; then
+                echo "Created Linux tarball from folder: $ABS_TARBALL"
+                ls -lh "$ABS_TARBALL"
+              else
+                echo "ERROR: Failed to create Linux tarball"
+              fi
             else
               echo "ERROR: Linux bundle directory not found"
             fi
