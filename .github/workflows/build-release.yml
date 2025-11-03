@@ -303,6 +303,33 @@ jobs:
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "Tag name: $TAG_NAME"
 
+      - name: List downloaded artifacts
+        run: |
+          echo "Artifact structure:"
+          find artifacts -type f -name "*.dmg" -o -name "*.app" -o -name "*.zip" -o -name "*.tar.gz" | head -20
+
+      - name: Prepare release files
+        run: |
+          # Create a clean directory for release files
+          mkdir -p release-files
+          
+          # Copy macOS ARM64 files
+          find artifacts/nursor-app-macos-arm64 -name "*.dmg" -exec cp {} release-files/ \;
+          find artifacts/nursor-app-macos-arm64 -name "*.app" -type d -exec cp -R {} release-files/ \;
+          
+          # Copy macOS x86_64 files
+          find artifacts/nursor-app-macos-x86_64 -name "*.dmg" -exec cp {} release-files/ \;
+          find artifacts/nursor-app-macos-x86_64 -name "*.app" -type d -exec cp -R {} release-files/ \;
+          
+          # Copy Windows files
+          find artifacts/nursor-app-windows -name "*.zip" -exec cp {} release-files/ \;
+          
+          # Copy Linux files
+          find artifacts/nursor-app-linux -name "*.tar.gz" -exec cp {} release-files/ \;
+          
+          echo "Release files prepared:"
+          ls -lh release-files/
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -320,11 +347,9 @@ jobs:
 
             Built from tag: ${{ github.ref }}
           files: |
-            artifacts/nursor-app-macos-arm64/**/*
-            artifacts/nursor-app-macos-x86_64/**/*
-            artifacts/nursor-app-windows/**/*
-            artifacts/nursor-app-linux/**/*
+            release-files/*
           draft: false
           prerelease: false
           fail_on_unmatched_files: false
+          generate_release_notes: false
 
