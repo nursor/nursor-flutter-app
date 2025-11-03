@@ -17,7 +17,6 @@ import 'package:nursor_app/app/service/connection/auth_connect.dart';
 import 'package:nursor_app/app/service/sqlite_manager.dart';
 import 'package:nursor_app/app/utils/cryptutils.dart';
 import 'package:nursorcore/nursorcore.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 
 
@@ -33,7 +32,6 @@ class AuthService extends GetxController {
       startTime: DateTime.now().toIso8601String(),
       endTime: DateTime.now().toIso8601String(),
       uniqueCode: null,
-      activeToken: '',
       planType: 'free',
       innerToken: '',
       accessToken: '',
@@ -58,10 +56,6 @@ class AuthService extends GetxController {
     super.onInit();
     // userInfo.value =
     _aesCipher = AESCipher("12345678901234567890123456789012");
-  }
-
-  void setActivateToken(String token) {
-    userInfo.value.activeToken = token;
   }
 
   Future<ActionRes> login(String accessToken) async {
@@ -95,7 +89,6 @@ class AuthService extends GetxController {
       startTime: DateTime.now().toIso8601String(),
       endTime: DateTime.now().toIso8601String(),
       uniqueCode: null,
-      activeToken: '',
       planType: 'free',
       innerToken: '',
       accessToken: '',
@@ -151,9 +144,6 @@ class AuthService extends GetxController {
   Future<bool> isUserAvaliable() async {
     await loadUserInfoFromDB();
     return userInfo.value.accessToken.isNotEmpty == true &&
-        userInfo.value.activeToken != '' &&
-        // userInfo.value.planName != 'free' &&
-        // userInfo.value.planName != '' &&
         isEndTimeValid(userInfo.value.endTime);
   }
 
@@ -175,7 +165,7 @@ class AuthService extends GetxController {
 
   Future<void> setUserToCursor() async {
     final instance = await NursorCoreManager.getInstance();
-    var acRes = await instance.setUserInfo(userInfo.value.accessToken, userInfo.value.uniqueCode ?? '', userInfo.value.username, userInfo.value.password);
+    var acRes = await instance.setUserInfo(userInfo.value.accessToken, userInfo.value.uniqueCode ?? '', userInfo.value.username, userInfo.value.password, userInfo.value.uniqueCode ?? '');
     if (acRes.message == "core_error"){
       Get.snackbar("Error", "core error",colorText: Colors.red,  );
     }

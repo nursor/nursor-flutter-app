@@ -24,3 +24,7 @@ sudo launchctl bootstrap system /Library/LaunchDaemons/org.nursor.nursor-core.pl
 
 这个地址不错
 https://www.candyicons.com/free-tools/app-icon-assets-generator
+
+
+## 注意
+~/.nursor这个目录的权限要注意，可能是root，但是flutter运行权限可能是username

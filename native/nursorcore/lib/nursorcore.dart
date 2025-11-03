@@ -152,6 +152,7 @@ class NursorCoreManager {
               success: false,
               message: 'Failed to start gate');
         }
+        try{
         final response =
             await http.post(Uri.parse('http://127.0.0.1:56431/run/start'), body: jsonEncode({'inner_token': innerToken}));
         if (response.statusCode == 200) {
@@ -162,6 +163,9 @@ class NursorCoreManager {
               data: apiResp.data,
               success: apiResp.code == 0,
               message: apiResp.msg);
+        }
+        }catch(e){
+          return ActionResult(name: "start", data: null, success: false, message: "core_error");
         }
         return ActionResult(
             name: 'start',
@@ -192,6 +196,7 @@ class NursorCoreManager {
           onTimeout: () =>
               ActionResult(name: 'stop', data: null, success: false, message: 'Timeout'));
     } else {
+      try{
         final response =
             await http.get(Uri.parse('http://127.0.0.1:56431/run/stop'));
         if (response.statusCode == 200) {
@@ -203,7 +208,9 @@ class NursorCoreManager {
               success: apiResp.code == 0,
               message: apiResp.msg);
         }
-
+      }catch(e){
+        return ActionResult(name: "stop", data: null, success: false, message: "core_error");
+      }
       return ActionResult(
           name: 'stop', data: null, success: false, message: 'Gate stopped');
     }
@@ -234,23 +241,27 @@ class NursorCoreManager {
             success: true,
             message: 'Gate already closed');
       }
-      final response =
-            await http.get(Uri.parse('http://127.0.0.1:56431/run/stop'));
-        if (response.statusCode == 200) {
-          final apiResp = ApiResponse.fromJson(jsonDecode(response.body));
-          _isRunning = apiResp.code == 0;
-          return ActionResult(
-              name: 'close',
-              data: apiResp.data,
-              success: apiResp.code == 0,
-              message: apiResp.msg);
-        }
+      try{
+        final response =
+              await http.get(Uri.parse('http://127.0.0.1:56431/run/stop'));
+          if (response.statusCode == 200) {
+            final apiResp = ApiResponse.fromJson(jsonDecode(response.body));
+            _isRunning = apiResp.code == 0;
+            return ActionResult(
+                name: 'close',
+                data: apiResp.data,
+                success: apiResp.code == 0,
+                message: apiResp.msg);
+          }
+      }catch(e){
+        return ActionResult(name: "close", data: null, success: false, message: "core_error");
+      }
     }
     return ActionResult(
         name: 'close', data: null, success: true, message: 'Gate closed');
   }
 
-  Future<ActionResult> setUserInfo(String innerToken, String userId, String username, String password) async {
+  Future<ActionResult> setUserInfo(String innerToken, String userId, String username, String password, String userUuid) async {
     if (mode == NursorCoreMode.shared) {
       final completer = Completer<ActionResult>();
       _pendingActions['set_user_info'] = completer;
@@ -261,8 +272,9 @@ class NursorCoreManager {
           onTimeout: () =>
               ActionResult(name: 'set_user_info', data: null, success: false, message: 'Timeout'));
     }else{
-      final response =
-            await http.post(Uri.parse('http://127.0.0.1:56431/run/userInfo'), body: jsonEncode({'inner_token': innerToken, 'username': username, 'password': password}));
+      try{
+        final response =
+            await http.post(Uri.parse('http://127.0.0.1:56431/run/userInfo'), body: jsonEncode({'inner_token': innerToken, 'username': username, 'password': password, 'user_uuid': userUuid}));
         if (response.statusCode == 200) {
           final apiResp = ApiResponse.fromJson(jsonDecode(response.body));
           _isRunning = apiResp.code == 0;
@@ -274,6 +286,9 @@ class NursorCoreManager {
         }else{
           return ActionResult(name: "set_user_info", data: null, success: false, message: "core_error");
         }
+      }catch(e){
+        return ActionResult(name: "set_user_info", data: null, success: false, message: "core_error");
+      }
     }
   }
 

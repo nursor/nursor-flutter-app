@@ -20,8 +20,8 @@ class BaseConnection extends GetConnect {
       }
       throw Exception('Invalid response format');
     };
-    httpClient.baseUrl = 'https://api.nursor.org';
-    
+    // httpClient.baseUrl = 'https://api.nursor.org';
+    httpClient.baseUrl = 'http://127.0.0.1:8000';
   }
 
   Future<ApiResponse> postData(String url, dynamic body) async {

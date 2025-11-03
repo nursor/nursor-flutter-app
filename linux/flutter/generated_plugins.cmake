@@ -5,7 +5,6 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   nursorcore
   screen_retriever
-  sentry_flutter
   tray_manager
   window_manager
 )

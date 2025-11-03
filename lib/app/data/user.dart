@@ -7,7 +7,6 @@ class User {
   final String startTime;
   final String endTime;
   final String? uniqueCode;
-  String activeToken;
   final String planType;
   final String innerToken;
   String accessToken;
@@ -24,7 +23,6 @@ class User {
     required this.startTime,
     required this.endTime,
     this.uniqueCode,
-    required this.activeToken,
     required this.planType,
     required this.innerToken,
     required this.accessToken,
@@ -43,7 +41,6 @@ class User {
       startTime: json['start_time'] ?? DateTime.now().toIso8601String(),
       endTime: json['end_time'] ?? DateTime.now().toIso8601String(),
       uniqueCode: json['unique_code'],
-      activeToken: json['active_token'] ?? '',
       planType: json['plan_type'] ?? 'free',
       innerToken: json['inner_token'] ?? '',
       accessToken: json['access_token'] ?? '',
@@ -63,7 +60,6 @@ class User {
       'start_time': startTime,
       'end_time': endTime,
       'unique_code': uniqueCode,
-      'active_token': activeToken,
       'plan_type': planType,
       'inner_token': innerToken,
       'access_token': accessToken,
