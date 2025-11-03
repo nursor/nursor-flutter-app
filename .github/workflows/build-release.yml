@@ -144,18 +144,22 @@ jobs:
         run: flutter pub get
 
       - name: Build Windows
+        shell: pwsh
         run: |
-          flutter build windows --release \
-            --dart-define=FLUTTER_BUILD_NAME=$(echo ${GITHUB_REF#refs/tags/v} | sed 's/^v//') \
-            --dart-define=FLUTTER_BUILD_NUMBER=$(Get-Date -UFormat %s)
+          $tagName = "${{ github.ref }}".Replace("refs/tags/v", "").Replace("refs/tags/", "")
+          $buildNumber = [Math]::Floor([decimal](Get-Date -UFormat %s))
+          flutter build windows --release `
+            --dart-define=FLUTTER_BUILD_NAME=$tagName `
+            --dart-define=FLUTTER_BUILD_NUMBER=$buildNumber
         env:
           CMAKE_ARGS: -A x64
 
       - name: Create Windows ZIP
+        shell: pwsh
         run: |
           $tagName = "${{ github.ref }}".Replace("refs/tags/v", "").Replace("refs/tags/", "")
           $appName = "nursor_app"
-          $zipName = "${appName}-windows-x64-${tagName}.zip"
+          $zipName = "$appName-windows-x64-$tagName.zip"
           
           cd build/windows/x64/runner/Release
           Compress-Archive -Path * -DestinationPath ../../../../../../$zipName
@@ -196,7 +200,9 @@ jobs:
             ninja-build \
             pkg-config \
             libgtk-3-dev \
-            liblzma-dev
+            liblzma-dev \
+            libayatana-appindicator3-dev \
+            libappindicator3-dev
 
       - name: Install Flutter dependencies
         run: flutter pub get
