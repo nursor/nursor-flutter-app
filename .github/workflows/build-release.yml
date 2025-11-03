@@ -160,21 +160,37 @@ jobs:
           $tagName = "${{ github.ref }}".Replace("refs/tags/v", "").Replace("refs/tags/", "")
           $appName = "nursor_app"
           $zipName = "$appName-windows-x64-$tagName.zip"
+          $releaseDir = "build/windows/x64/runner/Release"
           
-          cd build/windows/x64/runner/Release
-          Compress-Archive -Path * -DestinationPath ../../../../../../$zipName
-          
-          # 移动到输出目录
-          New-Item -ItemType Directory -Force -Path ../../../../../../dist
-          Move-Item -Force ../../../../../../$zipName ../../../../../../dist/
+          # 检查 Release 目录是否存在
+          if (Test-Path $releaseDir) {
+            # 创建输出目录
+            New-Item -ItemType Directory -Force -Path dist | Out-Null
+            
+            # 进入 Release 目录并创建 ZIP
+            Push-Location $releaseDir
+            Compress-Archive -Path * -DestinationPath "../../../../../dist/$zipName" -Force
+            Pop-Location
+            
+            Write-Host "Created ZIP: dist/$zipName"
+            if (Test-Path "dist/$zipName") {
+              Write-Host "ZIP file size: $((Get-Item "dist/$zipName").Length) bytes"
+            } else {
+              Write-Host "ERROR: ZIP file was not created"
+              exit 1
+            }
+          } else {
+            Write-Host "ERROR: Release directory not found: $releaseDir"
+            exit 1
+          }
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
           name: nursor-app-windows
           path: |
-            build/windows/x64/runner/Release/**
             dist/*.zip
+          if-no-files-found: error
           retention-days: 30
 
   build-linux:
@@ -265,21 +281,37 @@ jobs:
           TAG_NAME=$(echo ${GITHUB_REF#refs/tags/} | sed 's/^v//')
           APP_NAME="nursor_app"
           TARBALL_NAME="${APP_NAME}-linux-x64-${TAG_NAME}.tar.gz"
+          BUNDLE_DIR="build/linux/x64/release/bundle"
           
-          cd build/linux/x64/release/bundle
-          tar -czf ../../../../../../${TARBALL_NAME} *
+          # 检查 bundle 目录是否存在
+          if [ ! -d "$BUNDLE_DIR" ]; then
+            echo "ERROR: Bundle directory not found: $BUNDLE_DIR"
+            exit 1
+          fi
           
-          # 移动到输出目录
-          mkdir -p ../../../../../../dist
-          mv ../../../../../../${TARBALL_NAME} ../../../../../../dist/
+          # 创建输出目录
+          mkdir -p dist
+          
+          # 进入 bundle 目录并创建 tar.gz
+          cd "$BUNDLE_DIR"
+          tar -czf "../../../../../../dist/${TARBALL_NAME}" *
+          cd - > /dev/null
+          
+          if [ -f "dist/${TARBALL_NAME}" ]; then
+            echo "Created tarball: dist/${TARBALL_NAME}"
+            ls -lh "dist/${TARBALL_NAME}"
+          else
+            echo "ERROR: Tarball was not created"
+            exit 1
+          fi
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
         with:
           name: nursor-app-linux
           path: |
-            build/linux/x64/release/bundle/**
             dist/*.tar.gz
+          if-no-files-found: error
           retention-days: 30
 
   create-release:
@@ -312,6 +344,7 @@ jobs:
         run: |
           # Create a clean directory for release files
           mkdir -p release-files
+          TAG_NAME=$(echo ${GITHUB_REF#refs/tags/} | sed 's/^v//')
           
           # Copy macOS ARM64 files
           find artifacts/nursor-app-macos-arm64 -name "*.dmg" -exec cp {} release-files/ \;
@@ -321,11 +354,41 @@ jobs:
           find artifacts/nursor-app-macos-x86_64 -name "*.dmg" -exec cp {} release-files/ \;
           find artifacts/nursor-app-macos-x86_64 -name "*.app" -type d -exec cp -R {} release-files/ \;
           
-          # Copy Windows files
-          find artifacts/nursor-app-windows -name "*.zip" -exec cp {} release-files/ \;
+          # Copy or create Windows ZIP
+          if find artifacts/nursor-app-windows -name "*.zip" | head -1 | grep -q .; then
+            echo "Found Windows ZIP file"
+            find artifacts/nursor-app-windows -name "*.zip" -exec cp {} release-files/ \;
+          else
+            echo "Windows ZIP not found, creating from folder..."
+            # 查找 Windows Release 文件夹
+            WIN_RELEASE_DIR=$(find artifacts/nursor-app-windows -type d -path "*/runner/Release" -o -name "Release" | head -1)
+            if [ -n "$WIN_RELEASE_DIR" ] && [ -d "$WIN_RELEASE_DIR" ]; then
+              cd "$WIN_RELEASE_DIR"
+              zip -r "../../../../release-files/nursor_app-windows-x64-${TAG_NAME}.zip" .
+              cd - > /dev/null
+              echo "Created Windows ZIP from folder"
+            else
+              echo "ERROR: Windows Release directory not found"
+            fi
+          fi
           
-          # Copy Linux files
-          find artifacts/nursor-app-linux -name "*.tar.gz" -exec cp {} release-files/ \;
+          # Copy or create Linux tarball
+          if find artifacts/nursor-app-linux -name "*.tar.gz" | head -1 | grep -q .; then
+            echo "Found Linux tarball"
+            find artifacts/nursor-app-linux -name "*.tar.gz" -exec cp {} release-files/ \;
+          else
+            echo "Linux tarball not found, creating from folder..."
+            # 查找 Linux bundle 文件夹
+            LINUX_BUNDLE_DIR=$(find artifacts/nursor-app-linux -type d -path "*/bundle" | head -1)
+            if [ -n "$LINUX_BUNDLE_DIR" ] && [ -d "$LINUX_BUNDLE_DIR" ]; then
+              cd "$LINUX_BUNDLE_DIR"
+              tar -czf "../../../../release-files/nursor_app-linux-x64-${TAG_NAME}.tar.gz" .
+              cd - > /dev/null
+              echo "Created Linux tarball from folder"
+            else
+              echo "ERROR: Linux bundle directory not found"
+            fi
+          fi
           
           echo "Release files prepared:"
           ls -lh release-files/
